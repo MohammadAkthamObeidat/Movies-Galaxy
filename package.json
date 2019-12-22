@@ -1,0 +1,11 @@
+{
+  "name": "movies-galaxy",
+  "version": "1.0.0",
+  "description": "Masterpeice Project In Orange Jordan Coding Academy.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mohammad Aktham Obeidat.",
+  "license": "ISC"
+}
