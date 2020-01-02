@@ -2,14 +2,13 @@ const user = require("../models/User");
 const express = require("express");
 const router = express.Router();
 
-// @METHOD GET
-// Get user data.
-router.get("/login", (req, res) => {
+
+exports.getUser = (req, res) => {
   user.getUser(req.body, result => {
     console.log('RESULT FROM LOGIN RESPONSE: ', result);
     //res.json(result);
   });
-});
+};
 // ***********************************************************************************************************************
 // @METHOD POST
 // Add new user.
