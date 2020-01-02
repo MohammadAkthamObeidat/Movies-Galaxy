@@ -2,22 +2,46 @@
 const mongoose = require("mongoose");
 
 // Create User Schema
-const usersSchema = new mongoose.Schema({
-    name: String,
-    email: String,
-    password: String,
-    country: String,
-    age: Number,
+const userSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    country: {
+        type: String,
+        required: true
+    },
+    imageUrl: {
+        type: String,
+        required: false
+    },
     movies_list: {
+        watch_list: [],
+        watched_list: []
+    },
+    shows_list: {
         watch_list: [],
         watched_list: []
     }
 });
-let Users = new mongoose.model("users", usersSchema);
+let User = new mongoose.model("User", userSchema);
+
+
+// USER FUNCTIONS ****************************************************************************
+
 
 // Get one user.
-let getUser = (id, cb) => {
-    Users.find({ _id: id }, (err, data) => {
+let getUser = (user, cb) => {
+    console.log('USER SIGN UP : ', user)
+    User.find(user, (err, data) => {
         if (err) {
             cb(err);
         } else {
@@ -28,7 +52,7 @@ let getUser = (id, cb) => {
 
 // Add new user to database.
 let addUser = (newUser, cb) => {
-    Users.create(newUser, (err, data) => {
+    User.create(newUser, (err, data) => {
         if (err) {
             cb(err);
         } else {
@@ -37,11 +61,16 @@ let addUser = (newUser, cb) => {
     });
 };
 
+
+// MOVIES FUNCTIONS ****************************************************************************
+
+
+
 // Add new movie to watch list.
-let addToWatchList = (id, newMovie, cb) => {
-    Users.findOneAndUpdate(
+let addMovieToWatchList = (userID, newMovie, cb) => {
+    User.findOneAndUpdate(
         {
-            _id: id
+            _id: userID
         },
         {
             $push: {
@@ -58,12 +87,26 @@ let addToWatchList = (id, newMovie, cb) => {
     );
 };
 
+// Delete movie from watch list.
+let deleteMovieFromWatchList = (userID, movieID, cb) => {
+    User.update(
+        {
+            _id: userID
+        },
+        {
+            $pull: {
+                'movies_list.watch_list': {
+                    _id: movieID
+                }
+            }
+        })
+}
 
 // Add new movie to watched list.
-let addToWatchedList = (id, newMovie, cb) => {
-    Users.findOneAndUpdate(
-        { 
-            _id: id 
+let addMovieToWatchedList = (userID, newMovie, cb) => {
+    User.findOneAndUpdate(
+        {
+            _id: userID
         },
         {
             $push: {
@@ -80,9 +123,106 @@ let addToWatchedList = (id, newMovie, cb) => {
     );
 };
 
+// Delete movie from watched list.
+let deleteMovieFromWatchedList = (userID, movieID, cb) => {
+    User.update(
+        {
+            _id: userID
+        },
+        {
+            $pull: {
+                'movies_list.watched_list': {
+                    _id: movieID
+                }
+            }
+        })
+}
+
+
+// TV SHOWS FUNCTIONS ****************************************************************************
+
+
+// Add new show to watch list.
+let addShowToWatchList = (userID, newShow, cb) => {
+    User.findOneAndUpdate(
+        {
+            _id: userID
+        },
+        {
+            $push: {
+                'shows_list.watch_list': newShow
+            }
+        },
+        (err, data) => {
+            if (err) {
+                cb(err);
+            } else {
+                cb(data);
+            }
+        }
+    );
+};
+
+// Delete show from watch list.
+let deleteShowFromWatchList = (userID, showID, cb) => {
+    User.update(
+        {
+            _id: userID
+        },
+        {
+            $pull: {
+                'shows_list.watch_list': {
+                    _id: showID
+                }
+            }
+        })
+}
+
+// Add new show to watched list.
+let addShowToWatchedList = (userID, newShow, cb) => {
+    User.findOneAndUpdate(
+        {
+            _id: userID
+        },
+        {
+            $push: {
+                'shows_list.watched_list': newShow
+            }
+        },
+        (err, data) => {
+            if (err) {
+                cb(err);
+            } else {
+                cb(data);
+            }
+        }
+    );
+};
+
+// Delete show from watched list.
+let deleteShowFromWatchedList = (userID, showID, cb) => {
+    User.update(
+        {
+            _id: userID
+        },
+        {
+            $pull: {
+                'shows_list.watched_list': {
+                    _id: showID
+                }
+            }
+        })
+}
+
 module.exports = {
     getUser,
     addUser,
-    addToWatchList,
-    addToWatchedList,
+    addMovieToWatchList,
+    deleteMovieFromWatchList,
+    addMovieToWatchedList,
+    deleteMovieFromWatchedList,
+    addShowToWatchList,
+    deleteShowFromWatchList,
+    addShowToWatchedList,
+    deleteShowFromWatchedList,
 };
