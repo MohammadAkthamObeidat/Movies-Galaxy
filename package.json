@@ -4,12 +4,17 @@
   "description": "Masterpeice Project In Orange Jordan Coding Academy.",
   "main": "server.js",
   "scripts": {
+    "react": "cd ./view && npm run-script start",
+    "server": "nodemon server.js",
+    "start": "concurrently \"npm run server\" \"npm run react\"",
+    "node": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Mohammad Aktham Obeidat.",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.19.0",
+    "body-parser": "^1.19.0",
     "concurrently": "^5.0.2",
     "cors": "^2.8.5",
     "express": "^4.17.1",

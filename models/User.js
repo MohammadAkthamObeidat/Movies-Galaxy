@@ -1,9 +1,7 @@
+// Import MongoDB.
 const mongoose = require("mongoose");
 
-// all code here is an illustration example of what you need to do
-// change the code corresponsdingly with what we want to do.
-// change all code here, we need different schema for the Users
-
+// Create User Schema
 const usersSchema = new mongoose.Schema({
     name: String,
     email: String,
@@ -15,11 +13,11 @@ const usersSchema = new mongoose.Schema({
         watched_list: []
     }
 });
-
 let Users = new mongoose.model("users", usersSchema);
 
-let getUsers = cb => {
-    Users.find({}, (err, data) => {
+// Get one user.
+let getUser = (id, cb) => {
+    Users.find({ _id: id }, (err, data) => {
         if (err) {
             cb(err);
         } else {
@@ -28,8 +26,9 @@ let getUsers = cb => {
     });
 };
 
-let addUser = (repo, cb) => {
-    Users.create(repo, (err, data) => {
+// Add new user to database.
+let addUser = (newUser, cb) => {
+    Users.create(newUser, (err, data) => {
         if (err) {
             cb(err);
         } else {
@@ -38,10 +37,17 @@ let addUser = (repo, cb) => {
     });
 };
 
-let updateUser = (id, updatedStatus, cb) => {
-    Users.updateOne(
-        { _id: id },
-        { $set: { status: updatedStatus } },
+// Add new movie to watch list.
+let addToWatchList = (id, newMovie, cb) => {
+    Users.findOneAndUpdate(
+        {
+            _id: id
+        },
+        {
+            $push: {
+                'movies_list.watch_list': newMovie
+            }
+        },
         (err, data) => {
             if (err) {
                 cb(err);
@@ -52,19 +58,31 @@ let updateUser = (id, updatedStatus, cb) => {
     );
 };
 
-let deleteUser = (id, cb) => {
-    Users.deleteOne({ _id: id }, (err, data) => {
-        if (err) {
-            cb(err);
-        } else {
-            cb(data);
+
+// Add new movie to watched list.
+let addToWatchedList = (id, newMovie, cb) => {
+    Users.findOneAndUpdate(
+        { 
+            _id: id 
+        },
+        {
+            $push: {
+                'movies_list.watched_list': newMovie
+            }
+        },
+        (err, data) => {
+            if (err) {
+                cb(err);
+            } else {
+                cb(data);
+            }
         }
-    });
+    );
 };
 
 module.exports = {
-    getUsers,
+    getUser,
     addUser,
-    updateUser,
-    deleteUser
+    addToWatchList,
+    addToWatchedList,
 };
