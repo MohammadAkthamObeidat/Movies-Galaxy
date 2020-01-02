@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const tvShowsController = require("./controllers/TvShowsController")
+const tvShowsController = require("../controllers/TvShowsController")
 
 // @METHOD GET
 // Return popular Tv Shows .
@@ -10,9 +10,9 @@ router.get("/popular-tvshows", tvShowsController.getPopularTvShows);
 router.get("/trending-tvshows", tvShowsController.getTrendingTvShows);
 // @METHOD GET
 // Return show details .
-router.get(`/tv_details/${showId}`, tvShowsController.getTvShowDetails);
+router.get(`/tv_details/:showID`, tvShowsController.getTvShowDetails);
 // @METHOD GET
 // Return show on search .
-router.get(`/search/${query}`, tvShowsController.getTvOnSearch);
+router.get(`/search/:query`, tvShowsController.getTvOnSearch);
 
 module.export = router;

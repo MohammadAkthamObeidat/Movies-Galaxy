@@ -10,7 +10,8 @@ module.exports = function () {
     .catch(error => {
         console.log('ERROR CONNECTION TO DATABASE :', error);
     });
-    const db = mongoose.connection;
+
+    /* const db = mongoose.connection;
 
     db.on("error", function () {
         console.log("mongoose connection error");
@@ -18,5 +19,5 @@ module.exports = function () {
 
     db.once("open", function () {
         console.log("mongoose connected successfully...");
-    });
+    }); */
 };

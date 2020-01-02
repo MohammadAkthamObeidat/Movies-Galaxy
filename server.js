@@ -5,13 +5,12 @@ const express = require("express");
 // Call EXPRESS method and store it in 'app' variable.
 const app = express();
 // Import Database connection code.
-const connectToDb = require("./db/connectionDB");
+const connectToDb = require("./database/DBconnection.js");
 connectToDb();
 // Use middleware.
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended : false}));
-app.use(express.static(path.join(__dirname, 'public')));
 // Import routes.
 const moviesRoutes = require("./routes/moviesRoutes.js");
 const tvShowsRoutes = require("./routes/tvShowsRoutes.js");
