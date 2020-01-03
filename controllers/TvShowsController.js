@@ -7,7 +7,7 @@ const DETAILS_URL = "https://api.themoviedb.org/3/tv"
 const SEARCH_URL = "https://api.themoviedb.org/3/search/tv?"
 
 // Return popular TV-Shows.
-exports.getPopularTvShows = (req, res) => {
+getPopularTvShows = (req, res) => {
 
   // Parameters That will Be Included In Request URL
   const params = {
@@ -30,7 +30,7 @@ exports.getPopularTvShows = (req, res) => {
 // ***********************************************************************************************************************************
 
 // Return trending TV-Shows.
-exports.getTrendingTvShows = (req, res) => {
+getTrendingTvShows = (req, res) => {
   // Parameters That will Be Included In Request URL
   const params = {
     api_key: API_KEY,
@@ -52,7 +52,7 @@ exports.getTrendingTvShows = (req, res) => {
 // ***********************************************************************************************************************************
 // @METHOD GET
 // Return TV-Show details.
-exports.getTvShowDetails = (req, res) => {
+getTvShowDetails = (req, res) => {
   // Parameters That will Be Included In Request URL
   const id = req.params.showId + '?';
   const params = {
@@ -73,7 +73,7 @@ exports.getTvShowDetails = (req, res) => {
 // ***********************************************************************************************************************************
 // @METHOD GET
 // Return TV-Shows on search .
-exports.getTvOnSearch = (req, res) => {
+getTvOnSearch = (req, res) => {
   // Parameters That will Be Included In Request URL
   const query = req.params.query;
   const params = {
@@ -92,4 +92,12 @@ exports.getTvOnSearch = (req, res) => {
     .catch(error => {
       console.log('There is no data returned.');
     })
+};
+
+// Exporting Methods.
+module.export = {
+  getPopularTvShows,
+  getTrendingTvShows,
+  getTvShowDetails,
+  getTvOnSearch
 };

@@ -10,19 +10,15 @@ connectToDb();
 // Use middleware.
 app.use(cors());
 app.use(express.json());
-app.use(bodyParser.urlencoded({extended : false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 // Import routes.
 const moviesRoutes = require("./routes/moviesRoutes.js");
 const tvShowsRoutes = require("./routes/tvShowsRoutes.js");
 const userRoutes = require("./routes/userRoutes.js");
 // Use routes.
-app.use('/movie', moviesRoutes);
-app.use('/tv-shows', tvShowsRoutes);
-app.use('/user', userRoutes);
-
-routes(app);
+app.use('/', (req, res) => { moviesRoutes });
+app.use('/', (req, res) => { tvShowsRoutes });
+app.use('/', (req, res) => { userRoutes });
 
 const PORT = process.env.PORT || 9000;
-app.listen(PORT, () => console.log(`Server listening to ${PORT}`));
-
-module.exports = router;
+app.listen(PORT, () => console.log(`Server listening to ${PORT} ^.^ ******`));

@@ -214,6 +214,7 @@ let deleteShowFromWatchedList = (userID, showID, cb) => {
         })
 }
 
+// Exporting Methods.
 module.exports = {
     getUser,
     addUser,

@@ -7,7 +7,7 @@ const DETAILS_URL = "https://api.themoviedb.org/3/movie"
 const SEARCH_URL = "https://api.themoviedb.org/3/search/movie?"
 
 // Return popular movies.
-exports.getPopularMovies = (req, res) => {
+getPopularMovies = (req, res) => {
   // Parameters That will Be Included In Request URL
   const params = {
     api_key: API_KEY,
@@ -20,15 +20,15 @@ exports.getPopularMovies = (req, res) => {
   // Make an API request to get popular movies.
   axios.get(DISCOVER_URL, { params: params })
     .then(response => {
-      res.send(response.data.results)
+      res.send(response.data.results);
     })
     .catch(error => {
-      console.log('There is no data returned.');
+      console.log('There is no data returned.', console.log(error));
     })
 };
 // ***********************************************************************************************************************************
 // Return trending movies.
-exports.getTrendingMovies = (req, res) => {
+getTrendingMovies = (req, res) => {
   // Parameters That will Be Included In Request URL
   const params = {
     api_key: API_KEY,
@@ -49,7 +49,7 @@ exports.getTrendingMovies = (req, res) => {
 };
 // ***********************************************************************************************************************************
 // Return movie details.
-exports.getMovieDetails = (req, res) => {
+getMovieDetails = (req, res) => {
   // Parameters That will Be Included In Request URL
   const id = req.params.movieId + '?';
   const params = {
@@ -69,7 +69,7 @@ exports.getMovieDetails = (req, res) => {
 };
 // ***********************************************************************************************************************************
 // Return movies on search .
-exports.getMovieOnSearch = (req, res) => {
+getMovieOnSearch = (req, res) => {
   // Parameters That will Be Included In Request URL
   const query = req.params.query;
   const params = {
@@ -88,4 +88,12 @@ exports.getMovieOnSearch = (req, res) => {
     .catch(error => {
       console.log('There is no data returned.');
     })
+};
+
+// Exporting Methods.
+module.export = {
+  getPopularMovies,
+  getTrendingMovies,
+  getMovieDetails,
+  getMovieOnSearch
 };
