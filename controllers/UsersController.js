@@ -15,6 +15,7 @@ homePage = (req, res, next) => {
 getUser = (req, res, next) => {
   user.getUser(req.body, result => {
     console.log('RESULT FROM LOGIN RESPONSE: ', result);
+    req.session.isLoggedIn = false;
     //res.json(result);
   });
 };
