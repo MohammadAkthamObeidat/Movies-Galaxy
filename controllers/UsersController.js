@@ -2,11 +2,17 @@ const user = require("../models/User");
 const express = require("express");
 
 
+homePage = (req, res, next) => {
+  res.send(
+    '<h1>HELLO FROM USER CONTROLLER :)) </h1>'
+  )
+}
+
 // USER FUNCTIONS ****************************************************************************
 
 
 // Get one user.
-getUser = (req, res) => {
+getUser = (req, res, next) => {
   user.getUser(req.body, result => {
     console.log('RESULT FROM LOGIN RESPONSE: ', result);
     //res.json(result);
@@ -14,7 +20,7 @@ getUser = (req, res) => {
 };
 
 // Add new user to database.
-addUser = (req, res) => {
+addUser = (req, res, next) => {
   user.addUser(req.body, result => {
     console.log('RESULT FROM SIGN UP RESPONSE: ', result);
     //res.json(result);
@@ -26,7 +32,7 @@ addUser = (req, res) => {
 
 
 // Add new movie to watch list.
-addMovieToWatchList = (req, res) => {
+addMovieToWatchList = (req, res, next) => {
   let userID = req.params.userID;
   user.addMovieToWatchList(userID, req.body, result => {
     console.log('RESULT FROM WATCH LIST RESPONSE: ', result);
@@ -35,7 +41,7 @@ addMovieToWatchList = (req, res) => {
 };
 
 // Delete movie from watch list.
-deleteMovieFromWatchList = (req, res) => {
+deleteMovieFromWatchList = (req, res, next) => {
   let userID = req.params.userID;
   let movieID = req.params.movieID;
   user.deleteMovieFromWatchList(userID, movieID, result => {
@@ -45,7 +51,7 @@ deleteMovieFromWatchList = (req, res) => {
 }
 
 // Add new movie to watched list.
-addMovieToWatchedList = (req, res) => {
+addMovieToWatchedList = (req, res, next) => {
   let userID = req.params.userID;
   user.addMovieToWatchedList(userID, req.body, result => {
     console.log('RESULT FROM WATCHED LIST RESPONSE: ', result);
@@ -54,7 +60,7 @@ addMovieToWatchedList = (req, res) => {
 };
 
 // Delete movie from watched list.
-deleteMovieFromWatchedList = (req, res) => {
+deleteMovieFromWatchedList = (req, res, next) => {
   let userID = req.params.userID;
   let movieID = req.params.movieID;
   user.deleteMovieFromWatchedList = (userID, movieID, result => {
@@ -68,7 +74,7 @@ deleteMovieFromWatchedList = (req, res) => {
 
 
 // Add new show to watch list.
-addShowToWatchList = (req, res) => {
+addShowToWatchList = (req, res, next) => {
   let userID = req.params.userID;
   user.addShowToWatchList(userID, req.body, result => {
     console.log('RESULT FORM ADD SHOW WATCH LIST: ', result);
@@ -77,7 +83,7 @@ addShowToWatchList = (req, res) => {
 }
 
 // Delete show from watch list.
-deleteShowFromWatchList = (req, res) => {
+deleteShowFromWatchList = (req, res, next) => {
   let userID = req.params.userID;
   let showID = req.params.showID;
   user.deleteShowFromWatchList(userID, showID, result => {
@@ -87,7 +93,7 @@ deleteShowFromWatchList = (req, res) => {
 }
 
 // Add new show to watched list.
-addShowToWatchedList = (req, res) => {
+addShowToWatchedList = (req, res, next) => {
   let userID = req.params.userID;
   user.addShowToWatchedList(userID, req.body, result => {
     console.log('RESULT FORM DELETE SHOW WATCHED LIST: ', result);
@@ -96,7 +102,7 @@ addShowToWatchedList = (req, res) => {
 }
 
 // Delete show from watched list.
-deleteShowFromWatchedList = (req, res) => {
+deleteShowFromWatchedList = (req, res, next) => {
   let userID = req.params.userID;
   let showID = req.params.showID;
   user.deleteShowFromWatchedList(userID, showID, result => {
@@ -106,7 +112,8 @@ deleteShowFromWatchedList = (req, res) => {
 }
 
 // Exporting Methods.
-module.export = {
+module.exports = {
+  homePage,
   getUser,
   addUser,
   addMovieToWatchList,

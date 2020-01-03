@@ -7,7 +7,7 @@ const DETAILS_URL = "https://api.themoviedb.org/3/tv"
 const SEARCH_URL = "https://api.themoviedb.org/3/search/tv?"
 
 // Return popular TV-Shows.
-getPopularTvShows = (req, res) => {
+getPopularTvShows = (req, res, next) => {
 
   // Parameters That will Be Included In Request URL
   const params = {
@@ -30,7 +30,7 @@ getPopularTvShows = (req, res) => {
 // ***********************************************************************************************************************************
 
 // Return trending TV-Shows.
-getTrendingTvShows = (req, res) => {
+getTrendingTvShows = (req, res, next) => {
   // Parameters That will Be Included In Request URL
   const params = {
     api_key: API_KEY,
@@ -52,9 +52,9 @@ getTrendingTvShows = (req, res) => {
 // ***********************************************************************************************************************************
 // @METHOD GET
 // Return TV-Show details.
-getTvShowDetails = (req, res) => {
+getTvShowDetails = (req, res, next) => {
   // Parameters That will Be Included In Request URL
-  const id = req.params.showId + '?';
+  const id = req.params.showId+'?';
   const params = {
     tv_id: id,
     api_key: API_KEY,
@@ -73,7 +73,7 @@ getTvShowDetails = (req, res) => {
 // ***********************************************************************************************************************************
 // @METHOD GET
 // Return TV-Shows on search .
-getTvOnSearch = (req, res) => {
+getTvOnSearch = (req, res, next) => {
   // Parameters That will Be Included In Request URL
   const query = req.params.query;
   const params = {
@@ -95,7 +95,7 @@ getTvOnSearch = (req, res) => {
 };
 
 // Exporting Methods.
-module.export = {
+module.exports = {
   getPopularTvShows,
   getTrendingTvShows,
   getTvShowDetails,

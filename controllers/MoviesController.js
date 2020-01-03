@@ -7,7 +7,7 @@ const DETAILS_URL = "https://api.themoviedb.org/3/movie"
 const SEARCH_URL = "https://api.themoviedb.org/3/search/movie?"
 
 // Return popular movies.
-getPopularMovies = (req, res) => {
+getPopularMovies = (req, res, next) => {
   // Parameters That will Be Included In Request URL
   const params = {
     api_key: API_KEY,
@@ -28,7 +28,7 @@ getPopularMovies = (req, res) => {
 };
 // ***********************************************************************************************************************************
 // Return trending movies.
-getTrendingMovies = (req, res) => {
+getTrendingMovies = (req, res, next) => {
   // Parameters That will Be Included In Request URL
   const params = {
     api_key: API_KEY,
@@ -49,7 +49,7 @@ getTrendingMovies = (req, res) => {
 };
 // ***********************************************************************************************************************************
 // Return movie details.
-getMovieDetails = (req, res) => {
+getMovieDetails = (req, res, next) => {
   // Parameters That will Be Included In Request URL
   const id = req.params.movieId + '?';
   const params = {
@@ -69,7 +69,7 @@ getMovieDetails = (req, res) => {
 };
 // ***********************************************************************************************************************************
 // Return movies on search .
-getMovieOnSearch = (req, res) => {
+getMovieOnSearch = (req, res, next) => {
   // Parameters That will Be Included In Request URL
   const query = req.params.query;
   const params = {
@@ -91,7 +91,7 @@ getMovieOnSearch = (req, res) => {
 };
 
 // Exporting Methods.
-module.export = {
+module.exports = {
   getPopularMovies,
   getTrendingMovies,
   getMovieDetails,

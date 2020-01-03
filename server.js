@@ -16,9 +16,9 @@ const moviesRoutes = require("./routes/moviesRoutes.js");
 const tvShowsRoutes = require("./routes/tvShowsRoutes.js");
 const userRoutes = require("./routes/userRoutes.js");
 // Use routes.
-app.use('/', (req, res) => { moviesRoutes });
-app.use('/', (req, res) => { tvShowsRoutes });
-app.use('/', (req, res) => { userRoutes });
+app.use(moviesRoutes);
+app.use(tvShowsRoutes);
+app.use(userRoutes);
 
 const PORT = process.env.PORT || 9000;
 app.listen(PORT, () => console.log(`Server listening to ${PORT} ^.^ ******`));
