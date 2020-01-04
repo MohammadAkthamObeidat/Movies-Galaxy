@@ -61,7 +61,7 @@ getMovieDetails = (req, res, next) => {
   // Make an API request to get movie details.
   axios.get(DETAILS_URL, { params: params })
     .then(response => {
-      res.send(response.data.results)
+      res.send(response.data)
     })
     .catch(error => {
       console.log('There is no data returned.');

@@ -18,10 +18,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const moviesRoutes = require("./routes/moviesRoutes.js");
 const tvShowsRoutes = require("./routes/tvShowsRoutes.js");
 const userRoutes = require("./routes/userRoutes.js");
+const authRoutes = require("./routes/authRoutes.js")
 // Use routes.
 app.use(moviesRoutes);
 app.use(tvShowsRoutes);
 app.use(userRoutes);
+app.use(authRoutes);
 
 // Import Session Middleware
 const session = require("express-session");
@@ -39,8 +41,6 @@ app.use(session({
     saveUninitialized: false,
     store: mongoStore 
 }));
-
-
 
 const PORT = process.env.PORT || 9000;
 app.listen(PORT, () => console.log(`Server listening to ${PORT} ^.^ ******`));

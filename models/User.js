@@ -1,23 +1,28 @@
 // Import MongoDB.
 const mongoose = require("mongoose");
-
+// Import Validator 3rd party Package.
+const validator = require("validator");
 // Create User Schema
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: [true, 'Please Tell Us Your Name!']
     },
     email: {
         type: String,
-        required: true
+        required: [true, 'Please Provide Your Email!'],
+        unique: true,
+        lowercase: true,
+        validate: [validator.isEmail, 'Please Provide a Valid Email!!']
     },
     password: {
         type: String,
-        required: true
+        required: [true, 'Please Provide a Password!'],
+        minlength: 8
     },
     country: {
         type: String,
-        required: true
+        required: [true, 'Your Country Here!']
     },
     imageUrl: {
         type: String,

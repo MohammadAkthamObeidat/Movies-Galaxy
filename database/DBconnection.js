@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 module.exports = function () {
     mongoose.connect(
-        'mongodb+srv://mohamad:mao712199677@movies-galaxy-ibktx.mongodb.net/test?retryWrites=true&w=majority',
+        'mongodb+srv://mohamad:mao712199677@movies-galaxy-ibktx.mongodb.net/movies-galaxy?retryWrites=true&w=majority',
         {useUnifiedTopology: true}
     )
 

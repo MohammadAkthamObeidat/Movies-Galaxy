@@ -2,14 +2,6 @@ const express = require('express');
 const router = express.Router();
 const userController = require("../controllers/UsersController")
 
-router.get('/', userController.homePage);
-
-// @GET
-// Return one user data.
-router.get("/login", userController.getUser);
-// @POST
-// Add new user.
-router.post("/sign-up", userController.addUser);
 // @PUT
 // Add movie to watch list.
 router.put(`movie-to-watch-list/:userID`, userController.addMovieToWatchList);

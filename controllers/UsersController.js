@@ -1,32 +1,4 @@
 const user = require("../models/User");
-const express = require("express");
-
-
-homePage = (req, res, next) => {
-  res.send(
-    '<h1>HELLO FROM USER CONTROLLER :)) </h1>'
-  )
-}
-
-// USER FUNCTIONS ****************************************************************************
-
-
-// Get one user.
-getUser = (req, res, next) => {
-  user.getUser(req.body, result => {
-    console.log('RESULT FROM LOGIN RESPONSE: ', result);
-    req.session.isLoggedIn = false;
-    //res.json(result);
-  });
-};
-
-// Add new user to database.
-addUser = (req, res, next) => {
-  user.addUser(req.body, result => {
-    console.log('RESULT FROM SIGN UP RESPONSE: ', result);
-    //res.json(result);
-  });
-};
 
 
 // MOVIES FUNCTIONS ****************************************************************************
@@ -114,9 +86,6 @@ deleteShowFromWatchedList = (req, res, next) => {
 
 // Exporting Methods.
 module.exports = {
-  homePage,
-  getUser,
-  addUser,
   addMovieToWatchList,
   deleteMovieFromWatchList,
   addMovieToWatchedList,
