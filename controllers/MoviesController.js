@@ -20,10 +20,17 @@ getPopularMovies = (req, res, next) => {
   // Make an API request to get popular movies.
   axios.get(DISCOVER_URL, { params: params })
     .then(response => {
-      res.send(response.data.results);
+      //res.send(response.data.results);
+      res.status(200).json({
+        status: 'Success',
+        results: response.data.results.length,
+        data: {
+          popularMovies: response.data.results
+        }
+      })
     })
     .catch(error => {
-      console.log('There is no data returned.', console.log(error));
+      console.log('There is no data returned.', error);
     })
 };
 // ***********************************************************************************************************************************
@@ -41,10 +48,17 @@ getTrendingMovies = (req, res, next) => {
   // Make an API request to get trending movies.
   axios.get(DISCOVER_URL, { params: params })
     .then(response => {
-      res.send(response.data.results)
+      //res.send(response.data.results);
+      res.status(200).json({
+        status: 'Success',
+        results: response.data.results.length,
+        data:{
+          trendingMovies: response.data.results
+        }
+      })
     })
     .catch(error => {
-      console.log('There is no data returned.');
+      console.log('There is no data returned.', error);
     })
 };
 // ***********************************************************************************************************************************
@@ -62,10 +76,16 @@ getMovieDetails = (req, res, next) => {
   // Make an API request to get movie details.
   axios.get(DETAILS_URL, { params: params })
     .then(response => {
-      res.send(response.data.result)
+      res.status(200).json({
+        status: 'Success',
+        results: response.data.results.length,
+        data:{
+          movieDetails: response.data.results
+        }
+      })
     })
     .catch(error => {
-      console.log('There is no data returned.');
+      console.log('There is no data returned.', error);
     })
 };
 // ***********************************************************************************************************************************
@@ -84,10 +104,17 @@ getMovieOnSearch = (req, res, next) => {
   // Make an API request to get movie details.
   axios.get(SEARCH_URL, { params: params })
     .then(response => {
-      res.send(response.data.results)
+      //res.send(response.data.results);
+      res.status(200).json({
+        status: 'Success',
+        results: response.data.results.length,
+        data:{
+          searchResult: response.data.results
+        }
+      })
     })
     .catch(error => {
-      console.log('There is no data returned.');
+      console.log('There is no data returned.', error);
     })
 };
 
