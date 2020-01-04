@@ -4,16 +4,16 @@ const moviesController = require("../controllers/MoviesController")
 
 // @METHOD GET
 // Return popular movies .
-router.get("/popular-movies",  moviesController.getPopularMovies);
+router.get("/movies/popular", moviesController.getPopularMovies);
 // @METHOD GET
 // Return trending movies .
-router.get("/trending-movies", moviesController.getTrendingMovies);
+router.get("/movies/trending", moviesController.getTrendingMovies);
 // @METHOD GET
 // Return movie details .
-router.get(`/movie_details/:movieID`, moviesController.getMovieDetails);
+router.get("/movies/details/:movieID", moviesController.getMovieDetails);
 // @METHOD GET
 // Return movies on search .
-router.get(`/search/:query`, moviesController.getMovieOnSearch);
+router.get("/movies/search/:query", moviesController.getMovieOnSearch);
 
 // Exporting Routes.
 module.exports = router;

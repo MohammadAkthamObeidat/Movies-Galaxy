@@ -10,7 +10,7 @@ router.get('/', authController.homePage);
 router.get("/login", authController.login);
 // @POST
 // Add new user.
-router.post("/sign-up", authController.signUp);
+router.post("/signup", authController.signUp);
 // @POST
 // Logout.
 router.post("/logout", authController.logout)

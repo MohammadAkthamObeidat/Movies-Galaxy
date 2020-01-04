@@ -8,7 +8,7 @@ const user = require("../models/User");
 addMovieToWatchList = (req, res, next) => {
   let userID = req.params.userID;
   user.addMovieToWatchList(userID, req.body, result => {
-    console.log('RESULT FROM WATCH LIST RESPONSE: ', result);
+    console.log('RESULT FROM WATCH LIST RESPONSE: ', result);  
     //res.json(result);
   });
 };

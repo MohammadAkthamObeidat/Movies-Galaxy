@@ -51,7 +51,8 @@ getTrendingMovies = (req, res, next) => {
 // Return movie details.
 getMovieDetails = (req, res, next) => {
   // Parameters That will Be Included In Request URL
-  const id = req.params.movieId + '?';
+  const id = req.params.movieId;
+  console.log(id)
   const params = {
     movie_id: id,
     api_key: API_KEY,
@@ -61,7 +62,7 @@ getMovieDetails = (req, res, next) => {
   // Make an API request to get movie details.
   axios.get(DETAILS_URL, { params: params })
     .then(response => {
-      res.send(response.data)
+      res.send(response.data.result)
     })
     .catch(error => {
       console.log('There is no data returned.');
