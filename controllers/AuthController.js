@@ -13,7 +13,13 @@ homePage = (req, res, next) => {
 login = (req, res, next) => {
     user.getUser(req.body, result => {
         console.log('RESULT FROM LOGIN RESPONSE: ', result);
-        res.json(result);
+        // res.json(result);
+        res.status(200).json({
+            status: 'Success',
+            data: {
+                user: result
+            }
+        });
     });
 };
 
@@ -21,7 +27,13 @@ login = (req, res, next) => {
 signUp = (req, res, next) => {
     user.addUser(req.body, result => {
         console.log('RESULT FROM SIGN UP RESPONSE: ', result);
-        res.json(result);
+        // res.json(result);
+        res.status(200).json({
+            status: 'Success',
+            data: {
+                user: result
+            }
+        });
     });
 };
 

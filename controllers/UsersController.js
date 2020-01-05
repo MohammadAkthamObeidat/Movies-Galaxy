@@ -1,15 +1,20 @@
 const user = require("../models/User");
-
+const express = require("express");
+const app = express();
+app.use(express.json())
 
 // MOVIES FUNCTIONS ****************************************************************************
 
 
 // Add new movie to watch list.
 addMovieToWatchList = (req, res, next) => {
+  console.log(req.body);
+  console.log(req.params);
+  console.log(req.params.userIS);
   let userID = req.params.userID;
   user.addMovieToWatchList(userID, req.body, result => {
     console.log('RESULT FROM WATCH LIST RESPONSE: ', result);  
-    //res.json(result);
+    res.json(result);
   });
 };
 

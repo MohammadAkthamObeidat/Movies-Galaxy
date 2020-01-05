@@ -21,10 +21,17 @@ getPopularTvShows = (req, res, next) => {
   // Make an API request to get popular TV-Shows.
   axios.get(DISCOVER_URL, { params: params })
     .then(response => {
-      res.send(response.data.results)
+      // res.send(response.data.results);
+      res.status(200).json({
+        status: 'Success',
+        result: response.data.results.length,
+        data: {
+          popularShows: response.data.results
+        }
+      })
     })
     .catch(error => {
-      console.log('There is no data returned.');
+      console.log('There is no data returned.', error);
     })
 };
 // ***********************************************************************************************************************************
@@ -43,10 +50,17 @@ getTrendingTvShows = (req, res, next) => {
   // Make an API request to get trending TV-Shows.
   axios.get(DISCOVER_URL, { params: params })
     .then(response => {
-      res.send(response.data.results)
+      // res.send(response.data.results);
+      res.status(200).json({
+        status: 'Success',
+        result: response.data.results.length,
+        data: {
+          trendingShows: response.data.results
+        }
+      })
     })
     .catch(error => {
-      console.log('There is no data returned.');
+      console.log('There is no data returned.', error);
     })
 };
 // ***********************************************************************************************************************************
@@ -54,20 +68,27 @@ getTrendingTvShows = (req, res, next) => {
 // Return TV-Show details.
 getTvShowDetails = (req, res, next) => {
   // Parameters That will Be Included In Request URL
-  const id = req.params.showId+'?';
+  const id = req.params.showID;
+  console.log('IDDDDD: ', id)
   const params = {
-    tv_id: id,
     api_key: API_KEY,
     language: 'en-US',
   };
 
   // Make an API request to get TV-Show details.
-  axios.get(DETAILS_URL, { params: params })
+  axios.get(`https://api.themoviedb.org/3/tv/${id}?`, { params: params })
     .then(response => {
-      res.send(response.data.results)
+      // res.send(response.data.results);
+      console.log(response);
+      res.status(200).json({
+        status: 'Success',
+        data: {
+          showDetails: response.data
+        }
+      })
     })
     .catch(error => {
-      console.log('There is no data returned.');
+      console.log('There is no data returned.', error);
     })
 };
 // ***********************************************************************************************************************************
@@ -77,7 +98,6 @@ getTvOnSearch = (req, res, next) => {
   // Parameters That will Be Included In Request URL
   const query = req.params.query;
   const params = {
-    movie_id: id,
     api_key: API_KEY,
     language: 'en-US',
     query: query,
@@ -87,10 +107,18 @@ getTvOnSearch = (req, res, next) => {
   // Make an API request to get movie details.
   axios.get(SEARCH_URL, { params: params })
     .then(response => {
-      res.send(response.data.results)
+      // res.send(response.data.results);
+      console.log(response)
+      res.status(200).json({
+        status: 'Success',
+        result: response.data.results.length,
+        data: {
+          tvShow: response.data.results
+        }
+      })
     })
     .catch(error => {
-      console.log('There is no data returned.');
+      console.log('There is no data returned.', error);
     })
 };
 

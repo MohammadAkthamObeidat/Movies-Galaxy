@@ -11,6 +11,7 @@ const connectToDb = require("./database/DBconnection.js");
 connectToDb();
 // Use middleware.
 app.use(cors());
+// Middleware function to use 'req' parameters.
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -20,8 +21,8 @@ const tvShowsRoutes = require("./routes/tvShowsRoutes.js");
 const userRoutes = require("./routes/userRoutes.js");
 const authRoutes = require("./routes/authRoutes.js")
 // Use routes.
-app.use(moviesRoutes);
-app.use(tvShowsRoutes);
+app.use('/movies', moviesRoutes);
+app.use('/shows', tvShowsRoutes);
 app.use(userRoutes);
 app.use(authRoutes);
 
