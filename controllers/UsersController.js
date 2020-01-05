@@ -3,18 +3,22 @@ const express = require("express");
 const app = express();
 app.use(express.json())
 
+
 // MOVIES FUNCTIONS ****************************************************************************
 
 
 // Add new movie to watch list.
 addMovieToWatchList = (req, res, next) => {
   console.log(req.body);
-  console.log(req.params);
-  console.log(req.params.userIS);
-  let userID = req.params.userID;
+  const userID = req.params.userID;
+  console.log('USER ID: ', userID);
   user.addMovieToWatchList(userID, req.body, result => {
-    console.log('RESULT FROM WATCH LIST RESPONSE: ', result);  
-    res.json(result);
+    res.status(200).json({
+      status: 'Success Adding Movie To Watchlist.',
+      data: {
+        movieAdded: result
+      }
+    })
   });
 };
 
@@ -24,7 +28,12 @@ deleteMovieFromWatchList = (req, res, next) => {
   let movieID = req.params.movieID;
   user.deleteMovieFromWatchList(userID, movieID, result => {
     console.log('RESULT FROM DELETE MOVIE WATCH LIST RESPONSE : ', result);
-    //res.json(result);
+    res.status(200).json({
+      status: 'Success Delete Movie From Watch List.',
+      data: {
+        deletedMovie: result
+      }
+    })
   })
 }
 
@@ -33,7 +42,12 @@ addMovieToWatchedList = (req, res, next) => {
   let userID = req.params.userID;
   user.addMovieToWatchedList(userID, req.body, result => {
     console.log('RESULT FROM WATCHED LIST RESPONSE: ', result);
-    //res.json(result);
+    res.status(200).json({
+      status: 'Success Add Movie To Watched List.',
+      data: {
+        movieAdded: result
+      }
+    })
   });
 };
 
@@ -41,10 +55,15 @@ addMovieToWatchedList = (req, res, next) => {
 deleteMovieFromWatchedList = (req, res, next) => {
   let userID = req.params.userID;
   let movieID = req.params.movieID;
-  user.deleteMovieFromWatchedList = (userID, movieID, result => {
+  user.deleteMovieFromWatchedList = (userID, movieID, result) => {
     console.log('RESPONSE FROM DELETE MOVIE WATCHED LIST: ', object);
-    res.json(result);
-  })
+    res.status(200).json({
+      status: 'Success Delete Movie From Watch List.',
+      data: {
+        deletedMovie: result
+      }
+    })
+  }
 }
 
 

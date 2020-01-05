@@ -23,7 +23,7 @@ const authRoutes = require("./routes/authRoutes.js")
 // Use routes.
 app.use('/movies', moviesRoutes);
 app.use('/shows', tvShowsRoutes);
-app.use(userRoutes);
+app.use('/user',userRoutes);
 app.use(authRoutes);
 
 // Import Session Middleware

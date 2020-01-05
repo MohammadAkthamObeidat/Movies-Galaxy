@@ -1,10 +1,13 @@
+// Import Mongoose.
 const mongoose = require("mongoose");
-
+// Database Connection URI
+DB_URI = 'mongodb+srv://mohamad:mao712199677@movies-galaxy-ibktx.mongodb.net/movies-galaxy?retryWrites=true&w=majority'
 
 module.exports = function () {
     mongoose.connect(
-        'mongodb+srv://mohamad:mao712199677@movies-galaxy-ibktx.mongodb.net/movies-galaxy?retryWrites=true&w=majority',
-        {useUnifiedTopology: true}
+        DB_URI,
+        { useUnifiedTopology: true },
+        { useFindAndModify: false }
     )
 
     const db = mongoose.connection;

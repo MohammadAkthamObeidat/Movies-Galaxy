@@ -101,11 +101,21 @@ let deleteMovieFromWatchList = (userID, movieID, cb) => {
         {
             $pull: {
                 'movies_list.watch_list': {
-                    _id: movieID
+                    id: movieID
                 }
             }
-        })
+        },
+        (error, data) => {
+            if (error) {
+                cb(error)
+            }
+            else {
+                cb(data)
+            }
+        }
+    )
 }
+
 
 // Add new movie to watched list.
 let addMovieToWatchedList = (userID, newMovie, cb) => {
@@ -137,10 +147,11 @@ let deleteMovieFromWatchedList = (userID, movieID, cb) => {
         {
             $pull: {
                 'movies_list.watched_list': {
-                    _id: movieID
+                    id: movieID
                 }
             }
-        })
+        }
+    )
 }
 
 
