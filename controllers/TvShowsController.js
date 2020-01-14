@@ -3,7 +3,6 @@ const axios = require("axios");
 // API DETAILS.
 const API_KEY = "7ba0c7a4a624420802d8a91a4d4fc92c";
 const DISCOVER_URL = "https://api.themoviedb.org/3/discover/tv?"
-const DETAILS_URL = "https://api.themoviedb.org/3/tv"
 const SEARCH_URL = "https://api.themoviedb.org/3/search/tv?"
 
 // Return popular TV-Shows.

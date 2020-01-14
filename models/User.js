@@ -44,24 +44,24 @@ let User = new mongoose.model("User", userSchema);
 
 
 // Get one user.
-let getUser = (user, cb) => {
+let getUser = (user, callback) => {
     console.log('USER SIGN UP : ', user)
-    User.find(user, (err, data) => {
-        if (err) {
-            cb(err);
+    User.find(user, (error, data) => {
+        if (error) {
+            callback(error);
         } else {
-            cb(data);
+            callback(data);
         }
     });
 };
 
 // Add new user to database.
-let addUser = (newUser, cb) => {
-    User.create(newUser, (err, data) => {
-        if (err) {
-            cb(err);
+let addUser = (newUser, callback) => {
+    User.create(newUser, (error, data) => {
+        if (error) {
+            callback(error);
         } else {
-            cb(data);
+            callback(data);
         }
     });
 };
@@ -72,7 +72,7 @@ let addUser = (newUser, cb) => {
 
 
 // Add new movie to watch list.
-let addMovieToWatchList = (userID, newMovie, cb) => {
+let addMovieToWatchList = (userID, newMovie, callback) => {
     User.findOneAndUpdate(
         {
             _id: userID
@@ -82,35 +82,36 @@ let addMovieToWatchList = (userID, newMovie, cb) => {
                 'movies_list.watch_list': newMovie
             }
         },
-        (err, data) => {
-            if (err) {
-                cb(err);
+        (error, data) => {
+            if (error) {
+                callback(error);
             } else {
-                cb(data);
+                callback(data);
             }
         }
     );
 };
 
 // Delete movie from watch list.
-let deleteMovieFromWatchList = (userID, movieID, cb) => {
+let deleteMovieFromWatchList = (userID, movieID, callback) => {
     User.update(
+        { _id: userID },
         {
-            _id: userID
+            'movies_list.watch_list': movieID
         },
         {
             $pull: {
-                'movies_list.watch_list': {
+                'movies_list.$.watch_list': {
                     id: movieID
                 }
             }
         },
         (error, data) => {
             if (error) {
-                cb(error)
+                callback(error)
             }
             else {
-                cb(data)
+                callback(data)
             }
         }
     )
@@ -118,7 +119,7 @@ let deleteMovieFromWatchList = (userID, movieID, cb) => {
 
 
 // Add new movie to watched list.
-let addMovieToWatchedList = (userID, newMovie, cb) => {
+let addMovieToWatchedList = (userID, newMovie, callback) => {
     User.findOneAndUpdate(
         {
             _id: userID
@@ -128,18 +129,18 @@ let addMovieToWatchedList = (userID, newMovie, cb) => {
                 'movies_list.watched_list': newMovie
             }
         },
-        (err, data) => {
-            if (err) {
-                cb(err);
+        (error, data) => {
+            if (error) {
+                callback(error);
             } else {
-                cb(data);
+                callback(data);
             }
         }
     );
 };
 
 // Delete movie from watched list.
-let deleteMovieFromWatchedList = (userID, movieID, cb) => {
+let deleteMovieFromWatchedList = (userID, movieID, callback) => {
     User.update(
         {
             _id: userID
@@ -150,7 +151,14 @@ let deleteMovieFromWatchedList = (userID, movieID, cb) => {
                     id: movieID
                 }
             }
-        }
+        },
+        (error, data => {
+            if (error) {
+                callback(error)
+            } else {
+                callback(data)
+            }
+        })
     )
 }
 
@@ -159,7 +167,7 @@ let deleteMovieFromWatchedList = (userID, movieID, cb) => {
 
 
 // Add new show to watch list.
-let addShowToWatchList = (userID, newShow, cb) => {
+let addShowToWatchList = (userID, newShow, callback) => {
     User.findOneAndUpdate(
         {
             _id: userID
@@ -169,18 +177,18 @@ let addShowToWatchList = (userID, newShow, cb) => {
                 'shows_list.watch_list': newShow
             }
         },
-        (err, data) => {
-            if (err) {
-                cb(err);
+        (error, data) => {
+            if (error) {
+                callback(error);
             } else {
-                cb(data);
+                callback(data);
             }
         }
     );
 };
 
 // Delete show from watch list.
-let deleteShowFromWatchList = (userID, showID, cb) => {
+let deleteShowFromWatchList = (userID, showID, callback) => {
     User.update(
         {
             _id: userID
@@ -191,11 +199,19 @@ let deleteShowFromWatchList = (userID, showID, cb) => {
                     _id: showID
                 }
             }
+        },
+        (error, data => {
+            if (error) {
+                callback(error)
+            } else {
+                callback(data)
+            }
         })
+    )
 }
 
 // Add new show to watched list.
-let addShowToWatchedList = (userID, newShow, cb) => {
+let addShowToWatchedList = (userID, newShow, callback) => {
     User.findOneAndUpdate(
         {
             _id: userID
@@ -205,18 +221,18 @@ let addShowToWatchedList = (userID, newShow, cb) => {
                 'shows_list.watched_list': newShow
             }
         },
-        (err, data) => {
-            if (err) {
-                cb(err);
+        (error, data) => {
+            if (error) {
+                callback(error);
             } else {
-                cb(data);
+                callback(data);
             }
         }
     );
 };
 
 // Delete show from watched list.
-let deleteShowFromWatchedList = (userID, showID, cb) => {
+let deleteShowFromWatchedList = (userID, showID, callback) => {
     User.update(
         {
             _id: userID
@@ -227,7 +243,14 @@ let deleteShowFromWatchedList = (userID, showID, cb) => {
                     _id: showID
                 }
             }
-        })
+        },
+        (error, data => {
+            if (error) {
+                callback(error)
+            } else {
+                callback(data)
+            }
+        }))
 }
 
 // Exporting Methods.

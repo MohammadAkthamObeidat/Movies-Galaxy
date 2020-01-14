@@ -6,8 +6,12 @@ DB_URI = 'mongodb+srv://mohamad:mao712199677@movies-galaxy-ibktx.mongodb.net/mov
 module.exports = function () {
     mongoose.connect(
         DB_URI,
-        { useUnifiedTopology: true },
-        { useFindAndModify: false }
+        {
+            useUnifiedTopology: true,
+            useNewUrlParser: true,
+            useFindAndModify: false,
+            useCreateIndex: true
+        }
     )
 
     const db = mongoose.connection;

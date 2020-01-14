@@ -27,7 +27,6 @@ deleteMovieFromWatchList = (req, res, next) => {
   let userID = req.params.userID;
   let movieID = req.params.movieID;
   user.deleteMovieFromWatchList(userID, movieID, result => {
-    console.log('RESULT FROM DELETE MOVIE WATCH LIST RESPONSE : ', result);
     res.status(200).json({
       status: 'Success Delete Movie From Watch List.',
       data: {
@@ -41,7 +40,6 @@ deleteMovieFromWatchList = (req, res, next) => {
 addMovieToWatchedList = (req, res, next) => {
   let userID = req.params.userID;
   user.addMovieToWatchedList(userID, req.body, result => {
-    console.log('RESULT FROM WATCHED LIST RESPONSE: ', result);
     res.status(200).json({
       status: 'Success Add Movie To Watched List.',
       data: {
@@ -56,7 +54,6 @@ deleteMovieFromWatchedList = (req, res, next) => {
   let userID = req.params.userID;
   let movieID = req.params.movieID;
   user.deleteMovieFromWatchedList = (userID, movieID, result) => {
-    console.log('RESPONSE FROM DELETE MOVIE WATCHED LIST: ', object);
     res.status(200).json({
       status: 'Success Delete Movie From Watch List.',
       data: {
@@ -74,8 +71,13 @@ deleteMovieFromWatchedList = (req, res, next) => {
 addShowToWatchList = (req, res, next) => {
   let userID = req.params.userID;
   user.addShowToWatchList(userID, req.body, result => {
-    console.log('RESULT FORM ADD SHOW WATCH LIST: ', result);
     //res.json(result);
+    res.status(200).json({
+      status: 'Complete',
+      data: {
+        addedShow: result
+      }
+    })
   })
 }
 
@@ -84,7 +86,6 @@ deleteShowFromWatchList = (req, res, next) => {
   let userID = req.params.userID;
   let showID = req.params.showID;
   user.deleteShowFromWatchList(userID, showID, result => {
-    console.log('RESULT FORM DELETE SHOW WATCH LIST: ', result);
     //res.json(result);
   })
 }
@@ -93,8 +94,13 @@ deleteShowFromWatchList = (req, res, next) => {
 addShowToWatchedList = (req, res, next) => {
   let userID = req.params.userID;
   user.addShowToWatchedList(userID, req.body, result => {
-    console.log('RESULT FORM DELETE SHOW WATCHED LIST: ', result);
     //res.json(result);
+    res.status(200).json({
+      status: 'Success add to watchedlist.',
+      data: {
+        addedShow: result
+      }
+    })
   })
 }
 
@@ -103,7 +109,6 @@ deleteShowFromWatchedList = (req, res, next) => {
   let userID = req.params.userID;
   let showID = req.params.showID;
   user.deleteShowFromWatchedList(userID, showID, result => {
-    console.log('RESULT FORM DELETE SHOW WATCH LIST: ', result);
     //res.json(result);
   })
 }
