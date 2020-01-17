@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 const MONGODB_URI =
-  'mongodb+srv://mohamad:mao712199677@movies-galaxy-ibktx.mongodb.net/movies-galaxy?retryWrites=true&w=majority';
+    'mongodb+srv://mohamad:mao712199677@movies-galaxy-ibktx.mongodb.net/movies-galaxy?retryWrites=true&w=majority';
 // 'dotenv' dependency to access our .env file. "it must be before anything of app"
 const dotenv = require('dotenv');
 
@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // Check if the app in development stage to use morgan.
 if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'));
+    app.use(morgan('dev'));
 }
 
 // Import routes.
@@ -45,17 +45,17 @@ app.use(authRoutes);
 // Import this 3rd party library to store session in mongo DataBase.
 // Storing session in mongoDB.
 const mongoStore = new MongoDBStore({
-  uri: MONGODB_URI,
-  collection: 'sessions'
+    uri: MONGODB_URI,
+    collection: 'sessions'
 });
 // Using session
 app.use(
-  session({
-    secret: 'mohammadAkthamObeidat',
-    resave: false,
-    saveUninitialized: false,
-    store: mongoStore
-  })
+    session({
+        secret: 'mohammadAkthamObeidat',
+        resave: false,
+        saveUninitialized: false,
+        store: mongoStore
+    })
 );
 
 // Start Server.

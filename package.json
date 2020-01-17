@@ -9,7 +9,8 @@
     "server:prod": "NODE_ENV = production nodemon server.js",
     "start": "concurrently \"npm run server\" \"npm run react\"",
     "node": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "debug": "ndb server.js"
   },
   "author": "Mohammad Aktham Obeidat.",
   "license": "ISC",
