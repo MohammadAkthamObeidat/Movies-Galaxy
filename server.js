@@ -3,6 +3,7 @@ const MONGODB_URI = 'mongodb+srv://mohamad:mao712199677@movies-galaxy-ibktx.mong
 const cors = require("cors");
 const bodyParser = require('body-parser');
 const express = require("express");
+const morgan = require("morgan");
 // Call EXPRESS method and store it in 'app' variable.
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(cors());
 // Middleware function to use 'req' parameters.
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(morgan('dev'));
 
 // Import routes.
 const moviesRoutes = require("./routes/moviesRoutes.js");
@@ -43,5 +45,7 @@ app.use(session({
     store: mongoStore 
 }));
 
+
+// Start Server.
 const PORT = process.env.PORT || 9000;
 app.listen(PORT, () => console.log(`Server listening to ${PORT} ^.^ ******`));

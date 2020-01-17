@@ -27,11 +27,9 @@ deleteMovieFromWatchList = (req, res, next) => {
   let userID = req.params.userID;
   let movieID = req.params.movieID;
   user.deleteMovieFromWatchList(userID, movieID, result => {
-    res.status(200).json({
+    res.status(204).json({
       status: 'Success Delete Movie From Watch List.',
-      data: {
-        deletedMovie: result
-      }
+      data: NULL
     })
   })
 }
@@ -53,14 +51,12 @@ addMovieToWatchedList = (req, res, next) => {
 deleteMovieFromWatchedList = (req, res, next) => {
   let userID = req.params.userID;
   let movieID = req.params.movieID;
-  user.deleteMovieFromWatchedList = (userID, movieID, result) => {
-    res.status(200).json({
+  user.deleteMovieFromWatchedList(userID, movieID, result => {
+    res.status(204).json({
       status: 'Success Delete Movie From Watch List.',
-      data: {
-        deletedMovie: result
-      }
+      data: NULL
     })
-  }
+  })
 }
 
 
@@ -87,6 +83,10 @@ deleteShowFromWatchList = (req, res, next) => {
   let showID = req.params.showID;
   user.deleteShowFromWatchList(userID, showID, result => {
     //res.json(result);
+    res.status(204).json({
+      status: 'Success Delete Show From Watch List.',
+      data: NULL
+    })
   })
 }
 
@@ -110,6 +110,10 @@ deleteShowFromWatchedList = (req, res, next) => {
   let showID = req.params.showID;
   user.deleteShowFromWatchedList(userID, showID, result => {
     //res.json(result);
+    res.status(204).json({
+      status: 'Success Delete Show From Watched List.',
+      data: NULL
+    })
   })
 }
 
