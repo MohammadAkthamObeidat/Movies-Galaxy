@@ -3,6 +3,8 @@
 const mongoose = require('mongoose');
 // Import Validator 3rd party Package.
 const validator = require('validator');
+// Import Bcrypt 3rd party Package.
+const bcrypt = require('bcryptjs');
 // Create User Schema
 const userSchema = new mongoose.Schema({
     name: {
@@ -39,6 +41,18 @@ const userSchema = new mongoose.Schema({
         watch_list: [],
         watched_list: []
     }
+});
+
+// Encryption the password.
+// eslint-disable-next-line node/no-unsupported-features/es-syntax
+userSchema.pre('save', async function(next) {
+    // ONly run this function if password was actually modified
+    if (!this.isModified('password')) {
+        return next();
+    }
+    // Hash the password with cost of 12
+    this.password = await bcrypt.hash(this.password, 12);
+    next();
 });
 // eslint-disable-next-line new-cap
 const User = new mongoose.model('User', userSchema);
