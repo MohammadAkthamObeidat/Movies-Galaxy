@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="94" height="94" viewBox="0 0 94 94">
+  <g id="Watched" transform="translate(-10.008 17.994)">
+    <circle id="Ellipse_19" data-name="Ellipse 19" cx="47" cy="47" r="47" transform="translate(10.008 -17.994)" fill="#404040"/>
+    <g id="correct-symbol" transform="translate(25.405 4.393)">
+      <path id="Path_146" data-name="Path 146" d="M62.749,58.439l-5.607-5.607a3.982,3.982,0,0,0-5.607,0L24.489,79.919,12.368,67.757a3.816,3.816,0,0,0-2.8-1.154,3.817,3.817,0,0,0-2.8,1.154L1.154,73.364a3.982,3.982,0,0,0,0,5.608L16.079,93.895,21.686,99.5a3.981,3.981,0,0,0,5.607,0L32.9,93.895,62.749,64.046a3.982,3.982,0,0,0,0-5.607Z" transform="translate(0 -51.678)" fill="#007029"/>
+    </g>
+  </g>
+</svg>
