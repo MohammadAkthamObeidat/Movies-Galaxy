@@ -6,7 +6,7 @@
   "scripts": {
     "react": "cd ./view && npm run-script start",
     "server:dev": "nodemon server.js",
-    "server:prod": "nodemon server.js",
+    "server:prod": "NODE_ENV = production nodemon server.js",
     "start": "concurrently \"npm run server\" \"npm run react\"",
     "node": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -29,6 +29,15 @@
   },
   "devDependencies": {
     "ndb": "^1.1.5",
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.2",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-react": "^7.12.4",
+    "prettier": "^1.17.0"
   }
 }
