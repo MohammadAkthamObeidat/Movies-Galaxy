@@ -1,14 +1,15 @@
-const axios = require("axios");
-const express = require("express");
+const axios = require('axios');
+const express = require('express');
+
 const app = express();
-app.use(express.json())
+app.use(express.json());
 // API DETAILS.
-const API_KEY = "7ba0c7a4a624420802d8a91a4d4fc92c";
-const DISCOVER_URL = "https://api.themoviedb.org/3/discover/movie?"
-const SEARCH_URL = "https://api.themoviedb.org/3/search/movie?"
+const API_KEY = '7ba0c7a4a624420802d8a91a4d4fc92c';
+const DISCOVER_URL = 'https://api.themoviedb.org/3/discover/movie?';
+const SEARCH_URL = 'https://api.themoviedb.org/3/search/movie?';
 
 // Return popular movies.
-getPopularMovies = (req, res, next) => {
+const getPopularMovies = (req, res, next) => {
   // Parameters That will Be Included In Request URL
   const params = {
     api_key: API_KEY,
@@ -19,7 +20,8 @@ getPopularMovies = (req, res, next) => {
   };
 
   // Make an API request to get popular movies.
-  axios.get(DISCOVER_URL, { params: params })
+  axios
+    .get(DISCOVER_URL, { params: params })
     .then(response => {
       //res.send(response.data.results);
       res.status(200).json({
@@ -28,17 +30,18 @@ getPopularMovies = (req, res, next) => {
         data: {
           popularMovies: response.data.results
         }
-      })
+      });
     })
     .catch(error => {
-      console.log('There is no data returned.', error);
-    })
+      res.status(404).json({
+        status: error
+      });
+    });
 };
-
 
 // ***********************************************************************************************************************************
 // Return trending movies.
-getTrendingMovies = (req, res, next) => {
+const getTrendingMovies = (req, res, next) => {
   // Parameters That will Be Included In Request URL
   const params = {
     api_key: API_KEY,
@@ -49,7 +52,8 @@ getTrendingMovies = (req, res, next) => {
   };
 
   // Make an API request to get trending movies.
-  axios.get(DISCOVER_URL, { params: params })
+  axios
+    .get(DISCOVER_URL, { params: params })
     .then(response => {
       //res.send(response.data.results);
       res.status(200).json({
@@ -58,48 +62,49 @@ getTrendingMovies = (req, res, next) => {
         data: {
           trendingMovies: response.data.results
         }
-      })
+      });
     })
     .catch(error => {
-      console.log('There is no data returned.', error);
-    })
+      res.status(404).json({
+        status: error
+      });
+    });
 };
-
 
 // ***********************************************************************************************************************************
 // Return movie details.
-getMovieDetails = (req, res, next) => {
+const getMovieDetails = (req, res, next) => {
   // Parameters That will Be Included In Request URL
   const id = req.params.movieID;
   // console.log('IDDDDDDDDD ',id)
   const params = {
     api_key: API_KEY,
-    language: 'en-US',
+    language: 'en-US'
   };
 
   // Make an API request to get movie details.
-  axios.get(`https://api.themoviedb.org/3/movie/${id}?`, { params: params })
+  axios
+    .get(`https://api.themoviedb.org/3/movie/${id}?`, { params: params })
     .then(response => {
-      console.log(response)
       res.status(200).json({
         status: 'Success',
         data: {
           movieDetails: response.data
         }
-      })
+      });
     })
     .catch(error => {
-      console.log('There is no data returned.', error);
-    })
+      res.status(404).json({
+        status: error
+      });
+    });
 };
-
 
 // ***********************************************************************************************************************************
 // Return movies on search .
-getMovieOnSearch = (req, res, next) => {
+const getMovieOnSearch = (req, res, next) => {
   // Parameters That will Be Included In Request URL
-  const query = req.params.query;
-  console.log('Search Query: ', query);
+  const { query } = req.params;
   const params = {
     api_key: API_KEY,
     language: 'en-US',
@@ -108,20 +113,21 @@ getMovieOnSearch = (req, res, next) => {
   };
 
   // Make an API request to get movie details.
-  axios.get(SEARCH_URL, { params: params })
+  axios
+    .get(SEARCH_URL, { params: params })
     .then(response => {
-      console.log('Movie On Search ',response)
-      //res.send(response.data.results);
       res.status(200).json({
         status: 'Success',
         data: {
           searchResult: response.data.results
         }
-      })
+      });
     })
     .catch(error => {
-      console.log('There is no data returned.', error);
-    })
+      res.status(404).json({
+        status: error
+      });
+    });
 };
 
 // Exporting Methods.

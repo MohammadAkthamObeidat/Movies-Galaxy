@@ -1,13 +1,12 @@
-const axios = require("axios");
+const axios = require('axios');
 
 // API DETAILS.
-const API_KEY = "7ba0c7a4a624420802d8a91a4d4fc92c";
-const DISCOVER_URL = "https://api.themoviedb.org/3/discover/tv?"
-const SEARCH_URL = "https://api.themoviedb.org/3/search/tv?"
+const API_KEY = '7ba0c7a4a624420802d8a91a4d4fc92c';
+const DISCOVER_URL = 'https://api.themoviedb.org/3/discover/tv?';
+const SEARCH_URL = 'https://api.themoviedb.org/3/search/tv?';
 
 // Return popular TV-Shows.
-getPopularTvShows = (req, res, next) => {
-
+const getPopularTvShows = (req, res, next) => {
   // Parameters That will Be Included In Request URL
   const params = {
     api_key: API_KEY,
@@ -18,7 +17,8 @@ getPopularTvShows = (req, res, next) => {
   };
 
   // Make an API request to get popular TV-Shows.
-  axios.get(DISCOVER_URL, { params: params })
+  axios
+    .get(DISCOVER_URL, { params: params })
     .then(response => {
       // res.send(response.data.results);
       res.status(200).json({
@@ -27,16 +27,18 @@ getPopularTvShows = (req, res, next) => {
         data: {
           popularShows: response.data.results
         }
-      })
+      });
     })
     .catch(error => {
-      console.log('There is no data returned.', error);
-    })
+      res.status(404).json({
+        status: error
+      });
+    });
 };
 // ***********************************************************************************************************************************
 
 // Return trending TV-Shows.
-getTrendingTvShows = (req, res, next) => {
+const getTrendingTvShows = (req, res, next) => {
   // Parameters That will Be Included In Request URL
   const params = {
     api_key: API_KEY,
@@ -47,7 +49,8 @@ getTrendingTvShows = (req, res, next) => {
   };
 
   // Make an API request to get trending TV-Shows.
-  axios.get(DISCOVER_URL, { params: params })
+  axios
+    .get(DISCOVER_URL, { params: params })
     .then(response => {
       // res.send(response.data.results);
       res.status(200).json({
@@ -56,46 +59,48 @@ getTrendingTvShows = (req, res, next) => {
         data: {
           trendingShows: response.data.results
         }
-      })
+      });
     })
     .catch(error => {
-      console.log('There is no data returned.', error);
-    })
+      res.status(404).json({
+        status: error
+      });
+    });
 };
 // ***********************************************************************************************************************************
 // @METHOD GET
 // Return TV-Show details.
-getTvShowDetails = (req, res, next) => {
+const getTvShowDetails = (req, res, next) => {
   // Parameters That will Be Included In Request URL
   const id = req.params.showID;
-  console.log('IDDDDD: ', id)
   const params = {
     api_key: API_KEY,
-    language: 'en-US',
+    language: 'en-US'
   };
 
   // Make an API request to get TV-Show details.
-  axios.get(`https://api.themoviedb.org/3/tv/${id}?`, { params: params })
+  axios
+    .get(`https://api.themoviedb.org/3/tv/${id}?`, { params: params })
     .then(response => {
-      // res.send(response.data.results);
-      console.log(response);
       res.status(200).json({
         status: 'Success',
         data: {
           showDetails: response.data
         }
-      })
+      });
     })
     .catch(error => {
-      console.log('There is no data returned.', error);
-    })
+      res.status(404).json({
+        status: error
+      });
+    });
 };
 // ***********************************************************************************************************************************
 // @METHOD GET
 // Return TV-Shows on search .
-getTvOnSearch = (req, res, next) => {
+const getTvOnSearch = (req, res, next) => {
   // Parameters That will Be Included In Request URL
-  const query = req.params.query;
+  const { query } = req.params;
   const params = {
     api_key: API_KEY,
     language: 'en-US',
@@ -104,21 +109,23 @@ getTvOnSearch = (req, res, next) => {
   };
 
   // Make an API request to get movie details.
-  axios.get(SEARCH_URL, { params: params })
+  axios
+    .get(SEARCH_URL, { params: params })
     .then(response => {
       // res.send(response.data.results);
-      console.log(response)
       res.status(200).json({
         status: 'Success',
         result: response.data.results.length,
         data: {
           tvShow: response.data.results
         }
-      })
+      });
     })
     .catch(error => {
-      console.log('There is no data returned.', error);
-    })
+      res.status(404).json({
+        status: error
+      });
+    });
 };
 
 // Exporting Methods.
