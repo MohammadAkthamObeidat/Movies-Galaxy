@@ -22,7 +22,8 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: [true, 'Please Provide a Password!'],
-        minlength: 8
+        minlength: 8,
+        select: false
     },
     country: {
         type: String,
@@ -54,20 +55,23 @@ userSchema.pre('save', async function(next) {
     this.password = await bcrypt.hash(this.password, 12);
     next();
 });
+
+// eslint-disable-next-line node/no-unsupported-features/es-syntax
+userSchema.methods.correctPassword = async function(
+    candidatePassword,
+    userPassword
+) {
+    return await bcrypt.compare(candidatePassword, userPassword);
+};
 // eslint-disable-next-line new-cap
 const User = new mongoose.model('User', userSchema);
 
 // USER FUNCTIONS ****************************************************************************
 
 // Get one user.
-const getUser = (user, callback) => {
-    User.find(user, (error, data) => {
-        if (error) {
-            callback(error);
-        } else {
-            callback(data);
-        }
-    });
+// eslint-disable-next-line no-unused-vars
+const getUser = (email, password) => {
+    User.findOne({ email }).select('+password');
 };
 
 // Add new user to database.
