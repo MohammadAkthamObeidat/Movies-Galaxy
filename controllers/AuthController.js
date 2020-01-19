@@ -1,4 +1,4 @@
-const { promisify } = require('util.promisify');
+const promise = require('bluebird');
 /* eslint-disable node/no-unsupported-features/es-syntax */
 const jwt = require('jsonwebtoken');
 const user = require('../models/User');
@@ -29,7 +29,6 @@ const login = catchAsync(async (req, res, next) => {
 
     // 2) Check if user exists && password is correct.
     const loginUser = await user.getUser(email, password);
-    console.log('User Model :', user);
     if (
         !loginUser ||
         !(await loginUser.correctPassword(password, loginUser.password))
@@ -86,7 +85,7 @@ const protectRoutes = catchAsync(async (req, res, next) => {
     let token;
     if (
         req.headers.authorization &&
-        req.headers.authorization.startWith('Bearer')
+        req.headers.authorization.startsWith('Bearer')
     ) {
         token = req.headers.authorization.split(' ')[1];
     }
@@ -97,11 +96,14 @@ const protectRoutes = catchAsync(async (req, res, next) => {
             401
         );
     }
-    // 2) Token verification.
-    const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+    // 2) Token verification if token payload has not manipulated by malicious 3rd party.
+    const decoded = await promise.promisify(jwt.verify)(
+        token,
+        process.env.JWT_SECRET
+    );
     // 3) Check if user still exists.
-    const freshUser = await user.getFreshUser(decoded.id);
-    if (!freshUser) {
+    const currentUser = await user.getCurrentUser(decoded.id);
+    if (!currentUser) {
         return next(
             new AppError(
                 'The token belonging to this user dose no longer exists',
@@ -110,8 +112,16 @@ const protectRoutes = catchAsync(async (req, res, next) => {
         );
     }
     // 4) Check if user changed password after token was issued.
-    freshUser.changedPasswordAfter(decoded.iat);
-    // 5) If everything is okay then call the next function.
+    if (currentUser.changedPasswordAfter(decoded.iat)) {
+        return next(
+            new AppError(
+                'User recently changed his password! please login again.',
+                401
+            )
+        );
+    }
+    // 5) If everything is okay then grant access to protected route.
+    req.user = currentUser;
     next();
 });
 

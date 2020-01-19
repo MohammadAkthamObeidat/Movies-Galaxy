@@ -5,16 +5,16 @@ const authController = require('../controllers/AuthController');
 
 // @GET
 // Return home page.
-router.get('/', authController.homePage);
+router.route('/').get(authController.homePage);
 // @GET
 // Return one user data.
-router.post('/login', authController.login);
+router.route('/login').post(authController.login);
 // @POST
 // Add new user.
-router.post('/signup', authController.signUp);
+router.route('/signup').post(authController.signUp);
 // @POST
 // Logout.
-router.post('/logout', authController.logout);
+router.route('/logout').post(authController.logout);
 
 // Export The Router.
 module.exports = router;

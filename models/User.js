@@ -71,8 +71,15 @@ userSchema.methods.correctPassword = async function(
 
 userSchema.methods.changedPasswordAfter = function(JWTTimestamp) {
     if (this.passwordChangedAt) {
-        console.log(this.passwordChangedAt, JWTTimestamp);
+        const changedTimestamp = parseInt(
+            this.passwordChangedAt.getTime() / 1000,
+            10
+        );
+        return JWTTimestamp < changedTimestamp;
     }
+
+    // False means NOT changes.
+    return false;
 };
 // eslint-disable-next-line new-cap
 const User = new mongoose.model('User', userSchema);
@@ -85,8 +92,8 @@ const getUser = (email, password) => {
     return User.findOne({ email }).select('+password');
 };
 
-// Get fresh user.
-const getFreshUser = id => {
+// Get current user.
+const getCurrentUser = id => {
     return User.findById(id);
 };
 
@@ -288,7 +295,7 @@ const deleteShowFromWatchedList = (userID, showID, callback) => {
 // Exporting Methods.
 module.exports = {
     getUser,
-    getFreshUser,
+    getCurrentUser,
     addUser,
     addMovieToWatchList,
     deleteMovieFromWatchList,
