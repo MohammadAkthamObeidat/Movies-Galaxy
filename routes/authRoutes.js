@@ -8,7 +8,7 @@ const authController = require('../controllers/AuthController');
 router.get('/', authController.homePage);
 // @GET
 // Return one user data.
-router.get('/login', authController.login);
+router.post('/login', authController.login);
 // @POST
 // Add new user.
 router.post('/signup', authController.signUp);

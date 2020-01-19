@@ -28,10 +28,10 @@ const login = catchAsync(async (req, res, next) => {
 
     // 2) Check if user exists && password is correct.
     const loginUser = await user.getUser(email, password);
-
+    console.log('User Model :', user);
     if (
         !loginUser ||
-        !(await loginUser.correctPassword(password, user.password))
+        !(await loginUser.correctPassword(password, loginUser.password))
     ) {
         return next(new AppError('Incorrect email or password', 401));
     }

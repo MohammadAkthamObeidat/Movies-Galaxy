@@ -44,10 +44,12 @@ const userSchema = new mongoose.Schema({
     }
 });
 
-// Encryption the password.
+// ENCRYPTION AND COMPARING USER DATA METHODS *****************************************************************************************************
+
+// Encryption the password using bcrypt package.
 // eslint-disable-next-line node/no-unsupported-features/es-syntax
 userSchema.pre('save', async function(next) {
-    // ONly run this function if password was actually modified
+    // Only run this function if password was actually modified
     if (!this.isModified('password')) {
         return next();
     }
@@ -56,6 +58,8 @@ userSchema.pre('save', async function(next) {
     next();
 });
 
+// Method to compare inserted password from user with his password in database.
+// Calling this method only done using methods names in this file.
 // eslint-disable-next-line node/no-unsupported-features/es-syntax
 userSchema.methods.correctPassword = async function(
     candidatePassword,
@@ -66,12 +70,12 @@ userSchema.methods.correctPassword = async function(
 // eslint-disable-next-line new-cap
 const User = new mongoose.model('User', userSchema);
 
-// USER FUNCTIONS ****************************************************************************
+// AUTHENTICATION METHODS *************************************************************************************************************************
 
 // Get one user.
 // eslint-disable-next-line no-unused-vars
 const getUser = (email, password) => {
-    User.findOne({ email }).select('+password');
+    return User.findOne({ email }).select('+password');
 };
 
 // Add new user to database.
@@ -85,7 +89,7 @@ const addUser = (newUser, callback) => {
     });
 };
 
-// MOVIES FUNCTIONS ****************************************************************************
+// MOVIES METHODS *********************************************************************************************************************************
 
 // Add new movie to watch list.
 const addMovieToWatchList = (userID, newMovie, callback) => {
@@ -177,7 +181,7 @@ const deleteMovieFromWatchedList = (userID, movieID, callback) => {
     );
 };
 
-// TV SHOWS FUNCTIONS ****************************************************************************
+// TV SHOWS METHODS ******************************************************************************************************************************
 
 // Add new show to watch list.
 const addShowToWatchList = (userID, newShow, callback) => {
