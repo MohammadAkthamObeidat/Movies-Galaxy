@@ -1,3 +1,4 @@
+const { promisify } = require('util.promisify');
 /* eslint-disable node/no-unsupported-features/es-syntax */
 const jwt = require('jsonwebtoken');
 const user = require('../models/User');
@@ -79,10 +80,46 @@ const logout = (req, res, next) => {
     });
 };
 
+// Protect the routes that only available for authenticated users.
+const protectRoutes = catchAsync(async (req, res, next) => {
+    // 1) Get the token and check if it's there.
+    let token;
+    if (
+        req.headers.authorization &&
+        req.headers.authorization.startWith('Bearer')
+    ) {
+        token = req.headers.authorization.split(' ')[1];
+    }
+
+    if (!token) {
+        return next(
+            new AppError('Your not logged in!! please login to get access'),
+            401
+        );
+    }
+    // 2) Token verification.
+    const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+    // 3) Check if user still exists.
+    const freshUser = await user.getFreshUser(decoded.id);
+    if (!freshUser) {
+        return next(
+            new AppError(
+                'The token belonging to this user dose no longer exists',
+                401
+            )
+        );
+    }
+    // 4) Check if user changed password after token was issued.
+    freshUser.changedPasswordAfter(decoded.iat);
+    // 5) If everything is okay then call the next function.
+    next();
+});
+
 // Exporting Methods.
 module.exports = {
     homePage,
     login,
     signUp,
-    logout
+    logout,
+    protectRoutes
 };

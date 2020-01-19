@@ -29,6 +29,7 @@
     "morgan": "^1.9.1",
     "node": "^13.5.0",
     "nodemailer": "^6.4.2",
+    "util.promisify": "^1.0.1",
     "validator": "^12.1.0"
   },
   "devDependencies": {

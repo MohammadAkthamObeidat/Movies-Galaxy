@@ -25,6 +25,7 @@ const userSchema = new mongoose.Schema({
         minlength: 8,
         select: false
     },
+    passwordChangedAt: Date,
     country: {
         type: String,
         required: [true, 'Your Country Here!'],
@@ -67,6 +68,12 @@ userSchema.methods.correctPassword = async function(
 ) {
     return await bcrypt.compare(candidatePassword, userPassword);
 };
+
+userSchema.methods.changedPasswordAfter = function(JWTTimestamp) {
+    if (this.passwordChangedAt) {
+        console.log(this.passwordChangedAt, JWTTimestamp);
+    }
+};
 // eslint-disable-next-line new-cap
 const User = new mongoose.model('User', userSchema);
 
@@ -76,6 +83,11 @@ const User = new mongoose.model('User', userSchema);
 // eslint-disable-next-line no-unused-vars
 const getUser = (email, password) => {
     return User.findOne({ email }).select('+password');
+};
+
+// Get fresh user.
+const getFreshUser = id => {
+    return User.findById(id);
 };
 
 // Add new user to database.
@@ -276,6 +288,7 @@ const deleteShowFromWatchedList = (userID, showID, callback) => {
 // Exporting Methods.
 module.exports = {
     getUser,
+    getFreshUser,
     addUser,
     addMovieToWatchList,
     deleteMovieFromWatchList,

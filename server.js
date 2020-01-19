@@ -1,6 +1,3 @@
-/* eslint-disable no-console */
-const MONGODB_URI =
-    'mongodb+srv://mohamad:mao712199677@movies-galaxy-ibktx.mongodb.net/movies-galaxy?retryWrites=true&w=majority';
 // 'dotenv' dependency to access our .env file. "it must be before anything of app"
 const dotenv = require('dotenv');
 
@@ -14,8 +11,6 @@ const morgan = require('morgan');
 // Call EXPRESS method and store it in 'app' variable.
 const app = express();
 // Import Database connection code.
-const session = require('express-session');
-const MongoDBStore = require('connect-mongodb-session')(session);
 const connectToDb = require('./database/DBconnection.js');
 
 connectToDb();
@@ -41,23 +36,7 @@ app.use('/shows', tvShowsRoutes);
 app.use('/user', userRoutes);
 app.use(authRoutes);
 
-// Import Session Middleware
-// Import this 3rd party library to store session in mongo DataBase.
-// Storing session in mongoDB.
-const mongoStore = new MongoDBStore({
-    uri: MONGODB_URI,
-    collection: 'sessions'
-});
-// Using session
-app.use(
-    session({
-        secret: 'mohammadAkthamObeidat',
-        resave: false,
-        saveUninitialized: false,
-        store: mongoStore
-    })
-);
-
 // Start Server.
 const PORT = process.env.PORT || 9000;
+// eslint-disable-next-line no-console
 app.listen(PORT, () => console.log(`Server listening to ${PORT} ^.^ ******`));
