@@ -1,0 +1,73 @@
+.nav-bar {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    position: fixed;
+    justify-content: space-between;
+    background-color: rgba(0, 0, 0, 0.384);
+}
+
+.form{
+    display:flex;
+    width:20%;
+    height: 50%;
+    align-self: center;
+    justify-content: space-between;
+}
+
+.search-field {
+    background-color: white;
+    border: 1.5px solid #ED1C24;
+    border-radius: 8px;
+    width: 90%;
+    height: 100%;
+    padding: 10px;
+    align-self: center;
+}
+
+.search-btn {
+    border: 0;
+    width:10%;
+    background-color: rgba(255, 0, 0, 0);
+    color: #ED1C24;
+}
+
+.btns-logo {
+    display: flex;
+    align-self: center;
+    justify-content: space-around;
+    width: 40%;
+    margin-right: 10%;
+}
+
+.logo {
+    width: 110px;
+    height: 80px;
+    margin-top: 50px;
+}
+
+.login-btn {
+    background-color: rgba(0, 0, 0, 0);
+    color: white;
+    width: 10%;
+    align-self: center;
+    border: none;
+}
+
+.movies-btn {
+    background-color: rgba(0, 0, 0, 0);
+    color: white;
+    width: 40%;
+    align-self: center;
+    border: none;
+}
+
+.show-btn {
+    background-color: rgba(0, 0, 0, 0);
+    color: white;
+    width: 40%;
+    align-self: center;
+    border: none;
+}
+
+

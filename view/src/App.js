@@ -1,21 +1,15 @@
-import React, { Component } from "react";
-import "./Assets/CSS/App.css"
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Home from './Layouts/Home';
 class App extends Component {
 
-  // App State.
-  state = {
+    // App State.
+    state = {};
 
-  }
-
-  // Rendering 
-  render() {
-    return (
-      <div className="App">
-        Movies Galaxy React App
-    </div>
-    );
-  }
+    // Rendering
+    render() {
+        return <Home></Home>;
+    }
 }
 
 export default App;
