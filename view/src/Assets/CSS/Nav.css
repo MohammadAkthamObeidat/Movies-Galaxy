@@ -5,6 +5,13 @@
     position: fixed;
     justify-content: space-between;
     background-color: rgba(0, 0, 0, 0.384);
+    overflow: show;
+    z-index: 2;
+}
+
+.nav-bar-fixed-top.scrolled {
+  background-color: #000 !important;
+  transition: background-color 200ms linear;
 }
 
 .form{

@@ -1,9 +1,12 @@
+
 .item-container {
     width: 360px;
     height: 100%;
     display: flex;
     flex-direction: column;
     background-color: #404040;
+    float:left;
+    margin:2px;
 }
 
 .poster-title {
@@ -58,6 +61,6 @@
 .rate {
     align-self: center;
     margin-right: 10px;
-    font-style: bold;
+    font-weight: bold;
     color: #e1a500;
 }

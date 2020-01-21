@@ -1,0 +1,56 @@
+.user-info{
+    background-color:#000;
+    width: 100%;
+    height: 25%;
+    background-size:cover;
+}
+.avatar{
+    border-radius: 50%;
+    width:10%;
+    margin-top: -30%;
+    margin-left:45%;
+}
+.user-name{
+    display:inline;
+    text-align: center;
+    position:absolute;
+    top: 43%;
+    color:#fff;
+    left:45%;
+}
+.profile-cover {
+    width: 100%;
+    height: 2%;
+}
+
+.line {
+    border: 1px solid #707070;
+    margin: 0 0 30px 0;
+}
+
+.header-tabs{
+    height: 28px;
+    display: flex;
+    justify-content: space-around;
+    margin-top: -28px;
+    margin-bottom: 2px;
+}
+
+.ver-line {
+    border-left: 2px solid #707070;
+    height: 28px;
+    align-self:center;
+}
+
+.header-btns{
+    background-color:rgba(255, 255, 255, 0);
+    border: 0;
+    color:white;
+    display: inline;
+    align-self: center;
+    margin: 0 auto;
+}
+
+.lists{
+    padding-left:2%;
+}

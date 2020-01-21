@@ -6,13 +6,14 @@ import Login from './Layouts/Login';
 import Details from './Layouts/Details';
 import MovieShowItem from './components/MovieShowItem'
 import ActorItem from './components/ActorItem';
+import Profile from './Layouts/Profile';
 class App extends Component {
     // App State.
     state = {};
 
     // Rendering
     render() {
-        return <ActorItem></ActorItem>
+        return <Profile></Profile>
     }
 }
 
