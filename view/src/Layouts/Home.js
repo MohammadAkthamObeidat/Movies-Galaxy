@@ -7,14 +7,11 @@ class Home extends Component {
             <div>
                 <NavBar></NavBar>
                 <div className="home-main">
-                    <div className="logo-title">
                         <img
-                            className="logo"
-                            src={require('../Assets/Icons/Logo.svg')}
+                            className="logo-title"
+                            src={require('../Assets/Icons/logo-title.svg')}
                             alt="logo"
                         />
-                        <p className="title">MOIVES GALAXY</p>
-                    </div>
                     <hr />
                     <p className="welcome-msg">
                         Discover, Organize & Stay Updated.

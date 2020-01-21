@@ -5,10 +5,17 @@ body {
 .home-main {
     display: flex;
     flex-direction: column;
+    text-align: center;
+    position: absolute;
+    top: 30%;
+    left: 31%;
+    width:40%;
+    align-content:space-around;
+    padding:20px;
 }
 
 .logo-title {
-    display: flex;
+    width:50%;
     align-self: center;
 }
 
@@ -17,6 +24,9 @@ body {
 }
 .welcome-msg {
     color: white;
+    font-size:35px;
+    margin:2%;
+    margin-top: 5%;
 }
 
 .join-btn {
@@ -24,4 +34,9 @@ body {
     border: 0;
     border-radius: 8px;
     background-color: #ED1C24;
+    width: 57%;
+    align-self:center;
+    padding:3%;
+    margin:2%;
+
 }

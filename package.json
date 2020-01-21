@@ -7,7 +7,7 @@
     "react": "cd ./view && npm run-script start",
     "server:dev": "nodemon server.js",
     "server:prod": "NODE_ENV = production nodemon server.js",
-    "start": "concurrently \"npm run server\" \"npm run react\"",
+    "start": "concurrently \"npm run server:dev\" \"npm run react\"",
     "node": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "debug": "ndb server.js"
