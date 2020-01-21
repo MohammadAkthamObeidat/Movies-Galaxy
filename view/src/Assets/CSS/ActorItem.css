@@ -1,0 +1,15 @@
+.actor-container{
+    background-color: #fff;
+    width: 150px;
+    height: 220px;
+}
+.actor-img{
+    width: 150px;
+}
+.real-name{
+    margin:8px 0 0 15px;
+}
+
+.role-name{
+    margin:1px 0 0 15px;
+}

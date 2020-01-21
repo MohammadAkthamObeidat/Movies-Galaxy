@@ -42,6 +42,7 @@ class SearchField extends Component {
                     name="search"
                     value="search"
                     onClick={this.handleSubmit}
+                    hidden = 'true'
                 >
                     Search
                 </button>

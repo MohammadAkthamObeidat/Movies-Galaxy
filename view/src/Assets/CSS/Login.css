@@ -1,0 +1,49 @@
+body {
+    background-image: url('../Images/register-login-background.svg');
+    background-size: cover;
+}
+
+.form-container {
+    position: absolute;
+    display: flex;
+    background-color: white;
+    top: 22%;
+    left: 34%;
+    box-shadow: 0px 10px 40px #fff;
+    border-radius: 25px;
+    padding: 1%;
+    width: 30%;
+    height: 40%;
+}
+
+.reg-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0 3% 0 3%;
+}
+
+.form-input {
+    border: 2px solid #ed1c24;
+    border-radius: 8px;
+    width: 100%;
+    height: 20%;
+    padding-left: 3%;
+    align-self:center;
+}
+
+.reg-btn {
+    border: 0;
+    background-color: #ed1c24;
+    border-radius: 8px;
+    color: white;
+    padding: 3%;
+    width: 40%;
+    align-self: center;
+    margin: 5% 0 3% 0;
+    box-shadow: 0px 10px 30px #ed1c24;
+}
+
+.reg-btn:hover {
+    transform: translateY(-3px);
+}

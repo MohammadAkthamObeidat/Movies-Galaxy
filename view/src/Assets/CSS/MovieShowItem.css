@@ -1,0 +1,63 @@
+.item-container {
+    width: 360px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: #404040;
+}
+
+.poster-title {
+    align-self: flex-start;
+    position: relative;
+}
+
+.poster {
+    width: 360px;
+    height: 198px;
+    position: relative;
+}
+.overlay {
+    position: absolute;
+    width: 360px;
+    height: 198px;
+    top: 0;
+    left: 0;
+}
+.movie-title {
+    position: absolute;
+    color: #fff;
+    display: block;
+    margin-top: -40px;
+    margin-left: 10px;
+}
+.date {
+    position: absolute;
+    color: #fff;
+    display: block;
+    margin-top: -31px;
+    margin-left: 180px;
+    color: #a3a3a3;
+}
+.btns-rate {
+    display: flex;
+    width: 360px;
+    justify-content: space-between;
+    background-color: #404040;
+}
+
+.btns {
+    display: flex;
+    align-self: flex-start;
+}
+.watchlist-btn {
+}
+
+.watched-btn {
+}
+
+.rate {
+    align-self: center;
+    margin-right: 10px;
+    font-style: bold;
+    color: #e1a500;
+}
