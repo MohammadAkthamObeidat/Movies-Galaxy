@@ -21,7 +21,6 @@ const signToken = id => {
 // Logging Process.
 const login = catchAsync(async (req, res, next) => {
     const { email, password } = req.body;
-
     // 1) Check if email and password exist.
     if (!email || !password) {
         return next(new AppError('Please provide email and password!', 400));
@@ -35,7 +34,6 @@ const login = catchAsync(async (req, res, next) => {
     ) {
         return next(new AppError('Incorrect email or password', 401));
     }
-
     // 3) If everything is ok, send token to client
     const token = loginUser._id;
     res.status(200).json({

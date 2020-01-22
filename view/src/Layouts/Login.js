@@ -5,7 +5,8 @@ import axios from 'axios';
 class Login extends Component {
     state = {
         email: '',
-        password: ''
+        password: '',
+        loggedUserToken: ''
     };
 
     handleChange = event => {
@@ -16,16 +17,13 @@ class Login extends Component {
         });
     };
 
-    handleSubmit = event => {
+    handleSubmit = async event => {
         event.preventDefault();
-        axios
-            .post('/login', this.state)
-            .then(response => {
-                console.log(response.date);
-            })
-            .catch(error => {
-                console.log(error);
-            });
+        const user = await axios.post('/login', this.state);
+        console.log('user :', user);
+        const { token } = user.data;
+        console.log('token :', token);
+        this.setState({ loggedUserToken: token });
     };
 
     render() {

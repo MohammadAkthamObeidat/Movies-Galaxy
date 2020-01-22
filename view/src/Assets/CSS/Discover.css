@@ -1,0 +1,15 @@
+.discover-container{
+    display: flex;
+    flex-direction: column;
+
+}
+
+.discover-list-header{
+    flex-grow: 1;
+    margin-top: 8%;
+}
+
+.movies-show-container{
+    padding-left:2%;
+
+}

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import NavBar from '../components/NavBar';
 import '../Assets/CSS/Register.css';
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 class Register extends Component {
     state = {
         newUser: {
@@ -9,8 +10,15 @@ class Register extends Component {
             email: '',
             password: '',
             country: ''
-        }
+        },
+        userToken: '',
+        user: {}
     };
+
+    componentDidUpdate(prevProps, prevState) {
+        console.log('user :', this.state.user);
+    }
+    
 
     handleChange = event => {
         console.log(event.target.value);
@@ -23,16 +31,12 @@ class Register extends Component {
         });
     };
 
-    handleSubmit = event => {
+    handleSubmit = async event => {
         event.preventDefault();
-        axios
-            .post('/signup', this.state.newUser)
-            .then(response => {
-                console.log(response.date);
-            })
-            .catch(error => {
-                console.log(error);
-            });
+        const createdUser = await axios.post('/signup', this.state.newUser);
+        this.setState({ userToken: createdUser.data.token });
+        this.setState({ user: createdUser.data.data.user });
+        // Redirect('/profile')
     };
     render() {
         return (

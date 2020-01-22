@@ -37,12 +37,13 @@ class SearchField extends Component {
                     value={query}
                     name="query"
                 ></input>
+                <img className="icon" src={require('../Assets/Icons/SearchIcon.svg')} />
                 <button
                     className="search-btn"
                     name="search"
                     value="search"
                     onClick={this.handleSubmit}
-                    hidden = 'true'
+                    hidden="true"
                 >
                     Search
                 </button>

@@ -7,7 +7,7 @@ class Profile extends Component {
         return (
             <div>
                 <NavBar></NavBar>
-                <div className="user-info">
+                <div className="container-fluid user-info ">
                     <img
                         className="profile-cover"
                         src={require('../Assets/Images/Profile-cover.svg')}

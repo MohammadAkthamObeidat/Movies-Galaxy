@@ -7,13 +7,14 @@ import Details from './Layouts/Details';
 import MovieShowItem from './components/MovieShowItem'
 import ActorItem from './components/ActorItem';
 import Profile from './Layouts/Profile';
+import Discover from './Layouts/Discover'
 class App extends Component {
     // App State.
     state = {};
 
     // Rendering
     render() {
-        return <Profile></Profile>
+        return <Discover></Discover>
     }
 }
 
