@@ -31,6 +31,7 @@
     height: 100%;
     padding: 15px;
     align-self: center;
+    margin-left: 1%;
 }
 
 .search-btn {
@@ -76,6 +77,9 @@
     width: 40%;
     align-self: center;
     border: none;
+}
+.show-btn:active {
+    color: #ed1c24;
 }
 
 .icon {

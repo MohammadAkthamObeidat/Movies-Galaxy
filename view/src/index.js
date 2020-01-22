@@ -11,23 +11,15 @@ import ActorItem from './components/ActorItem';
 import Profile from './Layouts/Profile';
 import Discover from './Layouts/Discover';
 import "bootstrap/dist/css/bootstrap.css";
-import {
-    
-    Switch,
-    Route,
-    Link,
-    BrowserRouter as Router
-} from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
-const routeing = (
-    <Router>
-        <div>
-            <Route exact  path="/" component={Home} />
-            <Route path="/login" component={Login} />
-            <Route path="/register" component={Register} />
-        </div>
-    </Router>
-);
 
-ReactDOM.render(routeing, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));
+// ReactDOM.render (
+//     <BrowserRouter>
+//         <App></App>
+//     </BrowserRouter>
+// );
+
+// ReactDOM.render(routeing, document.getElementById('root'));
 

@@ -1,5 +1,8 @@
-.home {
+body{
     background-image: url('../Images/Background.png');
+
+}
+.home-page {
     background-size: cover;
     font-family: 'MyFont';
 }
