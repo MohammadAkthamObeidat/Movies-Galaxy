@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="144.5" height="26" viewBox="0 0 144.5 26">
+  <g id="play-trailer-btn" transform="translate(-1460 -357)">
+    <text id="Play_Trailer" data-name="Play Trailer" transform="translate(1460 378)" fill="#fff" font-size="22" font-family="MaiandraGD-Regular, Maiandra GD"><tspan x="0" y="0">Play Trailer</tspan></text>
+    <path id="PlayTrailer" d="M11.5,0,23,20H0Z" transform="translate(1604.5 358.5) rotate(90)" fill="#fff"/>
+  </g>
+</svg>

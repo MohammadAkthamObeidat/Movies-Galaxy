@@ -5,7 +5,7 @@ import MovieShowItem from '../components/MovieShowItem'
 class Profile extends Component {
     render() {
         return (
-            <div>
+            <div className = 'profile-page'>
                 <NavBar></NavBar>
                 <div className="container-fluid user-info ">
                     <img

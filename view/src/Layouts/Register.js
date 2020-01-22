@@ -40,7 +40,7 @@ class Register extends Component {
     };
     render() {
         return (
-            <div>
+            <div className = 'register-page'>
                 <NavBar></NavBar>
                 <div className="form-container">
                     <form action="" method="post" className="reg-form">

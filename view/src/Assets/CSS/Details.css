@@ -1,3 +1,82 @@
-.details-page{
-    background-color: black;
+.details-page {
+    background-color: #131313;
+    display: flex;
+    background-size: cover;
+    flex-direction: column;
+    width: 100%;
+    justify-content: space-between;
+    color: white;
+    background-position: center;
+    background-repeat: repeat;
+    background-size: cover;
+    font-family: 'MyFont';
+}
+.top-section {
+    margin-top: 7%;
+}
+.poster-genres {
+    margin-top: 1%;
+}
+.movie-show-poster {
+    max-width: 300px;
+}
+.movie-show-title {
+    margin-left: 1%;
+}
+.btns {
+    max-width: 40px;
+    max-height: 40px;
+    margin: 1%;
+    cursor: pointer;
+}
+.overview {
+    max-width: 100%;
+}
+
+.year {
+    margin: 16px 0 0 6px;
+}
+
+.release {
+    color: #707070;
+}
+
+.trailer {
+    border: 0;
+    padding: 2px 8px;
+    cursor: pointer;
+    max-width: 100px;
+    margin-left: 60%;
+}
+.overview-released {
+    margin-top: 3%;
+}
+.release {
+    margin: 10px 0 0 60%;
+}
+.bottom-section {
+    margin-top: 5%;
+}
+.casts-header {
+    display: block;
+}
+
+.crews {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.genres {
+    max-width: 300px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+.casts{
+    display:flex;
+    flex-wrap: wrap;
+    max-width: 80%;
+    padding-bottom: 20%;
+
 }

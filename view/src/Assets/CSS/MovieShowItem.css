@@ -1,12 +1,12 @@
-
 .item-container {
+    font-family: 'MyFont';
     width: 360px;
     height: 100%;
     display: flex;
     flex-direction: column;
     background-color: #404040;
-    float:left;
-    margin:2px;
+    float: left;
+    margin: 2px;
 }
 
 .poster-title {

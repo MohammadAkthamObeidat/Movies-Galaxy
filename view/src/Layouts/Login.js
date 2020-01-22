@@ -28,7 +28,7 @@ class Login extends Component {
 
     render() {
         return (
-            <div>
+            <div className="login-page">
                 <NavBar></NavBar>
                 <div className="form-container">
                     <form method="post" className="reg-form">

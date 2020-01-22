@@ -1,15 +1,14 @@
-.discover-container{
+.discover-container {
     display: flex;
     flex-direction: column;
-
+    font-family: 'MyFont';
 }
 
-.discover-list-header{
+.discover-list-header {
     flex-grow: 1;
     margin-top: 8%;
 }
 
-.movies-show-container{
-    padding-left:2%;
-
+.movies-show-container {
+    padding-left: 2%;
 }

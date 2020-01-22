@@ -1,13 +1,24 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@font-face {
+  font-family: 'MyFont';
+  src: local('MyFont'), url('../Fonts/Maiandra GD Regular.ttf') format('truetype');
+}
+
+body,
+html {
+
+    margin: 0;
+    font-family: 'Myfont';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    height: 100%;
+    margin: 0;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+    /* font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+        monospace; */
+    font-family: 'Myfont';
+
 }
+
+

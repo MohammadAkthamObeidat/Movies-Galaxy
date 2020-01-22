@@ -14,7 +14,7 @@ class App extends Component {
 
     // Rendering
     render() {
-        return <Discover></Discover>
+        return <Details></Details>
     }
 }
 

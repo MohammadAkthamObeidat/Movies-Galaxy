@@ -1,6 +1,7 @@
-body {
+.home {
     background-image: url('../Images/Background.png');
     background-size: cover;
+    font-family: 'MyFont';
 }
 .home-main {
     display: flex;
@@ -9,13 +10,13 @@ body {
     position: absolute;
     top: 30%;
     left: 31%;
-    width:40%;
-    align-content:space-around;
-    padding:20px;
+    width: 40%;
+    align-content: space-around;
+    padding: 20px;
 }
 
 .logo-title {
-    width:50%;
+    width: 50%;
     align-self: center;
 }
 
@@ -24,8 +25,8 @@ body {
 }
 .welcome-msg {
     color: white;
-    font-size:35px;
-    margin:2%;
+    font-size: 35px;
+    margin: 2%;
     margin-top: 5%;
 }
 
@@ -33,10 +34,9 @@ body {
     color: white;
     border: 0;
     border-radius: 8px;
-    background-color: #ED1C24;
+    background-color: #ed1c24;
     width: 57%;
-    align-self:center;
-    padding:3%;
-    margin:2%;
-
+    align-self: center;
+    padding: 3%;
+    margin: 2%;
 }
