@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import '../Assets/CSS/Home.css';
 import NavBar from '../components/NavBar';
+import Register from '../Layouts/Register'
+import Login from '../Layouts/Login'
 
 class Home extends Component {
     render() {

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './Layouts/Home';
 import Register from './Layouts/Register';
 import Login from './Layouts/Login';
