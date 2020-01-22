@@ -20,6 +20,12 @@
 .movie-show-poster {
     max-width: 300px;
 }
+.movie-show-poster-overlay {
+    position: absolute;
+    max-width: 300px;
+    top: 0;
+    left: 0;
+}
 .movie-show-title {
     margin-left: 1%;
 }
@@ -73,10 +79,9 @@
     flex-wrap: wrap;
     margin-top: 15px;
 }
-.casts{
-    display:flex;
+.casts {
+    display: flex;
     flex-wrap: wrap;
     max-width: 80%;
     padding-bottom: 20%;
-
 }

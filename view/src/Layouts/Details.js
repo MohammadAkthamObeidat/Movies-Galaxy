@@ -17,6 +17,7 @@ class Details extends Component {
                             src={require('../Assets/Images/poster.svg')}
                             alt="Poster"
                         />
+                        <img src={require('../Assets/Images/big-overlay.svg')} alt="" className="movie-show-poster-overlay"/>
                         {/* <img src={require('../Assets/Images/big-overlay.svg')} alt="" className="poster-overlay"/> */}
                         <div className="row genres">
                             <GenreChip></GenreChip>
