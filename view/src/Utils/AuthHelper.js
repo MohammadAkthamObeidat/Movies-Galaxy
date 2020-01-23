@@ -12,6 +12,7 @@ export default class AuthHelperMethods {
     isTokenExpired = token => {
         try {
             const decoded = decode(token);
+            console.log('Date.now() :', Date.now());
             if (decoded.exp < Date.now() / 1000) {
                 // Checking if token is expired.
                 return true;
@@ -29,7 +30,8 @@ export default class AuthHelperMethods {
 
     getToken = () => {
         // Retrieves the user token from localStorage
-        return localStorage.getItem('id_token');
+        const token = localStorage.getItem('id_token'); 
+        return token;
     };
 
     logout = () => {
@@ -42,26 +44,6 @@ export default class AuthHelperMethods {
         let answer = decode(this.getToken());
         console.log('Recieved answer!');
         return answer;
-    };
-
-    fetch = (url, options) => {
-        // performs api calls sending the required authentication headers
-        const headers = {
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
-        };
-        // Setting Authorization header
-        // Authorization: Bearer xxxxxxx.xxxxxxxx.xxxxxx
-        if (this.loggedIn()) {
-            headers['Authorization'] = 'Bearer ' + this.getToken();
-        }
-
-        return fetch(url, {
-            headers,
-            ...options
-        })
-            .then(this._checkStatus)
-            .then(response => response.json());
     };
 
     _checkStatus = response => {

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import NavBar from '../components/NavBar';
 import '../Assets/CSS/Register.css';
 import axios from 'axios';
-import { Redirect } from 'react-router-dom';
 class Register extends Component {
     state = {
         newUser: {
@@ -42,7 +41,7 @@ class Register extends Component {
         return (
             <div className = 'register-page'>
                 <NavBar></NavBar>
-                <div className="form-container">
+                <div className="reg-form-container">
                     <form action="" method="post" className="reg-form">
                         <label className="form-label" htmlFor="name">
                             Name

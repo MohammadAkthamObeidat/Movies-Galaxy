@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import NavBar from '../components/NavBar';
 import '../Assets/CSS/Login.css';
 import axios from 'axios';
-import AuthHelper from '../Utils/AuthHelper'
+import AuthHelper from '../Utils/AuthHelper';
 import { Redirect } from 'react-router-dom';
 class Login extends Component {
     state = {
         email: '',
-        password: '',
+        password: ''
     };
 
     handleChange = event => {
@@ -23,11 +23,10 @@ class Login extends Component {
         const user = await axios.post('/login', this.state);
         const { token } = user.data;
         const Auth = new AuthHelper();
-        Auth.setToken(token)
-        Redirect('/profile');
+        Auth.setToken(token);
+        return <Redirect to="/profile" />;
     };
 
-    
     render() {
         return (
             <div className="login-page">

@@ -2,7 +2,7 @@
     font-family: 'MyFont';
 }
 
-.form-container {
+.reg-form-container {
     position: absolute;
     display: flex;
     background-color: white;
@@ -12,7 +12,7 @@
     border-radius: 25px;
     padding: 1%;
     width: 30%;
-    height: 60%;
+    height: 53%;
 }
 
 .reg-form {
@@ -44,5 +44,5 @@
 }
 
 .reg-btn:hover {
-    transform: translateY(-3px);
+    transform: translateY(-9px);
 }

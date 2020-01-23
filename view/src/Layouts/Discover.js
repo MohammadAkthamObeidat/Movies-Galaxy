@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import NavBar from '../components/NavBar';
 import '../Assets/CSS/Discover.css';
 import MovieShowItem from '../components/MovieShowItem';
-import { Link, Route } from 'react-router-dom';
 class Discover extends Component {
     render() {
         return (

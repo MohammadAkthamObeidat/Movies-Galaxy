@@ -17,7 +17,7 @@ class Details extends Component {
                             src={require('../Assets/Images/poster.svg')}
                             alt="Poster"
                         />
-                        <img src={require('../Assets/Images/big-overlay.svg')} alt="" className="movie-show-poster-overlay"/>
+                        <img src={require('../Assets/Images/big-overlay.svg')} alt="." className="movie-show-poster-overlay"/>
                         {/* <img src={require('../Assets/Images/big-overlay.svg')} alt="" className="poster-overlay"/> */}
                         <div className="row genres">
                             <GenreChip></GenreChip>
@@ -35,18 +35,19 @@ class Details extends Component {
                             <img
                                 className="btns"
                                 src={require('../Assets/Icons/Watched.svg')}
-                                alt=""
+                                alt="."
                                 srcset=""
                             />
                             <img
                                 className="btns"
                                 src={require('../Assets/Icons/WatchList.svg')}
-                                alt=""
+                                alt="."
                                 srcset=""
                             />
                             <img
                                 className="trailer"
                                 src={require('../Assets/Images/play-trailer-btn.svg')}
+                                alt='.'
                             ></img>
                         </div>
                         <div className=" row overview-released">

@@ -1,21 +1,27 @@
 import React, { Component } from 'react';
 import '../Assets/CSS/Home.css';
 import NavBar from '../components/NavBar';
-import Register from '../Layouts/Register';
-import Login from '../Layouts/Login';
 import { Route, Link } from 'react-router-dom';
 import Profile from '../Layouts/Profile';
-import AuthHelper from '../Utils/AuthHelper'
+import AuthHelper from '../Utils/AuthHelper';
 class Home extends Component {
-    state = {
-        isLoggedIn: false
-    };
-
+    constructor(props) {
+        super(props);
+        this.state = {};
+        this.isLoggedIn = false;
+        this.userID = '';
+    }
 
     componentDidMount = () => {
         const Auth = new AuthHelper();
-        if (!(Auth.isTokenExpired(Auth.getToken()))){
-            Auth.getConfirm();
+        // Auth.getConfirm();
+        // console.log('Auth.getConfirm :', Auth.getConfirm());
+        try {
+            const response = Auth.getConfirm();
+            this.isLoggedIn = true;
+            this.userID = response.id;
+        } catch (error) {
+            console.log('error :', error);
         }
     };
 
@@ -25,8 +31,8 @@ class Home extends Component {
                 path="/"
                 exact
                 render={() => {
-                    if (this.state.isLoggedIn) {
-                        return <Profile />;
+                    if (this.isLoggedIn) {
+                        return <Profile/>;
                     } else {
                         return (
                             <div className="home-page">

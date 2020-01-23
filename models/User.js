@@ -89,8 +89,6 @@ const User = new mongoose.model('User', userSchema);
 // Get one user.
 // eslint-disable-next-line no-unused-vars
 const getUser = (email, password) => {
-    console.log('email :', email);
-    console.log('password :', password);
     return User.findOne({ email }).select('+password');
 };
 
