@@ -5,27 +5,33 @@ import MovieShowItem from '../components/MovieShowItem';
 import axios from 'axios';
 import AuthHelper from '../Utils/AuthHelper';
 class Profile extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
-            user:{}
-        }
+            user: {}
+        };
         this.userID = '';
     }
-    
 
     componentDidMount = () => {
-        const Auth = new AuthHelper;
+        const Auth = new AuthHelper();
         const response = Auth.getConfirm();
-        const userID = response.id;
-
-        axios.get().then().catch(error => {console.log('error', error)});
-    }
+        console.log('response :', response);
+        this.userID = response.id;
+        console.log('userID :', this.userID);
+        axios
+            .get(`/get-user/${this.userID}`)
+            .then(response => {
+                console.log('RESPONSE :', response);
+            })
+            .catch(error => {
+                console.log('error', error);
+            });
+    };
 
     render() {
         return (
-            <div className = 'profile-page'>
+            <div className="profile-page">
                 <NavBar></NavBar>
                 <div className="container-fluid user-info ">
                     <img

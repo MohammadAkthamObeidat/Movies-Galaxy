@@ -31,7 +31,7 @@ class Home extends Component {
                 path="/"
                 exact
                 render={() => {
-                    if (this.isLoggedIn) {
+                    if (!this.isLoggedIn) {
                         return <Profile/>;
                     } else {
                         return (

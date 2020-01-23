@@ -97,6 +97,17 @@ const getCurrentUser = id => {
     return User.findById(id);
 };
 
+const getUserById = (id, callback) => {
+    console.log('id from user model :', id);
+    User.findById({ _id: id }, (error, data) => {
+        if (error) {
+            callback(error);
+        } else {
+            callback(data);
+        }
+    });
+};
+
 // Add new user to database.
 const addUser = (newUser, callback) => {
     User.create(newUser, (error, data) => {
@@ -297,6 +308,7 @@ module.exports = {
     getUser,
     getCurrentUser,
     addUser,
+    getUserById,
     addMovieToWatchList,
     deleteMovieFromWatchList,
     addMovieToWatchedList,

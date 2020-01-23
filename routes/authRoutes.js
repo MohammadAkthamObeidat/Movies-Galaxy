@@ -9,6 +9,9 @@ router.route('/').get(authController.homePage);
 // @GET
 // Return one user data.
 router.route('/login').post(authController.login);
+// @GET
+// Return one user data.
+router.route('/get-user/:ID').post(authController.getUserById);
 // @POST
 // Add new user.
 router.route('/signup').post(authController.signUp);

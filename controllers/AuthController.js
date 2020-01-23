@@ -42,6 +42,18 @@ const login = catchAsync(async (req, res, next) => {
     });
 });
 
+// Get User By His ID.
+const getUserById = (req, res, next) => {
+    const { ID } = req.params;
+    console.log('ID FROM GET USER BY ID :', ID);
+    user.getUserById(ID, result => {
+        res.status(200).json({
+            status: 'Success Getting User Info.',
+            user: result
+        });
+    });
+};
+
 // Signing in process.
 const signUp = (req, res, next) => {
     const { name, email, password, country } = req.body;
@@ -127,6 +139,7 @@ const protectRoutes = catchAsync(async (req, res, next) => {
 module.exports = {
     homePage,
     login,
+    getUserById,
     signUp,
     logout,
     protectRoutes
