@@ -5,12 +5,19 @@ import Register from '../Layouts/Register';
 import Login from '../Layouts/Login';
 import { Route, Link } from 'react-router-dom';
 import Profile from '../Layouts/Profile';
+import AuthHelper from '../Utils/AuthHelper'
 class Home extends Component {
     state = {
-        auth: false
+        isLoggedIn: false
     };
 
-    componentDidMount = () => {};
+
+    componentDidMount = () => {
+        const Auth = new AuthHelper();
+        if (!(Auth.isTokenExpired(Auth.getToken()))){
+            Auth.getConfirm();
+        }
+    };
 
     render() {
         return (
@@ -18,7 +25,7 @@ class Home extends Component {
                 path="/"
                 exact
                 render={() => {
-                    if (this.state.auth) {
+                    if (this.state.isLoggedIn) {
                         return <Profile />;
                     } else {
                         return (
@@ -35,7 +42,7 @@ class Home extends Component {
                                         Discover, Organize & Stay Updated.
                                     </p>
                                     <button className="join-btn">
-                                        <Link to = '/register'>
+                                        <Link to="/register">
                                             JOIN MOIVES GALAXY IT'S FREE
                                         </Link>
                                     </button>

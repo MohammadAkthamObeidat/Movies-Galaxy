@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import NavBar from '../components/NavBar';
 import '../Assets/CSS/Login.css';
 import axios from 'axios';
+import AuthHelper from '../Utils/AuthHelper'
+import { Redirect } from 'react-router-dom';
 class Login extends Component {
     state = {
         email: '',
         password: '',
-        loggedUserToken: ''
     };
 
     handleChange = event => {
@@ -20,12 +21,13 @@ class Login extends Component {
     handleSubmit = async event => {
         event.preventDefault();
         const user = await axios.post('/login', this.state);
-        console.log('user :', user);
         const { token } = user.data;
-        console.log('token :', token);
-        this.setState({ loggedUserToken: token });
+        const Auth = new AuthHelper();
+        Auth.setToken(token)
+        Redirect('/profile');
     };
 
+    
     render() {
         return (
             <div className="login-page">

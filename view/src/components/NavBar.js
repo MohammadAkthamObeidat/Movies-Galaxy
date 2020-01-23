@@ -3,6 +3,7 @@ import '../Assets/CSS/Nav.css';
 import SearchField from '../components/SearchField';
 import MoviesButton from '../components/MoviesButton';
 import TvShowButton from '../components/TvShowButton';
+import {Link} from 'react-router-dom'
 const NavBar = () => {
     return (
         <nav className="nav-bar">
@@ -16,7 +17,9 @@ const NavBar = () => {
                 />
                 <TvShowButton></TvShowButton>
             </div>
-            <input type="button" className="login-btn" value="Login"></input>
+            <button type="button" className="login-btn" value="Login">
+                <Link to ='/login'>Login</Link>
+            </button>
         </nav>
     );
 };
