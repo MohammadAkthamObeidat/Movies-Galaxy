@@ -3,7 +3,7 @@ import NavBar from '../components/NavBar';
 import '../Assets/CSS/Login.css';
 import axios from 'axios';
 import AuthHelper from '../Utils/AuthHelper';
-import { Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 class Login extends Component {
     state = {
         email: '',
@@ -24,7 +24,6 @@ class Login extends Component {
         const { token } = user.data;
         const Auth = new AuthHelper();
         Auth.setToken(token);
-        return <Redirect to="/profile" />;
     };
 
     render() {

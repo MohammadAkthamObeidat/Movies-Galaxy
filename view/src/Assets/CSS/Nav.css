@@ -63,6 +63,7 @@
     border: none;
 }
 
+
 .movies-btn {
     background-color: rgba(0, 0, 0, 0);
     color: white;
@@ -89,3 +90,5 @@
     top: 33%;
     min-width: 22px;
 }
+
+

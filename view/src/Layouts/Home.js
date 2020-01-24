@@ -7,19 +7,22 @@ import AuthHelper from '../Utils/AuthHelper';
 class Home extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
-        this.isLoggedIn = false;
-        this.userID = '';
+        this.state = {
+            isLoggedIn: false,
+            userID: ''
+        };
     }
 
     componentDidMount = () => {
         const Auth = new AuthHelper();
-        // Auth.getConfirm();
-        // console.log('Auth.getConfirm :', Auth.getConfirm());
         try {
             const response = Auth.getConfirm();
-            this.isLoggedIn = true;
-            this.userID = response.id;
+            if (response.id.length > 0) {
+                this.setState({
+                    isLoggedIn: true,
+                    userID: response.id
+                });
+            }
         } catch (error) {
             console.log('error :', error);
         }
@@ -31,8 +34,8 @@ class Home extends Component {
                 path="/"
                 exact
                 render={() => {
-                    if (!this.isLoggedIn) {
-                        return <Profile/>;
+                    if (this.state.isLoggedIn) {
+                        return <Profile />;
                     } else {
                         return (
                             <div className="home-page">
@@ -48,8 +51,8 @@ class Home extends Component {
                                         Discover, Organize & Stay Updated.
                                     </p>
                                     <button className="join-btn">
-                                        <Link to="/register">
-                                            JOIN MOIVES GALAXY IT'S FREE
+                                        <Link to="/register" className = 'link-behaviour' >
+                                            JOIN MOVIES GALAXY IT'S FREE
                                         </Link>
                                     </button>
                                 </div>

@@ -11,18 +11,22 @@
 .avatar {
     border-radius: 50%;
     width: 10%;
-    margin-top: -30%;
-    margin-left: 45%;
+    background-color: rgb(182, 182, 182);
+    padding:1%;
+    position: absolute;
+    top: 15%;
+    left: 45%;
 }
 .user-name {
     display: inline;
     text-align: center;
-    position: absolute;
-    top: 43%;
     color: #fff;
-    left: 45%;
+    position: absolute;
+    top: 36%;
+    left: 38%;
 }
 .profile-cover {
+    position: relative;
     width: 100%;
     height: 2%;
 }
@@ -53,8 +57,26 @@
     display: inline;
     align-self: center;
     margin: 0 auto;
+    cursor: pointer;
+}
+
+.select-input{
+    margin-top: -10px;
+    border-radius: 10px;
+    padding: 5px;
+    color: #ed1c24;
+    border : solid 1px #ed1c24;
+}
+
+.header-btns:hover{
+    color: #ed1c24;
 }
 
 .lists {
     padding-left: 2%;
+}
+
+.empty{
+    margin: 10% 0 10% 0 ;
+    max-width: 30%;
 }

@@ -10,67 +10,146 @@ class Profile extends Component {
         this.state = {
             user: {}
         };
+        this.whatList = 'watchlist';
         this.userID = '';
+        this.selectValue = 'movies';
     }
 
-    componentDidMount = () => {
+    componentDidMount = async () => {
         const Auth = new AuthHelper();
         const response = Auth.getConfirm();
-        console.log('response :', response);
         this.userID = response.id;
-        console.log('userID :', this.userID);
         axios
-            .get(`/get-user/${this.userID}`)
+            .post(`/get-user/${this.userID}`)
             .then(response => {
-                console.log('RESPONSE :', response);
+                console.log('RESPONSE :', response.data.user);
+                this.setState({ ...this.state.user, user: response.data.user });
             })
             .catch(error => {
                 console.log('error', error);
             });
     };
 
+    handleWatchlistClick = event => {
+        return (this.whatList = 'watchlist');
+    };
+
+    handleWatchedlistClick = event => {
+        return (this.whatList = 'watchedlist');
+    };
+
+    handleSelectChange = event => {
+        this.selectValue = event.target.value;
+    };
+
     render() {
-        return (
+        console.log('THIS.STATE.USER :', this.state.user);
+        // Check if the object that holds user info is empty or not
+        return Object.entries(this.state.user).length > 0 ? (
             <div className="profile-page">
-                <NavBar></NavBar>
-                <div className="container-fluid user-info ">
+                <NavBar className="row"></NavBar>
+                <div className="user-info">
                     <img
                         className="profile-cover"
                         src={require('../Assets/Images/Profile-cover.svg')}
                         alt="cover"
                     />
                     <img
-                        src={require('../Assets/Images/actor.svg')}
+                        src={require('../Assets/Images/user.svg')}
                         alt=""
-                        className="avatar"
+                        className=" avatar"
                     />
-                    <h3 className="user-name">Mohammad</h3>
+                    <h3 className="user-name">{this.state.user.name}</h3>
                 </div>
-                <hr className="line" />
-                <div className="header-tabs">
-                    <button className="header-btns">Watch List</button>
-                    <div className="ver-line"></div>
-                    <button className="header-btns">Watched</button>
+                <div className="header">
+                    <hr className="line" />
+                    <div className="header-tabs">
+                        <li
+                            onClick={this.handleWatchlistClick}
+                            className="header-btns"
+                        >
+                            Watch List
+                        </li>
+                        <div className="ver-line"></div>
+                        <li
+                            onClick={this.handleWatchedlistClick}
+                            className="header-btns"
+                        >
+                            Watched List
+                        </li>
+                    </div>
+                    <hr className="line" />
+                    <center>
+                        <select
+                            className="select-input"
+                            value={this.selectValue}
+                            onChange={this.handleSelectChange}
+                        >
+                            <option selected value="Movies">
+                                Movies
+                            </option>
+                            <option value="TvShows">TvShows</option>
+                        </select>
+                    </center>
                 </div>
-                <hr className="line" />
-                <div className="lists">
-                    <MovieShowItem></MovieShowItem>
-                    <MovieShowItem></MovieShowItem>
-                    <MovieShowItem></MovieShowItem>
-                    <MovieShowItem></MovieShowItem>
-                    <MovieShowItem></MovieShowItem>
-                    <MovieShowItem></MovieShowItem>
-                    <MovieShowItem></MovieShowItem>
-                    <MovieShowItem></MovieShowItem>
-                    <MovieShowItem></MovieShowItem>
-                    <MovieShowItem></MovieShowItem>
-                    <MovieShowItem></MovieShowItem>
-                    <MovieShowItem></MovieShowItem>
-                    <MovieShowItem></MovieShowItem>
-                    <MovieShowItem></MovieShowItem>
-                </div>
+                {this.state.user.movies_list.watch_list.length === 0 ? (
+                    <center>
+                        <img
+                            className="empty"
+                            src={require('../Assets/Images/Empty.svg')}
+                            alt="empty list"
+                        />
+                    </center>
+                ) : (
+                    <div className="lists">
+                        {this.state.user.movies_list.watch_list.length > 0 &&
+                        this.whatList === 'watchlist' &&
+                        this.selectValue === 'movies' ? (
+                            this.state.user.movies_list.watch_list.map(
+                                movie => {
+                                    return <MovieShowItem />;
+                                }
+                            )
+                        ) : this.state.user.movies_list.watched_list.length >
+                              0 &&
+                          this.whatList === 'watchedlist' &&
+                          this.selectValue === 'movies' ? (
+                            this.state.user.movies_list.watched_list.map(
+                                movie => {
+                                    return <MovieShowItem />;
+                                }
+                            )
+                        ) : this.state.user.shows_list.watch_list.length > 0 &&
+                          this.whatList === 'watchlist' &&
+                          this.selectValue === 'TvShows' ? (
+                            this.state.user.shows_list.watch_list.map(show => {
+                                return <MovieShowItem />;
+                            })
+                        ) : this.state.user.shows_list.watched_list.length >
+                              0 &&
+                          this.whatList === 'watchedlist' &&
+                          this.selectValue === 'TvShows' ? (
+                            this.state.user.shows_list.watched_list.map(
+                                show => {
+                                    return <MovieShowItem />;
+                                }
+                            )
+                        ) : (
+                            <center>
+                                <img
+                                    className="empty"
+                                    src={require('../Assets/Images/Empty.svg')}
+                                    alt="empty list"
+                                />
+                            </center>
+                        )}
+                    </div>
+                )}
             </div>
+        ) : (
+            ''
         );
     }
 }
+
 export default Profile;

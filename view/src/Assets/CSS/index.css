@@ -21,4 +21,13 @@ code {
 
 }
 
+.link-behaviour{
+    color:white;
+}
+
+.link-behaviour:hover{
+    color:#ed1c24;
+    text-decoration: none;
+}
+
 
