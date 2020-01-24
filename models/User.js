@@ -98,7 +98,6 @@ const getCurrentUser = id => {
 };
 
 const getUserById = (id, callback) => {
-    console.log('id from user model :', id);
     User.findById({ _id: id }, (error, data) => {
         if (error) {
             callback(error);
