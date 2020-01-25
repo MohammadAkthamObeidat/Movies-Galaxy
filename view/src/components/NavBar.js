@@ -47,23 +47,12 @@ class NavBar extends Component {
                     />
                     <TvShowButton></TvShowButton>
                 </div>
-                {this.isLoggedIn ? (
                     <li type = 'none'  className="login-btn" >
                         <Link className="link-behaviour" to="/login">
                             Login
                         </Link>
                     </li>
-                ) : (
-                    <li type = 'none' className="login-btn" >
-                        <Link
-                            onClick={this.logout}
-                            className="link-behaviour"
-                            to="/"
-                        >
-                            Logout
-                        </Link>
-                    </li>
-                )}
+
             </nav>
         );
     }
