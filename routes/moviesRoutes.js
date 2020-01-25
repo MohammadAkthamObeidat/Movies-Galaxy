@@ -3,10 +3,6 @@ const express = require('express');
 const router = express.Router();
 const moviesController = require('../controllers/MoviesController');
 
-// router.param('movieID', (req, res, next, value) => {
-//     console.log('The Movie ID = ' + value);
-//     next();
-// })
 // @METHOD GET
 // Return popular movies .
 router.get('/popular', moviesController.getPopularMovies);

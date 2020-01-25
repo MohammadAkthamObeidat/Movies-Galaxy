@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import '../Assets/CSS/Details.css';
-import NavBar from '../components/NavBar';
 import GenreChip from '../components/GenreChip';
 import ActorItem from '../components/ActorItem';
 import CrewItem from '../components/CrewItem';

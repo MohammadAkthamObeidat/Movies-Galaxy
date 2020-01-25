@@ -1,14 +1,54 @@
 import React, { Component } from 'react';
-import NavBar from '../components/NavBar';
 import '../Assets/CSS/Discover.css';
 import MovieShowItem from '../components/MovieShowItem';
 import axios from 'axios';
 class Discover extends Component {
+    state = {
+        movies: {
+            popular: [],
+            trending: []
+        },
+        shows: {
+            popular: [],
+            trending: []
+        }
+    };
     componentDidMount = () => {
         axios
-            .get()
-            .then()
-            .catch();
+            .get('/movies/popular')
+            .then(response => {
+                console.log(' POPULAR MOVIES RESPONSE :', response.data);
+            })
+            .catch(error => {
+                console.log('error :', error);
+            });
+
+        axios
+            .get('/movies/trending')
+            .then(response => {
+                console.log(' TRENDING MOVIES RESPONSE :', response.data);
+            })
+            .catch(error => {
+                console.log('error :', error);
+            });
+
+        axios
+            .get('/shows/popular')
+            .then(response => {
+                console.log(' POPULAR SHOWS RESPONSE :', response.data);
+            })
+            .catch(error => {
+                console.log('error :', error);
+            });
+
+        axios
+            .get('/shows/trending')
+            .then(response => {
+                console.log(' POPULAR SHOWS RESPONSE :', response.data);
+            })
+            .catch(error => {
+                console.log('error :', error);
+            });
     };
 
     render() {

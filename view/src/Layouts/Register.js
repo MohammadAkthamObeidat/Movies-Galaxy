@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import NavBar from '../components/NavBar';
 import '../Assets/CSS/Register.css';
 import axios from 'axios';
 import AuthHelper from '../Utils/AuthHelper';

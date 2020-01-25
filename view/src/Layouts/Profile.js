@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import NavBar from '../components/NavBar';
 import '../Assets/CSS/Profile.css';
 import MovieShowItem from '../components/MovieShowItem';
 import axios from 'axios';
@@ -84,7 +83,7 @@ class Profile extends Component {
                             value={this.selectValue}
                             onChange={this.handleSelectChange}
                         >
-                            <option selected value="Movies">
+                            <option value="Movies">
                                 Movies
                             </option>
                             <option value="TvShows">TvShows</option>

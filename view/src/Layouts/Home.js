@@ -12,7 +12,7 @@ class Home extends Component {
                 render={() => {
                     if (this.props.isAuthed === true) {
                         return (
-                            <Profile loggedInStatus={this.state.isLoggedIn} />
+                            <Profile  />
                         );
                     } else {
                         return (
