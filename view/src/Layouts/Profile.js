@@ -47,7 +47,6 @@ class Profile extends Component {
         // Check if the object that holds user info is empty or not
         return Object.entries(this.state.user).length > 0 ? (
             <div className="profile-page">
-                <NavBar className="row"></NavBar>
                 <div className="user-info">
                     <img
                         className="profile-cover"

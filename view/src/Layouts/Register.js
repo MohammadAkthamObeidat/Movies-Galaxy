@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import NavBar from '../components/NavBar';
 import '../Assets/CSS/Register.css';
 import axios from 'axios';
+import AuthHelper from '../Utils/AuthHelper';
 class Register extends Component {
     state = {
         newUser: {
@@ -10,7 +11,6 @@ class Register extends Component {
             password: '',
             country: ''
         },
-        userToken: '',
         user: {}
     };
 
@@ -32,15 +32,16 @@ class Register extends Component {
 
     handleSubmit = async event => {
         event.preventDefault();
+        const Auth = new AuthHelper();
         const createdUser = await axios.post('/signup', this.state.newUser);
-        this.setState({ userToken: createdUser.data.token });
+        Auth.logout();
+        Auth.setToken(createdUser.data.token);
         this.setState({ user: createdUser.data.data.user });
-        // Redirect('/profile')
+        this.props.history.push('/profile')
     };
     render() {
         return (
             <div className = 'register-page'>
-                <NavBar></NavBar>
                 <div className="reg-form-container">
                     <form action="" method="post" className="reg-form">
                         <label className="form-label" htmlFor="name">

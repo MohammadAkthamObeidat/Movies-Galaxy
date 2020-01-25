@@ -3,7 +3,6 @@ import NavBar from '../components/NavBar';
 import '../Assets/CSS/Login.css';
 import axios from 'axios';
 import AuthHelper from '../Utils/AuthHelper';
-import { Link } from 'react-router-dom';
 class Login extends Component {
     state = {
         email: '',
@@ -21,15 +20,17 @@ class Login extends Component {
     handleSubmit = async event => {
         event.preventDefault();
         const user = await axios.post('/login', this.state);
+        console.log('user :', user);
         const { token } = user.data;
+        console.log('token :', token);
         const Auth = new AuthHelper();
         Auth.setToken(token);
+        this.props.history.push('/profile');
     };
 
     render() {
         return (
             <div className="login-page">
-                <NavBar></NavBar>
                 <div className="form-container">
                     <form method="post" className="reg-form">
                         <label className="form-label" htmlFor="email">

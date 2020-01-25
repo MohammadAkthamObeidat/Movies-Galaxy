@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import '../Assets/CSS/Nav.css';
 import SearchField from '../components/SearchField';
-import MoviesButton from '../components/MoviesButton';
-import TvShowButton from '../components/TvShowButton';
 import { Link } from 'react-router-dom';
 import AuthHelper from '../Utils/AuthHelper';
+
+
 class NavBar extends Component {
     constructor(props) {
         super(props);
@@ -14,45 +14,52 @@ class NavBar extends Component {
         };
     }
 
-    componentDidMount = () => {
+    logout = event => {
+        event.preventDefault();
         const Auth = new AuthHelper();
-        try {
-            const response = Auth.getConfirm();
-            if (response.id.length > 0) {
-                this.setState({
-                    isLoggedIn: true,
-                    userID: response.id
-                });
-            }
-        } catch (error) {
-            console.log('error :', error);
+        if(Auth.logout()){
+            this.props.history.push('/')
         }
     };
 
-    logout = () => {
-        const Auth = new AuthHelper();
-        Auth.logout()
-    }
+    
 
     render() {
+        console.log('this.props :', this.props);
         return (
             <nav className="nav-bar">
                 <SearchField></SearchField>
                 <div className="btns-logo">
-                    <MoviesButton></MoviesButton>
+                    <li type="none" className="login-btn">
+                        <Link className="link-behaviour" to="/discover">
+                            Movies
+                        </Link>
+                    </li>
                     <img
                         className="logo"
                         src={require('../Assets/Icons/Logo.svg')}
                         alt=""
                     />
-                    <TvShowButton></TvShowButton>
+                    <li type="none" className="login-btn">
+                        <Link className="link-behaviour" to="/discover">
+                            TvShows
+                        </Link>
+                    </li>
                 </div>
-                    <li type = 'none'  className="login-btn" >
+                {this.props.loggedInStatus === false ? (
+                    <li type="none" className="login-btn">
                         <Link className="link-behaviour" to="/login">
                             Login
                         </Link>
                     </li>
-
+                ) : (
+                    <li onClick={this.logout} type="none" className="login-btn">
+                        <Link className="link-behaviour" to="/">
+                            Logout
+                        </Link>
+                    </li>
+                )}
+                
             </nav>
         );
     }

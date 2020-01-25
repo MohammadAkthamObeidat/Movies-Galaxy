@@ -8,7 +8,6 @@ class Details extends Component {
     render() {
         return (
             <div className=" details-page">
-                <NavBar></NavBar>
                 <div className="row top-section">
                     <div className="col-1"></div>
                     <div className=" col-3 poster-genres">
