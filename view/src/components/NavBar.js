@@ -23,10 +23,7 @@ class NavBar extends Component {
             <nav className="nav-bar">
                 <SearchField></SearchField>
                 <div className="btns-logo">
-                    <li
-                        type="none"
-                        className="login-btn"
-                    >
+                    <li type="none" className="login-btn">
                         <Link
                             to={{
                                 pathname: '/discover/movies'
@@ -41,10 +38,7 @@ class NavBar extends Component {
                         src={require('../Assets/Icons/Logo.svg')}
                         alt=""
                     />
-                    <li
-                        type="none"
-                        className="login-btn"
-                    >
+                    <li type="none" className="login-btn">
                         <Link
                             className="link-behaviour"
                             to={{
@@ -62,13 +56,21 @@ class NavBar extends Component {
                         </Link>
                     </li>
                 ) : (
-                    <Link
-                        onClick={this.logout}
-                        className=" login-btn link-behaviour"
-                        to="/"
-                    >
-                        Logout
-                    </Link>
+                    <div className="login-btn">
+                        <Link
+                            to="/profile"
+                            className=" login-btn link-behaviour"
+                        >
+                            Profile
+                        </Link>
+                        <Link
+                            to="/"
+                            onClick={this.logout}
+                            className=" login-btn link-behaviour"
+                        >
+                            Logout
+                        </Link>
+                    </div>
                 )}
             </nav>
         ) : (

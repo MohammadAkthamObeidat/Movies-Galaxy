@@ -10,6 +10,17 @@
     z-index: 2;
 }
 
+.select-input{
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+    color: white;
+    max-height: 40px;
+    margin-top: 10px;
+}
+.option{
+    color: black;
+}
+
 .nav-bar-fixed-top.scrolled {
     background-color: #000 !important;
     transition: background-color 200ms linear;
@@ -61,6 +72,7 @@
     width: 10%;
     align-self: center;
     border: none;
+    margin: 0px 20px;
 }
 
 
