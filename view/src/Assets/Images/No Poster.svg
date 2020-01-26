@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="596" height="327" viewBox="0 0 596 327">
+  <g id="No_Poster" data-name="No Poster" transform="translate(-401 -288)">
+    <rect id="Rectangle_31" data-name="Rectangle 31" width="596" height="327" transform="translate(401 288)" fill="#a6a6a6"/>
+    <text id="No_Poster_Available" data-name="No Poster Available" transform="translate(523 436)" fill="#fff" font-size="41" font-family="MaiandraGD-Regular, Maiandra GD"><tspan x="0" y="0">No Poster Available</tspan></text>
+    <g id="Ellipse_21" data-name="Ellipse 21" transform="translate(665 457)" fill="none" stroke="#fff" stroke-width="3">
+      <circle cx="34.5" cy="34.5" r="34.5" stroke="none"/>
+      <circle cx="34.5" cy="34.5" r="33" fill="none"/>
+    </g>
+    <line id="Line_13" data-name="Line 13" x1="68" y2="68" transform="translate(666.5 457.5)" fill="none" stroke="#fff" stroke-width="3"/>
+  </g>
+</svg>

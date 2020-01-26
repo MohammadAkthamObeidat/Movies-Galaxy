@@ -4,7 +4,8 @@ import Register from './Layouts/Register';
 import Login from './Layouts/Login';
 import Details from './Layouts/Details';
 import Profile from './Layouts/Profile';
-import Discover from './Layouts/Discover';
+import DiscoverMovies from './Layouts/DiscoverMovies'
+import DiscoverShows from './Layouts/DiscoverShows'
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import AuthHelper from './Utils/AuthHelper';
@@ -53,9 +54,10 @@ class App extends Component {
                     <Switch>
                         <Route path="/register" component={Register} />
                         <Route path="/login" component={Login} />
-                        <Route path="/details" component={Details} />
+                        <Route path="/details/:id" component={Details} />
                         <Route path="/profile" component={Profile} />
-                        <Route path="/discover" component={Discover} />
+                        <Route path="/discover/movies" component={DiscoverMovies} />
+                        <Route path="/discover/shows" component={DiscoverShows} />
                         <Route
                             path="/"
                             exact

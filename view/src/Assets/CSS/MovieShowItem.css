@@ -7,6 +7,7 @@
     background-color: #404040;
     float: left;
     margin: 2px;
+    cursor: pointer;
 }
 
 .poster-title {

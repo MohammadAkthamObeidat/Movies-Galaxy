@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../Assets/CSS/Profile.css';
-import MovieShowItem from '../components/MovieShowItem';
+import MovieItem from '../components/MovieItem';
 import axios from 'axios';
 import AuthHelper from '../Utils/AuthHelper';
 class Profile extends Component {
@@ -100,12 +100,13 @@ class Profile extends Component {
                     </center>
                 ) : (
                     <div className="lists">
-                        {this.state.user.movies_list.watch_list.length > 0 &&
+                        {
+                        this.state.user.movies_list.watch_list.length > 0 &&
                         this.whatList === 'watchlist' &&
                         this.selectValue === 'movies' ? (
                             this.state.user.movies_list.watch_list.map(
                                 movie => {
-                                    return <MovieShowItem />;
+                                    return <MovieItem />;
                                 }
                             )
                         ) : this.state.user.movies_list.watched_list.length >
@@ -114,14 +115,14 @@ class Profile extends Component {
                           this.selectValue === 'movies' ? (
                             this.state.user.movies_list.watched_list.map(
                                 movie => {
-                                    return <MovieShowItem />;
+                                    return <MovieItem />;
                                 }
                             )
                         ) : this.state.user.shows_list.watch_list.length > 0 &&
                           this.whatList === 'watchlist' &&
                           this.selectValue === 'TvShows' ? (
                             this.state.user.shows_list.watch_list.map(show => {
-                                return <MovieShowItem />;
+                                return <MovieItem />;
                             })
                         ) : this.state.user.shows_list.watched_list.length >
                               0 &&
@@ -129,7 +130,7 @@ class Profile extends Component {
                           this.selectValue === 'TvShows' ? (
                             this.state.user.shows_list.watched_list.map(
                                 show => {
-                                    return <MovieShowItem />;
+                                    return <MovieItem />;
                                 }
                             )
                         ) : (
@@ -140,7 +141,8 @@ class Profile extends Component {
                                     alt="empty list"
                                 />
                             </center>
-                        )}
+                        )
+                        }
                     </div>
                 )}
             </div>
