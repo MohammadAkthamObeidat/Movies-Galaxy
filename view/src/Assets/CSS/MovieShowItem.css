@@ -55,7 +55,9 @@
     display: flex;
     align-self: flex-start;
 }
-
+.watchlist-btn{
+    margin: 3%;
+}
 
 .watchlist-btn:hover{
      transform: scale(1.3);
