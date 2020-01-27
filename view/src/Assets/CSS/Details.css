@@ -36,6 +36,10 @@
     margin: 1%;
     cursor: pointer;
 }
+
+.btns:hover{
+     transform: scale(1.3);
+}
 .overview {
     max-width: 100%;
 }
@@ -85,4 +89,8 @@
     flex-wrap: wrap;
     max-width: 80%;
     padding-bottom: 20%;
+}
+
+.no-crew{
+    color:white;
 }

@@ -69,33 +69,23 @@ class DiscoverMovies extends Component {
                     {popularity === 'popular'
                         ? popularMovies.map(movie => {
                               return (
-                                  <Link
-                                      to={'/details/' + movie.id}
-                                      key={movie.id}
-                                  >
-                                      <MovieItem
-                                          movie={movie}
-                                          clicked={() =>
-                                              this.handleItemClick(movie.id)
-                                          }
-                                      />
-                                  </Link>
+                                  <MovieItem
+                                      movie={movie}
+                                      clicked={() =>
+                                          this.handleItemClick(movie.id)
+                                      }
+                                  />
                               );
                           })
                         : popularity === 'trending'
                         ? trendingMovies.map(movie => {
                               return (
-                                  <Link
-                                      to={'/details/' + movie.id}
-                                      key={movie.id}
-                                  >
-                                      <MovieItem
-                                          movie={movie}
-                                          clicked={() =>
-                                              this.handleItemClick(movie.id)
-                                          }
-                                      />
-                                  </Link>
+                                  <MovieItem
+                                      movie={movie}
+                                      clicked={() =>
+                                          this.handleItemClick(movie.id)
+                                      }
+                                  />
                               );
                           })
                         : ''}

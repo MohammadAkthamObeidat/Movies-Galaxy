@@ -7,7 +7,6 @@
     background-color: #404040;
     float: left;
     margin: 2px;
-    cursor: pointer;
 }
 
 .poster-title {
@@ -26,6 +25,9 @@
     height: 198px;
     top: 0;
     left: 0;
+}
+.poster-title:hover {
+  transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
 }
 .movie-title {
     position: absolute;
@@ -53,10 +55,14 @@
     display: flex;
     align-self: flex-start;
 }
-.watchlist-btn {
+
+
+.watchlist-btn:hover{
+     transform: scale(1.3);
 }
 
-.watched-btn {
+.watched-btn:hover{
+     transform: scale(1.3);
 }
 
 .rate {

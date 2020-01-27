@@ -46,7 +46,7 @@ const getTrendingMovies = (req, res, next) => {
     const params = {
         api_key: API_KEY,
         language: 'en-US',
-        sort_by: 'release_date.desc',
+        sort_by: 'revenue.desc',
         include_adult: false,
         include_video: false
     };

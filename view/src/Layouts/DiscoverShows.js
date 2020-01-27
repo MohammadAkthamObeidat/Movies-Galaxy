@@ -14,6 +14,7 @@ class DiscoverShows extends Component {
     //Fetch Trending Shows.
     getTrendingShows = async event => {
         const trendingShowsResponse = await axios.get('/shows/trending');
+        console.log('trendingShowsResponse :', trendingShowsResponse);
         this.setState({
             trendingShows: trendingShowsResponse.data.data.trendingShows,
             popularity: 'trending'
@@ -48,7 +49,7 @@ class DiscoverShows extends Component {
                             to={{
                                 pathname: '/discover/shows/trending'
                             }}
-                            onClick={this.getTrendingMovies}
+                            onClick={this.getTrendingShows}
                             className="header-btns"
                         >
                             Trending
@@ -71,7 +72,7 @@ class DiscoverShows extends Component {
                         ? popularShows.map(show => {
                               return (
                                   <Link
-                                      to={'/details/' + show.id}
+                                      to={'/show-details/' + show.id}
                                       key={show.id}
                                   >
                                       <ShowItem
@@ -86,17 +87,13 @@ class DiscoverShows extends Component {
                         : popularity === 'trending'
                         ? trendingShows.map(show => {
                               return (
-                                  <Link
-                                      to={'/details/' + show.id}
-                                      key={show.id}
-                                  >
+                                  
                                       <ShowItem
                                           show={show}
                                           clicked={() =>
                                               this.handleItemClick(show.id)
                                           }
                                       />
-                                  </Link>
                               );
                           })
                         : ''}

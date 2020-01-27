@@ -8,7 +8,7 @@ class ActorItem extends Component {
                 <div className="actor-container">
                     <img
                         className="actor-img"
-                        src={require('../Assets/Images/actor.svg')}
+                        src={require('../Assets/Images/user.svg')}
                         alt=""
                     />
                     <div className="names">

@@ -5,7 +5,7 @@ import ActorItem from '../components/ActorItem';
 import CrewItem from '../components/CrewItem';
 import axios from 'axios';
 import ModalVideo from 'react-modal-video'
-import '../Assets/CSS/Modal.scss'
+import '../Assets/CSS/Modal.css'
 class Details extends Component {
 
         state = {
@@ -165,6 +165,7 @@ class Details extends Component {
                                 )}
                             <img
                                 onClick={() => {
+                                    console.log('loadedVideos.key', loadedVideos.key)
                                     this.setState({ isOpen: true });
                                 }}
                                 className="trailer"

@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="57" height="60" viewBox="0 0 57 60">
   <g id="WatchList-Seq" transform="translate(0.352 0.011)">
-    <rect id="Rectangle_20" data-name="Rectangle 20" width="57" height="60" transform="translate(-0.352 -0.011)" fill="#404040"/>
+    <rect id="Rectangle_20" data-name="Rectangle 20" width="57" height="60" transform="translate(-0.352 -0.011)" fill="rgba(64,64,64,0)"/>
     <g id="list" transform="translate(11.311 13.97)">
       <g id="Group_54" data-name="Group 54" transform="translate(0 0)">
         <circle id="Ellipse_16" data-name="Ellipse 16" cx="3.855" cy="3.855" r="3.855" transform="translate(0 0)" fill="#7000e0"/>

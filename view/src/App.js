@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Home from './Layouts/Home';
 import Register from './Layouts/Register';
 import Login from './Layouts/Login';
-import Details from './Layouts/Details';
 import Profile from './Layouts/Profile';
 import DiscoverMovies from './Layouts/DiscoverMovies';
 import DiscoverShows from './Layouts/DiscoverShows';
@@ -10,6 +9,8 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import AuthHelper from './Utils/AuthHelper';
 import axios from 'axios';
+import MovieDetails from './Layouts/MovieDetails';
+import ShowDetails from './Layouts/ShowDetails';
 class App extends Component {
     // App State.
     constructor(props) {
@@ -81,7 +82,8 @@ class App extends Component {
                             path="/discover/shows/trending"
                             component={DiscoverShows}
                         />
-                        <Route path="/details/:id" component={Details} />
+                        <Route path="/movie-details/:id" component={MovieDetails} />
+                        <Route path="/show-details/:id" component={ShowDetails} />
                     </Switch>
                 </div>
             </BrowserRouter>

@@ -3,9 +3,15 @@
     width: 150px;
     height: 220px;
     margin-right: 20px;
+    border-radius: 5%;
+    overflow:hidden;
+    box-shadow: 0px 5px 10px #e00000;
+
 }
 .actor-img{
     width: 150px;
+    padding: 10%;
+    background-color: rgb(85, 85, 85);
 }
 .real-name{
     margin:8px 0 0 15px;
@@ -15,4 +21,8 @@
 .role-name{
     margin:1px 0 0 15px;
     color: #000;
+}
+.names{
+    padding: 2%;
+    padding-bottom: 15%;
 }
