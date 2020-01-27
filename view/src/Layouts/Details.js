@@ -3,84 +3,193 @@ import '../Assets/CSS/Details.css';
 import GenreChip from '../components/GenreChip';
 import ActorItem from '../components/ActorItem';
 import CrewItem from '../components/CrewItem';
+import axios from 'axios';
+import ModalVideo from 'react-modal-video'
+import '../Assets/CSS/Modal.scss'
 class Details extends Component {
+
+        state = {
+            loadedMovie: null,
+            loadedCasts: null,
+            loadedCrew: null,
+            loadedVideos: null,
+            isOpen: false
+        };
+
+    openModal =()=> {
+        this.setState({ isOpen: true });
+    }
+
+    componentDidMount =() => {
+        console.log(this.props);
+        this.loadData();
+    }
+
+
+    loadData() {
+        const {
+            loadedMovie,
+            loadedCasts,
+            loadedCrew,
+            loadedVideos
+        } = this.state;
+        const { id } = this.props.match.params;
+        // Load Movie Data.
+        if (id) {
+            if (!loadedMovie || (loadedMovie && loadedMovie.id !== +id)) {
+                axios
+                    .get(`/movies/details/${id}`)
+                    .then(response => {
+                        this.setState({
+                            loadedMovie: response.data.data.movieDetails
+                        });
+                    })
+                    .catch(error => {
+                        console.log('error', error);
+                    });
+            }
+        }
+
+        // Load Movie Credits.
+        if (!(loadedCasts && loadedCrew)) {
+            axios
+                .get(
+                    `https://api.themoviedb.org/3/movie/${id}/credits?api_key=7ba0c7a4a624420802d8a91a4d4fc92c`
+                )
+                .then(response => {
+                    console.log('MOVIECREDITS :', response.data);
+                    this.setState({
+                        loadedCasts: response.data.cast.filter((cast, i) => {
+                            return i < 6;
+                        }),
+                        loadedCrew: response.data.crew.filter((crew, i) => {
+                            return i < 4;
+                        })
+                    });
+                })
+                .catch(error => {
+                    console.log('error', error);
+                });
+        }
+
+        // Load Movie Videos.
+        if (!loadedVideos) {
+            axios
+                .get(
+                    `https://api.themoviedb.org/3/movie/${id}/videos?api_key=7ba0c7a4a624420802d8a91a4d4fc92c`
+                )
+                .then(response => {
+                    console.log('MOVIE VIDEOS :', response.data);
+                    this.setState({
+                        loadedVideos: response.data.results[0]
+                    });
+                })
+                .catch(error => {
+                    console.log('error', error);
+                });
+        }
+    }
+
     render() {
-        return (
+        console.log('LOADED VIDEOS :', this.state.loadedVideos);
+        const {
+            loadedMovie,
+            loadedCasts,
+            loadedCrew,
+            loadedVideos
+        } = this.state;
+
+        return (loadedMovie && loadedCasts && loadedCrew && loadedVideos) ? (
             <div className=" details-page">
                 <div className="row top-section">
                     <div className="col-1"></div>
                     <div className=" col-3 poster-genres">
                         <img
                             className="row movie-show-poster"
-                            src={require('../Assets/Images/poster.svg')}
+                            src={
+                                loadedMovie.backdrop_path === null
+                                    ? require('../Assets/Images/No Poster BIG.svg')
+                                    : `https://image.tmdb.org/t/p/w500${loadedMovie.poster_path}`
+                            }
                             alt="Poster"
                         />
-                        <img src={require('../Assets/Images/big-overlay.svg')} alt="." className="movie-show-poster-overlay"/>
+                        <img
+                            src={require('../Assets/Images/big-overlay.svg')}
+                            alt="."
+                            className="movie-show-poster-overlay"
+                        />
                         {/* <img src={require('../Assets/Images/big-overlay.svg')} alt="" className="poster-overlay"/> */}
                         <div className="row genres">
-                            <GenreChip></GenreChip>
-                            <GenreChip></GenreChip>
-                            <GenreChip></GenreChip>
-                            <GenreChip></GenreChip>
+                            {loadedMovie.genres.map(genre => {
+                                return (
+                                    <GenreChip
+                                        key={genre.id}
+                                        name={genre.name}
+                                    ></GenreChip>
+                                );
+                            })}
                         </div>
                     </div>
                     <div className=" col-5 information">
                         <div className="row">
-                            <h2 className="movie-show-title">Abominable</h2>
-                            <small className="year">(2019)</small>
+                            <h2 className="movie-show-title">
+                                {loadedMovie.title}
+                            </h2>
+                            <small className="year">
+                                ({loadedMovie.release_date.split('-')[0]})
+                            </small>
                         </div>
                         <div className="row control-btns">
                             <img
                                 className="btns"
                                 src={require('../Assets/Icons/Watched.svg')}
                                 alt="."
-                                srcset=""
                             />
                             <img
                                 className="btns"
                                 src={require('../Assets/Icons/WatchList.svg')}
                                 alt="."
-                                srcset=""
                             />
+                            
+                                {Object.entries(loadedVideos).length > 0 ? (
+                                    <ModalVideo
+                                        channel={loadedVideos.site}
+                                        isOpen={this.state.isOpen}
+                                        videoId={loadedVideos.key}
+                                        onClose={() =>
+                                            this.setState({ isOpen: false })
+                                        }
+                                    />
+                                ) : (
+                                    ''
+                                )}
                             <img
+                                onClick={() => {
+                                    this.setState({ isOpen: true });
+                                }}
                                 className="trailer"
                                 src={require('../Assets/Images/play-trailer-btn.svg')}
-                                alt='.'
-                            ></img>
+                                alt="."
+                            />
                         </div>
                         <div className=" row overview-released">
                             <h3 className="overview-head">Overview</h3>
-                            <small className="release">Released</small>
+                            <small className="release">
+                                {loadedMovie.status}
+                            </small>
                         </div>
-                        <p className="row overview">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing
-                            elit. Animi, ullam quibusdam. Similique molestiae
-                            minima voluptatibus quo! Similique molestias dolores
-                            odio delectus voluptatum. Facilis tenetur obcaecati
-                            quo nihil in doloribus iusto! Accusamus quisquam
-                            dolor fugit, itaque temporibus beatae quasi suscipit
-                            veritatis eligendi quaerat quibusdam! Nam cumque
-                            quam tempore totam cum possimus! Impedit tenetur
-                            molestias quia similique sapiente nobis animi eius?
-                            Magnam. Voluptas veritatis consequuntur
-                            reprehenderit culpa libero est quam numquam
-                            voluptatum harum repellat beatae debitis
-                            necessitatibus impedit suscipit, dignissimos neque
-                            omnis velit magnam saepe fugit soluta dolorem quia
-                            sapiente et. Tenetur. Voluptates vitae officiis
-                            deserunt sed perferendis quas similique non maxime
-                            maiores atque minima in, unde recusandae. Nobis
-                            architecto eligendi, aliquid quae molestias tempora
-                            exercitationem rem harum repellat officia aspernatur
-                            dicta?
-                        </p>
+                        <p className="row overview">{loadedMovie.overview}</p>
                         <div className="row crew">
                             <h4 className="featured-crew"> Featured Crew </h4>
                             <div className="row crews">
-                                <CrewItem></CrewItem>
-                                <CrewItem></CrewItem>
-                                <CrewItem></CrewItem>
-                                <CrewItem></CrewItem>
+                                {loadedCrew.map(crew => {
+                                    return (
+                                        <CrewItem
+                                            key={crew.credit_id}
+                                            crew={crew}
+                                        ></CrewItem>
+                                    );
+                                })}
                             </div>
                         </div>
                     </div>
@@ -91,14 +200,20 @@ class Details extends Component {
                     <div className="col-11">
                         <h2 className="row casts-header">Top Billed Casts</h2>
                         <div className="row casts">
-                            <ActorItem></ActorItem>
-                            <ActorItem></ActorItem>
-                            <ActorItem></ActorItem>
-                            <ActorItem></ActorItem>
+                            {loadedCasts.map(cast => {
+                                return (
+                                    <ActorItem
+                                        key={cast.cast_id}
+                                        cast={cast}
+                                    ></ActorItem>
+                                );
+                            })}
                         </div>
                     </div>
                 </div>
             </div>
+        ) : (
+            ''
         );
     }
 }

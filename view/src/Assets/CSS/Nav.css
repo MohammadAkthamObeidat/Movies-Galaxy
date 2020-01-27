@@ -91,9 +91,6 @@
     align-self: center;
     border: none;
 }
-.show-btn:active {
-    color: #ed1c24;
-}
 
 .icon {
     margin-right: 10px;

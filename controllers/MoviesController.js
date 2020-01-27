@@ -129,7 +129,6 @@ const getMovieOnSearch = (req, res, next) => {
             });
         });
 };
-
 // Exporting Methods.
 module.exports = {
     getPopularMovies,

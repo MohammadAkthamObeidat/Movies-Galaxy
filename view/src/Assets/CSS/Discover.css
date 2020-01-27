@@ -12,3 +12,6 @@
 .movies-show-container {
     padding-left: 2%;
 }
+a.active {
+    color: #ed1c24;
+}

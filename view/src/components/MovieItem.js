@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import '../Assets/CSS/MovieShowItem.css';
+
 class MovieShowItem extends Component {
-
-    handleItemClick = () => {
-
-    };
+   
     render() {
         const { movie } = this.props;
         return (

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import '../Assets/CSS/Home.css';
 import { Route, Link } from 'react-router-dom';
 import Profile from '../Layouts/Profile';
-import AuthHelper from '../Utils/AuthHelper'
 class Home extends Component {
 
     componentDidMount = () => {

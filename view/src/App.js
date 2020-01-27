@@ -4,8 +4,8 @@ import Register from './Layouts/Register';
 import Login from './Layouts/Login';
 import Details from './Layouts/Details';
 import Profile from './Layouts/Profile';
-import DiscoverMovies from './Layouts/DiscoverMovies'
-import DiscoverShows from './Layouts/DiscoverShows'
+import DiscoverMovies from './Layouts/DiscoverMovies';
+import DiscoverShows from './Layouts/DiscoverShows';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import AuthHelper from './Utils/AuthHelper';
@@ -52,12 +52,6 @@ class App extends Component {
                 <NavBar loggedInStatus={this.state.isLoggedIn} />
                 <div className="app">
                     <Switch>
-                        <Route path="/register" component={Register} />
-                        <Route path="/login" component={Login} />
-                        <Route path="/details/:id" component={Details} />
-                        <Route path="/profile" component={Profile} />
-                        <Route path="/discover/movies" component={DiscoverMovies} />
-                        <Route path="/discover/shows" component={DiscoverShows} />
                         <Route
                             path="/"
                             exact
@@ -68,6 +62,26 @@ class App extends Component {
                                 />
                             )}
                         />
+                        <Route path="/register" component={Register} />
+                        <Route path="/login" component={Login} />
+                        <Route path="/profile" component={Profile} />
+                        <Route
+                            path="/discover/movies/popular"
+                            component={DiscoverMovies}
+                        />
+                        <Route
+                            path="/discover/movies/trending"
+                            component={DiscoverMovies}
+                        />
+                        <Route
+                            path="/discover/shows/popular"
+                            component={DiscoverShows}
+                        />
+                        <Route
+                            path="/discover/shows/trending"
+                            component={DiscoverShows}
+                        />
+                        <Route path="/details/:id" component={Details} />
                     </Switch>
                 </div>
             </BrowserRouter>

@@ -4,7 +4,7 @@ class GenreChip extends Component {
     render() {
         return (
             <div className="chip">
-                <p>Action</p>
+                <p>{this.props.name}</p>
             </div>
         );
     }

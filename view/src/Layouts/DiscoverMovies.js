@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import MovieItem from '../components/MovieItem'
+import MovieItem from '../components/MovieItem';
 import '../Assets/CSS/Discover.css';
-
+import { Link, NavLink } from 'react-router-dom';
 
 class DiscoverMovies extends Component {
     state = {
@@ -13,17 +13,16 @@ class DiscoverMovies extends Component {
 
     //@GET
     //Fetch Trending Movies.
-    getTrendingMovies = async (event) => {
+    getTrendingMovies = async event => {
         const trendingMoviesResponse = await axios.get('/movies/trending');
         this.setState({
             trendingMovies: trendingMoviesResponse.data.data.trendingMovies,
             popularity: 'trending'
         });
-        console.log('this.state :', this.state);
     };
     //@GET
     //Fetch Popular Movies.
-    getPopularMovies = async (event) => {
+    getPopularMovies = async event => {
         const popularMoviesResponse = await axios.get('/movies/popular');
         this.setState({
             popularMovies: popularMoviesResponse.data.data.popularMovies,
@@ -35,6 +34,8 @@ class DiscoverMovies extends Component {
         this.getPopularMovies();
     };
 
+    handleItemClick = id => {};
+
     render() {
         const { popularMovies, trendingMovies, popularity } = this.state;
         return this.state ? (
@@ -42,30 +43,60 @@ class DiscoverMovies extends Component {
                 <div className="discover-list-header">
                     <hr className="line" />
                     <div className="header-tabs">
-                        <button
+                        <NavLink
+                            to={{
+                                pathname: '/discover/movies/trending'
+                            }}
                             onClick={this.getTrendingMovies}
                             className="header-btns"
                         >
                             Trending
-                        </button>
+                        </NavLink>
                         <div className="ver-line"></div>
-                        <button
+                        <NavLink
+                            to={{
+                                pathname: '/discover/movies/popular'
+                            }}
                             onClick={this.getPopularMovies}
                             className="header-btns"
                         >
                             Popular
-                        </button>
+                        </NavLink>
                     </div>
                     <hr className="line" />
                 </div>
                 <div className="movies-show-container">
                     {popularity === 'popular'
                         ? popularMovies.map(movie => {
-                              return <MovieItem key={movie.id} movie={movie} />;
+                              return (
+                                  <Link
+                                      to={'/details/' + movie.id}
+                                      key={movie.id}
+                                  >
+                                      <MovieItem
+                                          movie={movie}
+                                          clicked={() =>
+                                              this.handleItemClick(movie.id)
+                                          }
+                                      />
+                                  </Link>
+                              );
                           })
                         : popularity === 'trending'
                         ? trendingMovies.map(movie => {
-                              return <MovieItem key={movie.id} movie={movie} />;
+                              return (
+                                  <Link
+                                      to={'/details/' + movie.id}
+                                      key={movie.id}
+                                  >
+                                      <MovieItem
+                                          movie={movie}
+                                          clicked={() =>
+                                              this.handleItemClick(movie.id)
+                                          }
+                                      />
+                                  </Link>
+                              );
                           })
                         : ''}
                 </div>

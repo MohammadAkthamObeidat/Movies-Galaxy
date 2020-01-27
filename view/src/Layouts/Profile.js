@@ -3,6 +3,7 @@ import '../Assets/CSS/Profile.css';
 import MovieItem from '../components/MovieItem';
 import axios from 'axios';
 import AuthHelper from '../Utils/AuthHelper';
+import { NavLink } from 'react-router-dom';
 class Profile extends Component {
     constructor(props) {
         super(props);
@@ -62,19 +63,29 @@ class Profile extends Component {
                 <div className="header">
                     <hr className="line" />
                     <div className="header-tabs">
-                        <li
+                        <NavLink
+                            to={
+                                '/profile/' +
+                                this.state.user.name +
+                                '/watchlist'
+                            }
                             onClick={this.handleWatchlistClick}
                             className="header-btns"
                         >
                             Watch List
-                        </li>
+                        </NavLink>
                         <div className="ver-line"></div>
-                        <li
+                        <NavLink
+                            to={
+                                '/profile/' +
+                                this.state.user.name +
+                                '/watchedlist'
+                            }
                             onClick={this.handleWatchedlistClick}
                             className="header-btns"
                         >
                             Watched List
-                        </li>
+                        </NavLink>
                     </div>
                     <hr className="line" />
                     <center>
@@ -83,9 +94,7 @@ class Profile extends Component {
                             value={this.selectValue}
                             onChange={this.handleSelectChange}
                         >
-                            <option value="Movies">
-                                Movies
-                            </option>
+                            <option value="Movies">Movies</option>
                             <option value="TvShows">TvShows</option>
                         </select>
                     </center>
@@ -100,8 +109,7 @@ class Profile extends Component {
                     </center>
                 ) : (
                     <div className="lists">
-                        {
-                        this.state.user.movies_list.watch_list.length > 0 &&
+                        {this.state.user.movies_list.watch_list.length > 0 &&
                         this.whatList === 'watchlist' &&
                         this.selectValue === 'movies' ? (
                             this.state.user.movies_list.watch_list.map(
@@ -141,8 +149,7 @@ class Profile extends Component {
                                     alt="empty list"
                                 />
                             </center>
-                        )
-                        }
+                        )}
                     </div>
                 )}
             </div>

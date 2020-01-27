@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import '../Assets/CSS/Nav.css';
 import SearchField from '../components/SearchField';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import AuthHelper from '../Utils/AuthHelper';
-import axios from 'axios';
 
 class NavBar extends Component {
     state = {
@@ -23,31 +22,28 @@ class NavBar extends Component {
             <nav className="nav-bar">
                 <SearchField></SearchField>
                 <div className="btns-logo">
-                    <li type="none" className="login-btn">
-                        <Link
+                        <NavLink
+                            exact
                             to={{
-                                pathname: '/discover/movies'
+                                pathname: '/discover/movies/popular'
                             }}
-                            className="link-behaviour"
+                            className=" login-btn link-behaviour"
                         >
                             Movies
-                        </Link>
-                    </li>
+                        </NavLink>
                     <img
                         className="logo"
                         src={require('../Assets/Icons/Logo.svg')}
                         alt=""
                     />
-                    <li type="none" className="login-btn">
-                        <Link
-                            className="link-behaviour"
+                        <NavLink
+                            className=" login-btn link-behaviour"
                             to={{
-                                pathname: '/discover/shows'
+                                pathname: '/discover/shows/popular'
                             }}
                         >
                             TvShows
-                        </Link>
-                    </li>
+                        </NavLink>
                 </div>
                 {this.props.loggedInStatus === false ? (
                     <li type="none" className="login-btn">

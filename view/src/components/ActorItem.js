@@ -2,13 +2,18 @@ import React, { Component } from 'react';
 import '../Assets/CSS/ActorItem.css';
 class ActorItem extends Component {
     render() {
+        const {cast} = this.props;
         return (
             <div>
                 <div className="actor-container">
-                    <img className = 'actor-img' src={require('../Assets/Images/actor.svg')} alt="" />
+                    <img
+                        className="actor-img"
+                        src={require('../Assets/Images/actor.svg')}
+                        alt=""
+                    />
                     <div className="names">
-                        <p className="real-name">Alex</p>
-                        <p className="role-name">Jin</p>
+                        <p className="real-name">{cast.name}</p>
+                        <p className="role-name">{cast.character}</p>
                     </div>
                 </div>
             </div>

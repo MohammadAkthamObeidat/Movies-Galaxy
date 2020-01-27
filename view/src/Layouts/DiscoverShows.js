@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import ShowItem from '../components/ShowItem';
-import '../Assets/CSS/Discover.css'
+import '../Assets/CSS/Discover.css';
+import { Link, NavLink } from 'react-router-dom';
 class DiscoverShows extends Component {
     state = {
         trendingShows: [],
@@ -17,7 +18,6 @@ class DiscoverShows extends Component {
             trendingShows: trendingShowsResponse.data.data.trendingShows,
             popularity: 'trending'
         });
-        console.log('THIS.STATE :', this.state);
     };
     //@GET
     //Fetch Popular Shows.
@@ -27,12 +27,15 @@ class DiscoverShows extends Component {
             popularShows: popularShowsResponse.data.data.popularShows,
             popularity: 'popular'
         });
-        console.log('THIS.STATE :', this.state);
     };
 
     componentDidMount = async () => {
         this.getPopularShows();
     };
+
+    handleItemClick = (id) => {
+
+    }
     render() {
         const { popularShows, trendingShows, popularity } = this.state;
 
@@ -41,30 +44,60 @@ class DiscoverShows extends Component {
                 <div className="discover-list-header">
                     <hr className="line" />
                     <div className="header-tabs">
-                        <button
-                            onClick={this.getTrendingShows}
+                        <NavLink
+                            to={{
+                                pathname: '/discover/shows/trending'
+                            }}
+                            onClick={this.getTrendingMovies}
                             className="header-btns"
                         >
                             Trending
-                        </button>
+                        </NavLink>
                         <div className="ver-line"></div>
-                        <button
-                            onClick={this.getPopularShows}
+                        <NavLink
+                            to={{
+                                pathname: '/discover/shows/popular'
+                            }}
+                            onClick={this.getPopularMovies}
                             className="header-btns"
                         >
                             Popular
-                        </button>
+                        </NavLink>
                     </div>
                     <hr className="line" />
                 </div>
                 <div className="movies-show-container">
                     {popularity === 'popular'
                         ? popularShows.map(show => {
-                              return <ShowItem key={show.id} show={show} />;
+                              return (
+                                  <Link
+                                      to={'/details/' + show.id}
+                                      key={show.id}
+                                  >
+                                      <ShowItem
+                                          show={show}
+                                          clicked={() =>
+                                              this.handleItemClick(show.id)
+                                          }
+                                      />
+                                  </Link>
+                              );
                           })
                         : popularity === 'trending'
                         ? trendingShows.map(show => {
-                              return <ShowItem key={show.id} show={show} />;
+                              return (
+                                  <Link
+                                      to={'/details/' + show.id}
+                                      key={show.id}
+                                  >
+                                      <ShowItem
+                                          show={show}
+                                          clicked={() =>
+                                              this.handleItemClick(show.id)
+                                          }
+                                      />
+                                  </Link>
+                              );
                           })
                         : ''}
                 </div>
