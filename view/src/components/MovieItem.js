@@ -27,7 +27,8 @@ class MovieShowItem extends Component {
                             className="overlay"
                         />
                         <h3 className="movie-title">
-                            {this.props.movie.title}
+                            {movie.title.length > 17 ? 
+                            movie.title.slice(0,17) +'...' : movie.title}
                         </h3>
                         <small className="date">(2019)</small>
                     </div>

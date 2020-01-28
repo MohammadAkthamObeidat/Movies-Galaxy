@@ -25,7 +25,11 @@ class ShowItem extends Component {
                             alt=""
                             className="overlay"
                         />
-                        <h3 className="movie-title">{show.name}</h3>
+                        <h3 className="movie-title">
+                            {show.name.length > 17
+                                ? show.name.slice(0, 17) + '...'
+                                : show.name}
+                        </h3>
                         <small className="date">
                             ({show.first_air_date.split('-')[0]})
                         </small>
