@@ -22,43 +22,44 @@ class NavBar extends Component {
             <nav className="nav-bar">
                 <SearchField></SearchField>
                 <div className="btns-logo">
-                        <NavLink
-                            exact
-                            to={{
-                                pathname: '/discover/movies/popular'
-                            }}
-                            className=" login-btn link-behaviour"
-                        >
-                            Movies
-                        </NavLink>
+                    <NavLink
+                        exact
+                        to={{
+                            pathname: '/discover/movies/popular'
+                        }}
+                        className=" login-btn link-behaviour"
+                    >
+                        Movies
+                    </NavLink>
                     <img
                         className="logo"
                         src={require('../Assets/Icons/Logo.svg')}
                         alt=""
                     />
-                        <NavLink
-                            className=" login-btn link-behaviour"
-                            to={{
-                                pathname: '/discover/shows/popular'
-                            }}
-                        >
-                            TvShows
-                        </NavLink>
+                    <NavLink
+                        className=" login-btn link-behaviour"
+                        to={{
+                            pathname: '/discover/shows/popular'
+                        }}
+                    >
+                        TvShows
+                    </NavLink>
                 </div>
                 {this.props.loggedInStatus === false ? (
-                    <li type="none" className="login-btn">
-                        <Link className="link-behaviour" to="/login">
+                        <NavLink
+                            className="link-behaviour login-btn"
+                            to="/login"
+                        >
                             Login
-                        </Link>
-                    </li>
+                        </NavLink>
                 ) : (
                     <div className="login-btn">
-                        <Link
+                        <NavLink
                             to="/profile"
                             className=" login-btn link-behaviour"
                         >
                             Profile
-                        </Link>
+                        </NavLink>
                         <Link
                             to="/"
                             onClick={this.logout}
