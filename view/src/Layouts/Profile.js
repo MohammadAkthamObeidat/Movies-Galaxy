@@ -53,6 +53,7 @@ class Profile extends Component {
     };
 
     handleItemClick = id => {};
+    
     render() {
         const { user, whatList, selectValue } = this.state;
         const { movies_list, shows_list } = this.state.user;
@@ -139,6 +140,7 @@ class Profile extends Component {
                                     />
                                 );
                             })
+                            
                         ) : movies_list.watched_list.length > 0 &&
                           whatList === 'watchedlist' &&
                           selectValue === 'movies' ? (

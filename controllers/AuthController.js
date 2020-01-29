@@ -1,4 +1,3 @@
-const promise = require('bluebird');
 /* eslint-disable node/no-unsupported-features/es-syntax */
 const jwt = require('jsonwebtoken');
 const user = require('../models/User');
@@ -96,11 +95,7 @@ const protectRoutes = catchAsync(async (req, res, next) => {
         req.headers.authorization &&
         req.headers.authorization.startsWith('Bearer')
     ) {
-        console.log(
-            'HEADERS AUTHORIZATION :',
-            req.headers.authorization.split(' ')[1]
-        );
-        token = signToken(req.headers.authorization.split(' ')[1]);
+        token = req.headers.authorization.split(' ')[1];
     }
 
     if (!token) {
@@ -110,10 +105,8 @@ const protectRoutes = catchAsync(async (req, res, next) => {
         );
     }
     // 2) Token verification if token payload has not manipulated by malicious 3rd party.
-    const decoded = await promise.promisify(jwt.verify)(
-        token,
-        process.env.JWT_SECRET
-    );
+    const decoded = await jwt.verify(token, process.env.JWT_SECRET);
+
     // 3) Check if user still exists.
     const currentUser = await user.getCurrentUser(decoded.id);
     if (!currentUser) {

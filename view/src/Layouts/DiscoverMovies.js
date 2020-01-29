@@ -2,13 +2,40 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import MovieItem from '../components/MovieItem';
 import '../Assets/CSS/Discover.css';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import AuthHelper from '../Utils/AuthHelper';
 
 class DiscoverMovies extends Component {
     state = {
+        loadedMovie: {},
         popularMovies: [],
         trendingMovies: [],
         popularity: 'popular'
+    };
+
+    handleAddToWatchlist = async id => {
+        // Use AuthHelper Class To Get User ID.
+        const Auth = new AuthHelper();
+        const userID = Auth.getConfirm().id;
+        const token = Auth.getToken();
+
+        // Get All Movie Details According To Movie ID.
+        const loadedMovie = await axios.get(`/movies/details/${id}`);
+        const { movieDetails } = loadedMovie.data.data;
+
+        // Add Movie To Authenticated User Watchlist.
+        if (movieDetails) {
+            const addedMovie = await axios.patch(
+                `/user/movie/add/watchlist/${userID}`,
+                movieDetails,
+                {
+                    headers: {
+                        authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                },
+            );
+        }
     };
 
     //@GET
@@ -66,10 +93,11 @@ class DiscoverMovies extends Component {
                     <hr className="line" />
                 </div>
                 <div className="movies-show-container">
-                    {popularity === 'popular'
+                    {popularity === 'popular' && popularMovies.length > 0
                         ? popularMovies.map(movie => {
                               return (
                                   <MovieItem
+                                      addToWatchList={this.handleAddToWatchlist}
                                       key={movie.id}
                                       movie={movie}
                                       clicked={() =>
@@ -78,7 +106,7 @@ class DiscoverMovies extends Component {
                                   />
                               );
                           })
-                        : popularity === 'trending'
+                        : popularity === 'trending' && trendingMovies.length > 0
                         ? trendingMovies.map(movie => {
                               return (
                                   <MovieItem

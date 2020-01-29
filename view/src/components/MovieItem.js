@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
 import '../Assets/CSS/MovieShowItem.css';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom';
 class MovieShowItem extends Component {
-   
     render() {
-        const { movie } = this.props;
+        const { movie, addToWatchList } = this.props;
         return (
             <div className="item-container">
                 <Link to={'/movie-details/' + movie.id} key={movie.id}>
-                    <div
-                        onClick={this.handleItemClick}
-                        className="poster-title"
-                    >
+                    <div className="poster-title">
                         <img
                             className="poster"
                             src={
@@ -27,8 +23,9 @@ class MovieShowItem extends Component {
                             className="overlay"
                         />
                         <h3 className="movie-title">
-                            {movie.title.length > 17 ? 
-                            movie.title.slice(0,17) +'...' : movie.title}
+                            {movie.title.length > 17
+                                ? movie.title.slice(0, 17) + '...'
+                                : movie.title}
                         </h3>
                         <small className="date">(2019)</small>
                     </div>
@@ -36,6 +33,7 @@ class MovieShowItem extends Component {
                 <div className="btns-rate">
                     <div className="btns">
                         <img
+                            onClick={addToWatchList.bind(this, movie.id)}
                             className="watchlist-btn"
                             src={require('../Assets/Icons/WatchList-Seq.svg')}
                             alt=""
