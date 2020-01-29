@@ -82,8 +82,22 @@ class App extends Component {
                             path="/discover/shows/trending"
                             component={DiscoverShows}
                         />
-                        <Route path="/movie-details/:id" component={MovieDetails} />
-                        <Route path="/show-details/:id" component={ShowDetails} />
+                        <Route
+                            path="/movie-details/:id"
+                            component={MovieDetails}
+                        />
+                        <Route
+                            path="/show-details/:id"
+                            component={ShowDetails}
+                        />
+                        <Route
+                            path="/profile/:userName/watchlist"
+                            component={Profile}
+                        />
+                        <Route
+                            path="/profile/:userName/watchedlist"
+                            component={Profile}
+                        />
                     </Switch>
                 </div>
             </BrowserRouter>

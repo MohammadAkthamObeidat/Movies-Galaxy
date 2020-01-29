@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../Assets/CSS/Profile.css';
 import MovieItem from '../components/MovieItem';
+import ShowItem from '../components/ShowItem';
 import axios from 'axios';
 import AuthHelper from '../Utils/AuthHelper';
 import { NavLink } from 'react-router-dom';
@@ -8,11 +9,11 @@ class Profile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: {}
+            user: {},
+            whatList: 'watchlist',
+            selectValue: 'movies'
         };
-        this.whatList = 'watchlist';
         this.userID = '';
-        this.selectValue = 'movies';
     }
 
     componentDidMount = async () => {
@@ -31,21 +32,36 @@ class Profile extends Component {
     };
 
     handleWatchlistClick = event => {
-        return (this.whatList = 'watchlist');
+        this.setState({
+            whatList: 'watchlist'
+        });
     };
 
     handleWatchedlistClick = event => {
-        return (this.whatList = 'watchedlist');
+        this.setState({
+            whatList: 'watchedlist'
+        });
     };
 
     handleSelectChange = event => {
-        this.selectValue = event.target.value;
+        this.setState({
+            selectValue: event.target.value
+        });
+
+        console.log('EVENT.TARGET.VALUE :', event.target.value);
+        console.log('THIS.STATE.SELECTVALUE :', this.state.selectValue);
     };
 
+    handleItemClick = id => {};
     render() {
-        console.log('THIS.STATE.USER :', this.state.user);
+        const { user, whatList, selectValue } = this.state;
+        const { movies_list, shows_list } = this.state.user;
         // Check if the object that holds user info is empty or not
-        return Object.entries(this.state.user).length > 0 ? (
+        return Object.entries(user).length > 0 &&
+            movies_list.watch_list.length >= 0 &&
+            movies_list.watched_list.length >= 0 &&
+            shows_list.watch_list.length >= 0 &&
+            shows_list.watched_list.length >= 0 ? (
             <div className="profile-page">
                 <div className="user-info">
                     <img
@@ -91,7 +107,7 @@ class Profile extends Component {
                     <center>
                         <select
                             className="select-input"
-                            value={this.selectValue}
+                            value={selectValue}
                             onChange={this.handleSelectChange}
                         >
                             <option value="Movies">Movies</option>
@@ -99,7 +115,7 @@ class Profile extends Component {
                         </select>
                     </center>
                 </div>
-                {this.state.user.movies_list.watch_list.length === 0 ? (
+                {movies_list.watch_list.length === 0 ? (
                     <center>
                         <img
                             className="empty"
@@ -109,38 +125,62 @@ class Profile extends Component {
                     </center>
                 ) : (
                     <div className="lists">
-                        {this.state.user.movies_list.watch_list.length > 0 &&
-                        this.whatList === 'watchlist' &&
-                        this.selectValue === 'movies' ? (
-                            this.state.user.movies_list.watch_list.map(
-                                movie => {
-                                    return <MovieItem />;
-                                }
-                            )
-                        ) : this.state.user.movies_list.watched_list.length >
-                              0 &&
-                          this.whatList === 'watchedlist' &&
-                          this.selectValue === 'movies' ? (
-                            this.state.user.movies_list.watched_list.map(
-                                movie => {
-                                    return <MovieItem />;
-                                }
-                            )
-                        ) : this.state.user.shows_list.watch_list.length > 0 &&
-                          this.whatList === 'watchlist' &&
-                          this.selectValue === 'TvShows' ? (
-                            this.state.user.shows_list.watch_list.map(show => {
-                                return <MovieItem />;
+                        {movies_list.watch_list.length > 0 &&
+                        whatList === 'watchlist' &&
+                        selectValue === 'movies' ? (
+                            movies_list.watch_list.map(movie => {
+                                return (
+                                    <MovieItem
+                                        key={movie.id}
+                                        movie={movie}
+                                        clicked={() =>
+                                            this.handleItemClick(movie.id)
+                                        }
+                                    />
+                                );
                             })
-                        ) : this.state.user.shows_list.watched_list.length >
-                              0 &&
-                          this.whatList === 'watchedlist' &&
-                          this.selectValue === 'TvShows' ? (
-                            this.state.user.shows_list.watched_list.map(
-                                show => {
-                                    return <MovieItem />;
-                                }
-                            )
+                        ) : movies_list.watched_list.length > 0 &&
+                          whatList === 'watchedlist' &&
+                          selectValue === 'movies' ? (
+                            movies_list.watched_list.map(movie => {
+                                return (
+                                    <MovieItem
+                                        key={movie.id}
+                                        movie={movie}
+                                        clicked={() =>
+                                            this.handleItemClick(movie.id)
+                                        }
+                                    />
+                                );
+                            })
+                        ) : shows_list.watch_list.length > 0 &&
+                          whatList === 'watchlist' &&
+                          selectValue === 'TvShows' ? (
+                            shows_list.watch_list.map(show => {
+                                return (
+                                    <ShowItem
+                                        key={show.id}
+                                        show={show}
+                                        clicked={() =>
+                                            this.handleItemClick(show.id)
+                                        }
+                                    />
+                                );
+                            })
+                        ) : shows_list.watched_list.length > 0 &&
+                          whatList === 'watchedlist' &&
+                          selectValue === 'TvShows' ? (
+                            shows_list.watched_list.map(show => {
+                                return (
+                                    <ShowItem
+                                        key={show.id}
+                                        show={show}
+                                        clicked={() =>
+                                            this.handleItemClick(show.id)
+                                        }
+                                    />
+                                );
+                            })
                         ) : (
                             <center>
                                 <img
@@ -154,7 +194,7 @@ class Profile extends Component {
                 )}
             </div>
         ) : (
-            ''
+            <h3>Loading...</h3>
         );
     }
 }

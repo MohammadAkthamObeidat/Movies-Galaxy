@@ -40,6 +40,7 @@ class Details extends Component {
                 axios
                     .get(`/movies/details/${id}`)
                     .then(response => {
+                        console.log('response :', response);
                         this.setState({
                             loadedMovie: response.data.data.movieDetails
                         });

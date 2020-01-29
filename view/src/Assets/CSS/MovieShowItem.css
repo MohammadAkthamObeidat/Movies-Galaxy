@@ -27,7 +27,7 @@
     left: 0;
 }
 .poster-title:hover {
-  transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  transform: scale(1.1); /* (110% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
 }
 .movie-title {
     position: absolute;

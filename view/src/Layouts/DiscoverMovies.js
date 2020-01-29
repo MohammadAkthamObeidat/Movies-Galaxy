@@ -70,6 +70,7 @@ class DiscoverMovies extends Component {
                         ? popularMovies.map(movie => {
                               return (
                                   <MovieItem
+                                      key={movie.id}
                                       movie={movie}
                                       clicked={() =>
                                           this.handleItemClick(movie.id)
@@ -81,6 +82,7 @@ class DiscoverMovies extends Component {
                         ? trendingMovies.map(movie => {
                               return (
                                   <MovieItem
+                                      key={movie.id}
                                       movie={movie}
                                       clicked={() =>
                                           this.handleItemClick(movie.id)
