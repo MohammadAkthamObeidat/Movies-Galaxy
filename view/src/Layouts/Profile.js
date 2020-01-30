@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../Assets/CSS/Profile.css';
-import MovieItem from '../components/MovieItem';
-import ShowItem from '../components/ShowItem';
+import ProfileMovieItem from '../components/ProfileMovieItem'
+import ProfileShowItem from '../components/ProfileShowItem';
 import axios from 'axios';
 import AuthHelper from '../Utils/AuthHelper';
 import { NavLink } from 'react-router-dom';
@@ -11,7 +11,7 @@ class Profile extends Component {
         this.state = {
             user: {},
             whatList: 'watchlist',
-            selectValue: 'movies'
+            selectValue: 'Movies'
         };
         this.userID = '';
     }
@@ -53,7 +53,8 @@ class Profile extends Component {
     };
 
     handleItemClick = id => {};
-    
+
+
     render() {
         const { user, whatList, selectValue } = this.state;
         const { movies_list, shows_list } = this.state.user;
@@ -128,10 +129,10 @@ class Profile extends Component {
                     <div className="lists">
                         {movies_list.watch_list.length > 0 &&
                         whatList === 'watchlist' &&
-                        selectValue === 'movies' ? (
+                        selectValue === 'Movies' ? (
                             movies_list.watch_list.map(movie => {
                                 return (
-                                    <MovieItem
+                                    <ProfileMovieItem
                                         key={movie.id}
                                         movie={movie}
                                         clicked={() =>
@@ -143,10 +144,10 @@ class Profile extends Component {
                             
                         ) : movies_list.watched_list.length > 0 &&
                           whatList === 'watchedlist' &&
-                          selectValue === 'movies' ? (
+                          selectValue === 'Movies' ? (
                             movies_list.watched_list.map(movie => {
                                 return (
-                                    <MovieItem
+                                    <ProfileMovieItem
                                         key={movie.id}
                                         movie={movie}
                                         clicked={() =>
@@ -160,7 +161,7 @@ class Profile extends Component {
                           selectValue === 'TvShows' ? (
                             shows_list.watch_list.map(show => {
                                 return (
-                                    <ShowItem
+                                    <ProfileShowItem
                                         key={show.id}
                                         show={show}
                                         clicked={() =>
@@ -174,7 +175,7 @@ class Profile extends Component {
                           selectValue === 'TvShows' ? (
                             shows_list.watched_list.map(show => {
                                 return (
-                                    <ShowItem
+                                    <ProfileShowItem
                                         key={show.id}
                                         show={show}
                                         clicked={() =>

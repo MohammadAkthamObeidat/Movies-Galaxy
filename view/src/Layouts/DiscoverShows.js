@@ -2,12 +2,102 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import ShowItem from '../components/ShowItem';
 import '../Assets/CSS/Discover.css';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import AuthHelper from '../Utils/AuthHelper';
 class DiscoverShows extends Component {
     state = {
+        user: {},
         trendingShows: [],
         popularShows: [],
-        popularity: 'popular'
+        popularity: 'popular',
+        isShowExistInWatchlist: false,
+        isShowExistInWatchedlist: false
+    };
+
+    // Utility Function To Add shows To WatchList.
+    handleAddShowToWatchlist = async id => {
+        // Use AuthHelper Class To Get User ID.
+        const Auth = new AuthHelper();
+        const userID = Auth.getConfirm().id;
+        const token = Auth.getToken();
+
+        // Get User Information Who Want To Add To Watchlist.
+        const loadedUser = await axios.post(`/get-user/${userID}`);
+        this.setState({ ...this.state.user, user: loadedUser.data.user });
+
+        // Get All show Details According To show ID.
+        const loadedShow = await axios.get(`/shows/details/${id}`);
+        const { showDetails } = loadedShow.data.data;
+
+        const { shows_list } = this.state.user;
+        shows_list.watch_list.map(show => {
+            if (show.id === id) {
+                return this.setState({ isShowExistInWatchlist: true });
+            } else {
+                return this.setState({ isShowExistInWatchlist: false });
+            }
+        });
+
+        // Add show To Authenticated User Watchlist.
+        if (showDetails && this.state.isShowExistInWatchlist === false) {
+            const addedShow = await axios.patch(
+                `/user/show/add/watchlist/${userID}`,
+                showDetails,
+                {
+                    headers: {
+                        authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                }
+            );
+
+            console.log('ADDED SHOW :', addedShow);
+        } else {
+            console.log('Show Is Already Exist In Your Shows WatchList !!!');
+        }
+    };
+
+    // Utility Function To Add shows To WatchList.
+    handleAddShowToWatchedlist = async id => {
+        // Use AuthHelper Class To Get User ID.
+        const Auth = new AuthHelper();
+        const userID = Auth.getConfirm().id;
+        const token = Auth.getToken();
+
+        // Get User Information Who Want To Add To Watchlist.
+        const loadedUser = await axios.post(`/get-user/${userID}`);
+        this.setState({ ...this.state.user, user: loadedUser.data.user });
+
+        // Get All show Details According To show ID.
+        const loadedShow = await axios.get(`/shows/details/${id}`);
+        const { showDetails } = loadedShow.data.data;
+
+        const { shows_list } = this.state.user;
+        shows_list.watched_list.map(show => {
+            if (show.id === id) {
+                return this.setState({ isShowExistInWatchedlist: true });
+            } else {
+                return this.setState({ isShowExistInWatchedlist: false });
+            }
+        });
+
+        // Add show To Authenticated User Watchlist.
+        if (showDetails && this.state.isShowExistInWatchedlist === false) {
+            const addedShow = await axios.patch(
+                `/user/show/add/watchedlist/${userID}`,
+                showDetails,
+                {
+                    headers: {
+                        authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                }
+            );
+
+            console.log('ADDED SHOW :', addedShow);
+        } else {
+            console.log('Show Is Already Exist In Your Shows WatchList !!!');
+        }
     };
 
     //@GET
@@ -34,9 +124,6 @@ class DiscoverShows extends Component {
         this.getPopularShows();
     };
 
-    handleItemClick = (id) => {
-
-    }
     render() {
         const { popularShows, trendingShows, popularity } = this.state;
 
@@ -59,7 +146,7 @@ class DiscoverShows extends Component {
                             to={{
                                 pathname: '/discover/shows/popular'
                             }}
-                            onClick={this.getPopularMovies}
+                            onClick={this.getPopularShows}
                             className="header-btns"
                         >
                             Popular
@@ -67,33 +154,35 @@ class DiscoverShows extends Component {
                     </div>
                     <hr className="line" />
                 </div>
-                <div className="movies-show-container">
+                <div className="shows-show-container">
                     {popularity === 'popular'
                         ? popularShows.map(show => {
                               return (
-                                  <Link
-                                      to={'/show-details/' + show.id}
+                                  <ShowItem
                                       key={show.id}
-                                  >
-                                      <ShowItem
-                                          show={show}
-                                          clicked={() =>
-                                              this.handleItemClick(show.id)
-                                          }
-                                      />
-                                  </Link>
+                                      addToWatchlist={
+                                          this.handleAddShowToWatchlist
+                                      }
+                                      addToWatchedlist={
+                                          this.handleAddShowToWatchedlist
+                                      }
+                                      show={show}
+                                  />
                               );
                           })
                         : popularity === 'trending'
                         ? trendingShows.map(show => {
                               return (
-                                  
-                                      <ShowItem
-                                          show={show}
-                                          clicked={() =>
-                                              this.handleItemClick(show.id)
-                                          }
-                                      />
+                                  <ShowItem
+                                      key={show.id}
+                                      addToWatchlist={
+                                          this.handleAddShowToWatchlist
+                                      }
+                                      addToWatchedlist={
+                                          this.handleAddShowToWatchedlist
+                                      }
+                                      show={show}
+                                  />
                               );
                           })
                         : ''}

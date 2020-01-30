@@ -122,8 +122,6 @@ const addUser = (newUser, callback) => {
 
 // Add new movie to watch list.
 const addMovieToWatchList = (userID, newMovie, callback) => {
-    console.log('USERID :', userID);
-    console.log('NEWMOVIE :', newMovie);
     User.findOneAndUpdate(
         {
             _id: userID

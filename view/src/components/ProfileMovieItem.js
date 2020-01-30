@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
 import '../Assets/CSS/MovieShowItem.css';
 import { Link } from 'react-router-dom';
-class ShowItem extends Component {
-    handleItemClick = () => {};
+class ProfileMovieItem extends Component {
     render() {
-        const { show, addToWatchlist, addToWatchedlist } = this.props;
+        const { movie} = this.props;
         return (
             <div className="item-container">
-                <Link to={'/show-details/' + show.id} key={show.id}>
+                <Link to={'/movie-details/' + movie.id} key={movie.id}>
                     <div className="poster-title">
                         <img
                             className="poster"
                             src={
-                                show.backdrop_path === null
+                                movie.backdrop_path === null
                                     ? require('../Assets/Images/No Poster.svg')
-                                    : `https://image.tmdb.org/t/p/w500${show.backdrop_path}`
+                                    : `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`
                             }
                             alt="poster"
                         />
@@ -24,34 +23,32 @@ class ShowItem extends Component {
                             className="overlay"
                         />
                         <h3 className="movie-title">
-                            {show.name.length > 17
-                                ? show.name.slice(0, 17) + '...'
-                                : show.name}
+                            {movie.title.length > 17
+                                ? movie.title.slice(0, 17) + '...'
+                                : movie.title}
                         </h3>
                         <small className="date">
-                            ({show.first_air_date.split('-')[0]})
+                            ({movie.release_date.split('-')[0]})
                         </small>
                     </div>
                 </Link>
                 <div className="btns-rate">
                     <div className="btns">
                         <img
-                            onClick={addToWatchlist.bind(this, show.id)}
                             className="watchlist-btn"
                             src={require('../Assets/Icons/WatchList-Seq.svg')}
                             alt=""
                         />
                         <img
-                            onClick={addToWatchedlist.bind(this, show.id)}
                             className="watched-btn"
                             src={require('../Assets/Icons/Watched-Seq.svg')}
                             alt=""
                         />
                     </div>
-                    <small className="rate">{show.vote_average}/10</small>
+                    <small className="rate">{movie.vote_average}/10</small>
                 </div>
             </div>
         );
     }
 }
-export default ShowItem;
+export default ProfileMovieItem;

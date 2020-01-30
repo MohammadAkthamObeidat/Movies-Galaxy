@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import '../Assets/CSS/MovieShowItem.css';
 import { Link } from 'react-router-dom';
-class ShowItem extends Component {
+
+class ProfileShowItem extends Component {
     handleItemClick = () => {};
     render() {
-        const { show, addToWatchlist, addToWatchedlist } = this.props;
+        const { show } = this.props;
         return (
-            <div className="item-container">
+            <div onClick={this.handleItemClick} className="item-container">
                 <Link to={'/show-details/' + show.id} key={show.id}>
                     <div className="poster-title">
                         <img
@@ -36,13 +37,11 @@ class ShowItem extends Component {
                 <div className="btns-rate">
                     <div className="btns">
                         <img
-                            onClick={addToWatchlist.bind(this, show.id)}
                             className="watchlist-btn"
                             src={require('../Assets/Icons/WatchList-Seq.svg')}
                             alt=""
                         />
                         <img
-                            onClick={addToWatchedlist.bind(this, show.id)}
                             className="watched-btn"
                             src={require('../Assets/Icons/Watched-Seq.svg')}
                             alt=""
@@ -54,4 +53,4 @@ class ShowItem extends Component {
         );
     }
 }
-export default ShowItem;
+export default ProfileShowItem;

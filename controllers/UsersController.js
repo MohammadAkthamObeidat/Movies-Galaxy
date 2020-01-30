@@ -8,10 +8,7 @@ app.use(express.json());
 
 // Add new movie to watch list.
 const addMovieToWatchList = (req, res, next) => {
-    // console.log('MOVIE :', movie);
-    console.log('REQ.BODY :', req.body);
     const { userID } = req.params;
-    // console.log('MOVIE :', movie);
     user.addMovieToWatchList(userID, req.body, result => {
         res.status(200).json({
             status: 'Success Adding Movie To Watchlist.',

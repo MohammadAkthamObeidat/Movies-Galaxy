@@ -11,6 +11,7 @@ import AuthHelper from './Utils/AuthHelper';
 import axios from 'axios';
 import MovieDetails from './Layouts/MovieDetails';
 import ShowDetails from './Layouts/ShowDetails';
+import SearchResults from './Layouts/SearchResults';
 class App extends Component {
     // App State.
     constructor(props) {
@@ -66,6 +67,7 @@ class App extends Component {
                         <Route path="/register" component={Register} />
                         <Route path="/login" component={Login} />
                         <Route path="/profile" component={Profile} />
+                        <Route path="/search-results" component={SearchResults} />
                         <Route
                             path="/discover/movies/popular"
                             component={DiscoverMovies}

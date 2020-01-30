@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import '../Assets/CSS/MovieShowItem.css';
 import { Link } from 'react-router-dom';
-class MovieShowItem extends Component {
+class MovieItem extends Component {
     render() {
-        const { movie, addToWatchList } = this.props;
+        const { movie, addToWatchList, addToWatchedList } = this.props;
         return (
             <div className="item-container">
                 <Link to={'/movie-details/' + movie.id} key={movie.id}>
@@ -27,7 +27,9 @@ class MovieShowItem extends Component {
                                 ? movie.title.slice(0, 17) + '...'
                                 : movie.title}
                         </h3>
-                        <small className="date">(2019)</small>
+                        <small className="date">
+                            ({movie.release_date.split('-')[0]})
+                        </small>
                     </div>
                 </Link>
                 <div className="btns-rate">
@@ -39,6 +41,7 @@ class MovieShowItem extends Component {
                             alt=""
                         />
                         <img
+                            onClick={addToWatchedList.bind(this, movie.id)}
                             className="watched-btn"
                             src={require('../Assets/Icons/Watched-Seq.svg')}
                             alt=""
@@ -50,4 +53,4 @@ class MovieShowItem extends Component {
         );
     }
 }
-export default MovieShowItem;
+export default MovieItem;

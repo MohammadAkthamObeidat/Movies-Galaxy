@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import MovieItem from '../components/MovieItem';
+import ShowItem from '../components/ShowItem';
 import '../Assets/CSS/Discover.css';
 import { NavLink } from 'react-router-dom';
 import AuthHelper from '../Utils/AuthHelper';
 
-class DiscoverMovies extends Component {
+class SearchResults extends Component {
     state = {
         user: {},
-        popularMovies: [],
-        trendingMovies: [],
-        popularity: 'popular',
         isMovieExistInWatchlist: false,
         isMovieExistInWatchedlist: false
     };
@@ -99,29 +97,10 @@ class DiscoverMovies extends Component {
         } else {
             console.log('Movie Is Already Exist In Your Movies WatchList !!!');
         }
-    };
-
-    //@GET
-    //Fetch Trending Movies.
-    getTrendingMovies = async event => {
-        const trendingMoviesResponse = await axios.get('/movies/trending');
-        this.setState({
-            trendingMovies: trendingMoviesResponse.data.data.trendingMovies,
-            popularity: 'trending'
-        });
-    };
-    //@GET
-    //Fetch Popular Movies.
-    getPopularMovies = async event => {
-        const popularMoviesResponse = await axios.get('/movies/popular');
-        this.setState({
-            popularMovies: popularMoviesResponse.data.data.popularMovies,
-            popularity: 'popular'
-        });
-    };
+    };    
 
     componentDidMount = async () => {
-        this.getPopularMovies();
+      
     };
 
     render() {
@@ -192,4 +171,4 @@ class DiscoverMovies extends Component {
         );
     }
 }
-export default DiscoverMovies;
+export default SearchResults;
