@@ -3,6 +3,7 @@ import '../Assets/CSS/MovieShowItem.css';
 import { Link } from 'react-router-dom';
 class MovieItem extends Component {
     render() {
+        console.log('this.props :', this.props);
         const { movie, addToWatchList, addToWatchedList } = this.props;
         return (
             <div className="item-container">

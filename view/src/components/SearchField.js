@@ -1,28 +1,22 @@
 import React, { Component } from 'react';
 import '../Assets/CSS/Nav.css';
-import axios from 'axios';
+import { Link } from 'react-router-dom';
 class SearchField extends Component {
-    state = {
-        query: '',
-        searchResult: []
-    };
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            query: ''
+        };
+        this.searchResult = [];
+    }
 
     handleChange = event => {
         this.setState({ query: event.target.value });
     };
 
-    handleSubmit = event => {
+    handleSubmit = async event => {
         event.preventDefault();
-        const { query } = this.state;
-        axios
-            .get(`/movies/search/${query}`)
-            .then(response => {
-                console.log(response.data);
-                this.setState({ searchResult: response.data.searchResult });
-            })
-            .catch(error => {
-                console.log('error :', error);
-            });
     };
 
     render() {
@@ -37,15 +31,30 @@ class SearchField extends Component {
                     value={query}
                     name="query"
                 ></input>
-                <img alt='icon' className="icon" src={require('../Assets/Icons/SearchIcon.svg')} />
+                <img
+                    alt="icon"
+                    className="icon"
+                    src={require('../Assets/Icons/SearchIcon.svg')}
+                />
+
                 <button
+                    hidden={false}
                     className="search-btn"
-                    name="search"
-                    value="search"
                     onClick={this.handleSubmit}
-                    hidden={true}
                 >
-                    Search
+                    <Link
+                        to={{
+                            pathname: '/search-results',
+                            state: {
+                                query: query
+                            }
+                        }}
+                        className="search-btn"
+                        name="search"
+                        value="search"
+                    >
+                        Search
+                    </Link>
                 </button>
             </form>
         );

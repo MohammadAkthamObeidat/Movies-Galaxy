@@ -119,7 +119,8 @@ const getMovieOnSearch = (req, res, next) => {
             res.status(200).json({
                 status: 'Success',
                 data: {
-                    searchResult: response.data.results
+                    searchResult: response.data.results,
+                    query: 'Movie'
                 }
             });
         })

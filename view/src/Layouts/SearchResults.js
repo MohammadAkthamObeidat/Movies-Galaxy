@@ -3,14 +3,16 @@ import axios from 'axios';
 import MovieItem from '../components/MovieItem';
 import ShowItem from '../components/ShowItem';
 import '../Assets/CSS/Discover.css';
-import { NavLink } from 'react-router-dom';
 import AuthHelper from '../Utils/AuthHelper';
-
 class SearchResults extends Component {
     state = {
+        searchResult: [],
+        query: '',
         user: {},
         isMovieExistInWatchlist: false,
-        isMovieExistInWatchedlist: false
+        isMovieExistInWatchedlist: false,
+        isShowExistInWatchlist: false,
+        isShowExistInWatchedlist: false
     };
 
     // Utility Function To Add Movies To WatchList.
@@ -56,6 +58,8 @@ class SearchResults extends Component {
         }
     };
 
+    //*************************************************************************************************************************** */
+
     // Utility Function To Add Movies To WatchList.
     handleAddMovieToWatchedlist = async id => {
         // Use AuthHelper Class To Get User ID.
@@ -97,74 +101,146 @@ class SearchResults extends Component {
         } else {
             console.log('Movie Is Already Exist In Your Movies WatchList !!!');
         }
-    };    
+    };
+
+    //*************************************************************************************************************************** */
+
+    // Utility Function To Add shows To WatchList.
+    handleAddShowToWatchlist = async id => {
+        // Use AuthHelper Class To Get User ID.
+        const Auth = new AuthHelper();
+        const userID = Auth.getConfirm().id;
+        const token = Auth.getToken();
+
+        // Get User Information Who Want To Add To Watchlist.
+        const loadedUser = await axios.post(`/get-user/${userID}`);
+        this.setState({ ...this.state.user, user: loadedUser.data.user });
+
+        // Get All show Details According To show ID.
+        const loadedShow = await axios.get(`/shows/details/${id}`);
+        const { showDetails } = loadedShow.data.data;
+
+        const { shows_list } = this.state.user;
+        shows_list.watch_list.map(show => {
+            if (show.id === id) {
+                return this.setState({ isShowExistInWatchlist: true });
+            } else {
+                return this.setState({ isShowExistInWatchlist: false });
+            }
+        });
+
+        // Add show To Authenticated User Watchlist.
+        if (showDetails && this.state.isShowExistInWatchlist === false) {
+            const addedShow = await axios.patch(
+                `/user/show/add/watchlist/${userID}`,
+                showDetails,
+                {
+                    headers: {
+                        authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                }
+            );
+
+            console.log('ADDED SHOW :', addedShow);
+        } else {
+            console.log('Show Is Already Exist In Your Shows WatchList !!!');
+        }
+    };
+
+    //*************************************************************************************************************************** */
+
+    // Utility Function To Add shows To WatchList.
+    handleAddShowToWatchedlist = async id => {
+        // Use AuthHelper Class To Get User ID.
+        const Auth = new AuthHelper();
+        const userID = Auth.getConfirm().id;
+        const token = Auth.getToken();
+
+        // Get User Information Who Want To Add To Watchlist.
+        const loadedUser = await axios.post(`/get-user/${userID}`);
+        this.setState({ ...this.state.user, user: loadedUser.data.user });
+
+        // Get All show Details According To show ID.
+        const loadedShow = await axios.get(`/shows/details/${id}`);
+        const { showDetails } = loadedShow.data.data;
+
+        const { shows_list } = this.state.user;
+        shows_list.watched_list.map(show => {
+            if (show.id === id) {
+                return this.setState({ isShowExistInWatchedlist: true });
+            } else {
+                return this.setState({ isShowExistInWatchedlist: false });
+            }
+        });
+
+        // Add show To Authenticated User Watchlist.
+        if (showDetails && this.state.isShowExistInWatchedlist === false) {
+            const addedShow = await axios.patch(
+                `/user/show/add/watchedlist/${userID}`,
+                showDetails,
+                {
+                    headers: {
+                        authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                }
+            );
+
+            console.log('ADDED SHOW :', addedShow);
+        } else {
+            console.log('Show Is Already Exist In Your Shows WatchList !!!');
+        }
+    };
+
+    //*************************************************************************************************************************** */
 
     componentDidMount = async () => {
-      
+        console.log('this.props :', this.props.location);
+        const { query } = this.props.location.state;
+        const searchResult = await await axios.get(`/movies/search/${query}`);
+        this.setState({
+            searchResult: searchResult.data.data.searchResult,
+            query: searchResult.data.data.query
+        });
+        console.log('LOADEDRESULTS :', searchResult);
+        console.log('THIS.STATE.SEARCHRESULT :', this.state.searchResult);
+        console.log('THIS.STATE.QUERY :', this.state.query);
     };
 
     render() {
-        const { popularMovies, trendingMovies, popularity } = this.state;
-        return this.state ? (
-            <div className="discover-container">
-                <div className="discover-list-header">
-                    <hr className="line" />
-                    <div className="header-tabs">
-                        <NavLink
-                            to={{
-                                pathname: '/discover/movies/trending'
-                            }}
-                            onClick={this.getTrendingMovies}
-                            className="header-btns"
-                        >
-                            Trending
-                        </NavLink>
-                        <div className="ver-line"></div>
-                        <NavLink
-                            to={{
-                                pathname: '/discover/movies/popular'
-                            }}
-                            onClick={this.getPopularMovies}
-                            className="header-btns"
-                        >
-                            Popular
-                        </NavLink>
-                    </div>
-                    <hr className="line" />
-                </div>
-                <div className="movies-show-container">
-                    {popularity === 'popular' && popularMovies.length > 0
-                        ? popularMovies.map(movie => {
-                              return (
-                                  <MovieItem
-                                      addToWatchList={
-                                          this.handleAddMovieToWatchlist
-                                      }
-                                      addToWatchedList={
-                                          this.handleAddMovieToWatchedlist
-                                      }
-                                      key={movie.id}
-                                      movie={movie}
-                                  />
-                              );
-                          })
-                        : popularity === 'trending' && trendingMovies.length > 0
-                        ? trendingMovies.map(movie => {
-                              return (
-                                  <MovieItem
-                                      addToWatchList={
-                                          this.handleAddMovieToWatchlist
-                                      }
-                                      addToWatchedList={
-                                          this.handleAddMovieToWatchedlist
-                                      }
-                                      key={movie.id}
-                                      movie={movie}
-                                  />
-                              );
-                          })
-                        : ''}
-                </div>
+        const { searchResult, query } = this.state;
+        return this.state? (
+            <div className="movies-show-container">
+                {query === 'Movie'
+                    ? searchResult.map(movie => {
+                          return (
+                                <MovieItem
+                                    addToWatchlist={
+                                        this.handleAddMovieToWatchlist
+                                    }
+                                    addToWatchedlist={
+                                        this.handleAddMovieToWatchedlist
+                                    }
+                                    key={movie.id}
+                                    movie={movie}
+                                />
+                          );
+                      })
+                    : query === 'TvShow'
+                    ? searchResult.map(show => {
+                          return (
+                              <ShowItem
+                                  addToWatchlist={this.handleAddShowToWatchlist}
+                                  addToWatchedlist={
+                                      this.handleAddShowToWatchedlist
+                                  }
+                                  key={show.id}
+                                  show={show}
+                              />
+                          );
+                      })
+                    : ''}
             </div>
         ) : (
             ''

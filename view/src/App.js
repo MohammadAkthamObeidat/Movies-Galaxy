@@ -11,7 +11,7 @@ import AuthHelper from './Utils/AuthHelper';
 import axios from 'axios';
 import MovieDetails from './Layouts/MovieDetails';
 import ShowDetails from './Layouts/ShowDetails';
-import SearchResults from './Layouts/SearchResults';
+import SearchResults from './Layouts/SearchResults'
 class App extends Component {
     // App State.
     constructor(props) {

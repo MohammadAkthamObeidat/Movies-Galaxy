@@ -119,7 +119,8 @@ const getTvOnSearch = (req, res, next) => {
                 status: 'Success',
                 result: response.data.results.length,
                 data: {
-                    tvShow: response.data.results
+                    searchResult: response.data.results,
+                    query: 'TvShow'
                 }
             });
         })
