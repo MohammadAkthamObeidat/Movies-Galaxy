@@ -142,17 +142,13 @@ const addMovieToWatchList = (userID, newMovie, callback) => {
 };
 
 // Delete movie from watch list.
-const deleteMovieFromWatchList = (userID, movieID, callback) => {
+const deleteMovieFromWatchList = (userID, newWatchlist, callback) => {
+    console.log('NEW WATCHLIST :', newWatchlist);
     User.update(
         { _id: userID },
         {
-            'movies_list.watch_list': movieID
-        },
-        {
-            $pull: {
-                'movies_list.$.watch_list': {
-                    id: movieID
-                }
+            $set: {
+                'movies_list.watch_list': newWatchlist
             }
         },
         (error, data) => {
@@ -187,16 +183,14 @@ const addMovieToWatchedList = (userID, newMovie, callback) => {
 };
 
 // Delete movie from watched list.
-const deleteMovieFromWatchedList = (userID, movieID, callback) => {
+const deleteMovieFromWatchedList = (userID, newWatchedlist, callback) => {
     User.update(
         {
             _id: userID
         },
         {
-            $pull: {
-                'movies_list.watched_list': {
-                    id: movieID
-                }
+            $set: {
+                'movies_list.watched_list': newWatchedlist
             }
         },
         (error,
@@ -234,16 +228,14 @@ const addShowToWatchList = (userID, newShow, callback) => {
 };
 
 // Delete show from watch list.
-const deleteShowFromWatchList = (userID, showID, callback) => {
+const deleteShowFromWatchList = (userID, newWatchlist, callback) => {
     User.update(
         {
             _id: userID
         },
         {
-            $pull: {
-                'shows_list.watch_list': {
-                    _id: showID
-                }
+            $set: {
+                'shows_list.watch_list': newWatchlist
             }
         },
         (error,
@@ -279,16 +271,14 @@ const addShowToWatchedList = (userID, newShow, callback) => {
 };
 
 // Delete show from watched list.
-const deleteShowFromWatchedList = (userID, showID, callback) => {
+const deleteShowFromWatchedList = (userID, newWatchedlist, callback) => {
     User.update(
         {
             _id: userID
         },
         {
-            $pull: {
-                'shows_list.watched_list': {
-                    _id: showID
-                }
+            $set: {
+                'shows_list.watched_list': newWatchedlist
             }
         },
         (error,

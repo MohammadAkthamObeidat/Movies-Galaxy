@@ -21,7 +21,6 @@ class Details extends Component {
     }
 
     componentDidMount =() => {
-        console.log(this.props);
         this.loadData();
     }
 
@@ -40,7 +39,6 @@ class Details extends Component {
                 axios
                     .get(`/movies/details/${id}`)
                     .then(response => {
-                        console.log('response :', response);
                         this.setState({
                             loadedMovie: response.data.data.movieDetails
                         });
@@ -58,7 +56,6 @@ class Details extends Component {
                     `https://api.themoviedb.org/3/movie/${id}/credits?api_key=7ba0c7a4a624420802d8a91a4d4fc92c`
                 )
                 .then(response => {
-                    console.log('MOVIECREDITS :', response.data);
                     this.setState({
                         loadedCasts: response.data.cast.filter((cast, i) => {
                             return i < 6;
@@ -80,7 +77,6 @@ class Details extends Component {
                     `https://api.themoviedb.org/3/movie/${id}/videos?api_key=7ba0c7a4a624420802d8a91a4d4fc92c`
                 )
                 .then(response => {
-                    console.log('MOVIE VIDEOS :', response.data);
                     this.setState({
                         loadedVideos: response.data.results[0]
                     });

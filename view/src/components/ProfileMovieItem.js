@@ -3,7 +3,7 @@ import '../Assets/CSS/MovieShowItem.css';
 import { Link } from 'react-router-dom';
 class ProfileMovieItem extends Component {
     render() {
-        const { movie} = this.props;
+        const { movie, whatList } = this.props;
         return (
             <div className="item-container">
                 <Link to={'/movie-details/' + movie.id} key={movie.id}>
@@ -34,16 +34,29 @@ class ProfileMovieItem extends Component {
                 </Link>
                 <div className="btns-rate">
                     <div className="btns">
-                        <img
-                            className="watchlist-btn"
-                            src={require('../Assets/Icons/WatchList-Seq.svg')}
-                            alt=""
-                        />
-                        <img
-                            className="watched-btn"
-                            src={require('../Assets/Icons/Watched-Seq.svg')}
-                            alt=""
-                        />
+                        {whatList === 'movie watchlist' ? (
+                            <img
+                                className="watched-btn"
+                                src={require('../Assets/Icons/Watched-Seq.svg')}
+                                alt=""
+                            />
+                        ) : whatList === 'movie watchedlist' ? (
+                            <>
+                                <img
+                                    className="watchlist-btn"
+                                    src={require('../Assets/Icons/WatchList-Seq.svg')}
+                                    alt=""
+                                />
+
+                                <img
+                                    className="cancel-btn"
+                                    src={require('../Assets/Icons/cancel.svg')}
+                                    alt=""
+                                />
+                            </>
+                        ) : (
+                            ''
+                        )}
                     </div>
                     <small className="rate">{movie.vote_average}/10</small>
                 </div>

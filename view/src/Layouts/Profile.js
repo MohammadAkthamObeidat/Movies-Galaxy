@@ -133,6 +133,7 @@ class Profile extends Component {
                             movies_list.watch_list.map(movie => {
                                 return (
                                     <ProfileMovieItem
+                                        whatList = 'movie watchlist'
                                         key={movie.id}
                                         movie={movie}
                                         clicked={() =>
@@ -148,6 +149,7 @@ class Profile extends Component {
                             movies_list.watched_list.map(movie => {
                                 return (
                                     <ProfileMovieItem
+                                        whatList="movie watchedlist"
                                         key={movie.id}
                                         movie={movie}
                                         clicked={() =>
@@ -162,6 +164,7 @@ class Profile extends Component {
                             shows_list.watch_list.map(show => {
                                 return (
                                     <ProfileShowItem
+                                        whatList="show watchlist"
                                         key={show.id}
                                         show={show}
                                         clicked={() =>
@@ -176,6 +179,7 @@ class Profile extends Component {
                             shows_list.watched_list.map(show => {
                                 return (
                                     <ProfileShowItem
+                                        whatList="show watchedlist"
                                         key={show.id}
                                         show={show}
                                         clicked={() =>

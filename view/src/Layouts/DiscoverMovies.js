@@ -17,32 +17,30 @@ class DiscoverMovies extends Component {
 
     // Utility Function To Add Movies To WatchList.
     handleAddMovieToWatchlist = async id => {
-        // Use AuthHelper Class To Get User ID.
+        // Get All Movie Details According To Movie ID.
         const Auth = new AuthHelper();
-        const userID = Auth.getConfirm().id;
         const token = Auth.getToken();
 
-        // Get User Information Who Want To Add To Watchlist.
-        const loadedUser = await axios.post(`/get-user/${userID}`);
-        this.setState({ ...this.state.user, user: loadedUser.data.user });
-
-        // Get All Movie Details According To Movie ID.
         const loadedMovie = await axios.get(`/movies/details/${id}`);
         const { movieDetails } = loadedMovie.data.data;
 
         const { movies_list } = this.state.user;
         movies_list.watch_list.map(movie => {
             if (movie.id === id) {
-                return this.setState({ isMovieExistInWatchlist: true });
+                return this.setState({
+                    isMovieExistInWatchlist: true
+                });
             } else {
-                return this.setState({ isMovieExistInWatchlist: false });
+                return this.setState({
+                    isMovieExistInWatchlist: false
+                });
             }
         });
 
         // Add Movie To Authenticated User Watchlist.
         if (movieDetails && this.state.isMovieExistInWatchlist === false) {
             const addedMovie = await axios.patch(
-                `/user/movie/add/watchlist/${userID}`,
+                `/user/movie/add/watchlist/${this.state.user._id}`,
                 movieDetails,
                 {
                     headers: {
@@ -58,16 +56,32 @@ class DiscoverMovies extends Component {
         }
     };
 
+    // Utility Function To Remove From Watchlist.
+    handleRemoveFromWatchlist = id => {
+        // Use AuthHelper Class To Get User ID.
+        const Auth = new AuthHelper();
+        const token = Auth.getToken();
+        const { watch_list } = this.state.user.movies_list;
+        const newWatchlist = watch_list.filter(element => element.id !== id);
+        console.log('WATCH_LIST :', watch_list);
+
+        axios.patch(
+            `/user/movie/delete/watchlist/${this.state.user._id}`,
+            newWatchlist,
+            {
+                headers: {
+                    authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            }
+        );
+    };
+
     // Utility Function To Add Movies To WatchList.
     handleAddMovieToWatchedlist = async id => {
         // Use AuthHelper Class To Get User ID.
         const Auth = new AuthHelper();
-        const userID = Auth.getConfirm().id;
         const token = Auth.getToken();
-
-        // Get User Information Who Want To Add To Watchlist.
-        const loadedUser = await axios.post(`/get-user/${userID}`);
-        this.setState({ ...this.state.user, user: loadedUser.data.user });
 
         // Get All Movie Details According To Movie ID.
         const loadedMovie = await axios.get(`/movies/details/${id}`);
@@ -85,7 +99,7 @@ class DiscoverMovies extends Component {
         // Add Movie To Authenticated User Watchlist.
         if (movieDetails && this.state.isMovieExistInWatchedlist === false) {
             const addedMovie = await axios.patch(
-                `/user/movie/add/watchedlist/${userID}`,
+                `/user/movie/add/watchedlist/${this.state.user._id}`,
                 movieDetails,
                 {
                     headers: {
@@ -99,6 +113,28 @@ class DiscoverMovies extends Component {
         } else {
             console.log('Movie Is Already Exist In Your Movies WatchList !!!');
         }
+    };
+
+    handleRemoveFromWatchedlist = async id => {
+        // Use AuthHelper Class To Get User ID.
+        const Auth = new AuthHelper();
+        const token = Auth.getToken();
+        const { watched_list } = this.state.user.movies_list;
+        const newWatchedList = watched_list.filter(
+            element => element.id !== id
+        );
+        console.log('WATCHED_LIST :', watched_list);
+
+        axios.patch(
+            `/movie/delete/watchedlist/${this.state.user._id}`,
+            newWatchedList,
+            {
+                headers: {
+                    authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            }
+        );
     };
 
     //@GET
@@ -121,11 +157,21 @@ class DiscoverMovies extends Component {
     };
 
     componentDidMount = async () => {
+        // Use AuthHelper Class To Get User ID.
+        const Auth = new AuthHelper();
+        const userID = Auth.getConfirm().id;
+
+        // Get User Information Who Want To Add To Watchlist.
+        const loadedUser = await axios.post(`/get-user/${userID}`);
+        this.setState({
+            ...this.state.user,
+            user: loadedUser.data.user
+        });
         this.getPopularMovies();
     };
 
     render() {
-        const { popularMovies, trendingMovies, popularity } = this.state;
+        const { popularMovies, trendingMovies, popularity, user } = this.state;
         return this.state ? (
             <div className="discover-container">
                 <div className="discover-list-header">
@@ -158,11 +204,18 @@ class DiscoverMovies extends Component {
                         ? popularMovies.map(movie => {
                               return (
                                   <MovieItem
+                                      user={user}
                                       addToWatchList={
                                           this.handleAddMovieToWatchlist
                                       }
                                       addToWatchedList={
                                           this.handleAddMovieToWatchedlist
+                                      }
+                                      removeFromWatchlist={
+                                          this.handleRemoveFromWatchlist
+                                      }
+                                      removeFromWatchedlist={
+                                          this.handleRemoveFromWatchedlist
                                       }
                                       key={movie.id}
                                       movie={movie}
@@ -173,11 +226,18 @@ class DiscoverMovies extends Component {
                         ? trendingMovies.map(movie => {
                               return (
                                   <MovieItem
+                                      user={this.state.user}
                                       addToWatchList={
                                           this.handleAddMovieToWatchlist
                                       }
                                       addToWatchedList={
                                           this.handleAddMovieToWatchedlist
+                                      }
+                                      removeFromWatchedlist={
+                                          this.handleRemoveFromWatchedlist
+                                      }
+                                      removeFromWatchlist={
+                                          this.handleRemoveFromWatchlist
                                       }
                                       key={movie.id}
                                       movie={movie}

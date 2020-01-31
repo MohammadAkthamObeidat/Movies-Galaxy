@@ -22,12 +22,11 @@ const addMovieToWatchList = (req, res, next) => {
 // Delete movie from watch list.
 const deleteMovieFromWatchList = (req, res, next) => {
     const { userID } = req.params;
-    const { movieID } = req.params;
-    user.deleteMovieFromWatchList(userID, movieID, result => {
-        res.status(204).json({
+    user.deleteMovieFromWatchList(userID, req.body, result => {
+        res.status(200).json({
             status: 'Success Delete Movie From Watch List.',
             // eslint-disable-next-line no-undef
-            data: NULL
+            data: result
         });
     });
 };
@@ -48,12 +47,12 @@ const addMovieToWatchedList = (req, res, next) => {
 // Delete movie from watched list.
 const deleteMovieFromWatchedList = (req, res, next) => {
     const { userID } = req.params;
-    const { movieID } = req.params;
-    user.deleteMovieFromWatchedList(userID, movieID, result => {
-        res.status(204).json({
-            status: 'Success Delete Movie From Watch List.',
+    console.log('req.body', req.body);
+    user.deleteMovieFromWatchedList(userID, req.body, result => {
+        res.status(200).json({
+            status: 'Success Delete Movie From Watched List.',
             // eslint-disable-next-line no-undef
-            data: NULL
+            data: result
         });
     });
 };
@@ -76,8 +75,7 @@ const addShowToWatchList = (req, res, next) => {
 // Delete show from watch list.
 const deleteShowFromWatchList = (req, res, next) => {
     const { userID } = req.params;
-    const { showID } = req.params;
-    user.deleteShowFromWatchList(userID, showID, result => {
+    user.deleteShowFromWatchList(userID, req.body, result => {
         //res.json(result);
         res.status(204).json({
             status: 'Success Delete Show From Watch List.',
@@ -104,8 +102,7 @@ const addShowToWatchedList = (req, res, next) => {
 // Delete show from watched list.
 const deleteShowFromWatchedList = (req, res, next) => {
     const { userID } = req.params;
-    const { showID } = req.params;
-    user.deleteShowFromWatchedList(userID, showID, result => {
+    user.deleteShowFromWatchedList(userID, req.body, result => {
         //res.json(result);
         res.status(204).json({
             status: 'Success Delete Show From Watched List.',

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="58" height="60" viewBox="0 0 58 60">
+  <g id="InWatched" transform="translate(-0.353 0.011)">
+    <rect id="Rectangle_21" data-name="Rectangle 21" width="58" height="60" transform="translate(0.353 -0.011)" fill="#007029"/>
+    <g id="correct-symbol" transform="translate(9.663 15.695)">
+      <path id="Path_146" data-name="Path 146" d="M36.36,55.6l-3.249-3.249a2.307,2.307,0,0,0-3.249,0L14.19,68.042,7.167,60.995a2.211,2.211,0,0,0-1.624-.669,2.212,2.212,0,0,0-1.625.669L.669,64.244a2.308,2.308,0,0,0,0,3.249l8.648,8.648,3.249,3.249a2.307,2.307,0,0,0,3.249,0l3.249-3.249,17.3-17.3a2.307,2.307,0,0,0,0-3.249Z" transform="translate(0 -51.678)" fill="#26a454"/>
+    </g>
+  </g>
+</svg>

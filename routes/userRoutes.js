@@ -14,8 +14,8 @@ router
 // @DELETE
 // Remove movie from watch list.
 router
-    .route('/movie/delete/watchlist/:userID/:movieID')
-    .delete(
+    .route('/movie/delete/watchlist/:userID')
+    .patch(
         authController.protectRoutes,
         userController.deleteMovieFromWatchList
     );
@@ -27,8 +27,8 @@ router
 // @DELETE
 // Remove movie from watched list.
 router
-    .route('/movie/delete/watchedlist/:userID/:movieID')
-    .delete(
+    .route('/movie/delete/watchedlist/:userID')
+    .patch(
         authController.protectRoutes,
         userController.deleteMovieFromWatchedList
     );
@@ -42,8 +42,8 @@ router
 // @DELETE
 // Remove TvShow from watch list.
 router
-    .route('/show/delete/watchlist/:userID/:showID')
-    .delete(
+    .route('/show/delete/watchlist/:userID')
+    .patch(
         authController.protectRoutes,
         userController.deleteShowFromWatchList
     );
@@ -55,8 +55,8 @@ router
 // @DELETE
 // Remove TvShow from watched list.
 router
-    .route('/show/add/watchedlist/:userID/:showID')
-    .delete(
+    .route('/show/add/watchedlist/:userID')
+    .patch(
         authController.protectRoutes,
         userController.deleteShowFromWatchedList
     );
