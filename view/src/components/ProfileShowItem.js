@@ -5,7 +5,12 @@ import { Link } from 'react-router-dom';
 class ProfileShowItem extends Component {
     handleItemClick = () => {};
     render() {
-        const { show } = this.props;
+        const {
+            show,
+            whatList,
+            removeFromWatchlist,
+            removeFromWatchedlist
+        } = this.props;
         return (
             <div onClick={this.handleItemClick} className="item-container">
                 <Link to={'/show-details/' + show.id} key={show.id}>
@@ -36,16 +41,35 @@ class ProfileShowItem extends Component {
                 </Link>
                 <div className="btns-rate">
                     <div className="btns">
-                        <img
-                            className="watchlist-btn"
-                            src={require('../Assets/Icons/WatchList-Seq.svg')}
-                            alt=""
-                        />
-                        <img
-                            className="watched-btn"
-                            src={require('../Assets/Icons/Watched-Seq.svg')}
-                            alt=""
-                        />
+                        {whatList === 'show watchlist' ? (
+                            <>
+                                <img
+                                    className="watchlist-btn"
+                                    src={require('../Assets/Icons/Watched-Seq.svg')}
+                                    alt=""
+                                />
+                                <img
+                                    className="cancel-btn"
+                                    src={require('../Assets/Icons/cancel.svg')}
+                                    alt=""
+                                />
+                            </>
+                        ) : whatList === 'show watchedlist' ? (
+                            <>
+                                <img
+                                    className="watchlist-btn"
+                                    src={require('../Assets/Icons/WatchList-Seq.svg')}
+                                    alt=""
+                                />
+                                <img
+                                    className="cancel-btn"
+                                    src={require('../Assets/Icons/cancel.svg')}
+                                    alt=""
+                                />
+                            </>
+                        ) : (
+                            ''
+                        )}
                     </div>
                     <small className="rate">{show.vote_average}/10</small>
                 </div>

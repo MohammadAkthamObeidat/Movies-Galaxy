@@ -3,7 +3,14 @@ import '../Assets/CSS/MovieShowItem.css';
 import { Link } from 'react-router-dom';
 class ProfileMovieItem extends Component {
     render() {
-        const { movie, whatList } = this.props;
+        const {
+            movie,
+            whatList,
+            removeFromWatchlist,
+            addToWatchlist,
+            removeFromWatchedlist,
+            addToWatchedlist
+        } = this.props;
         return (
             <div className="item-container">
                 <Link to={'/movie-details/' + movie.id} key={movie.id}>
@@ -35,20 +42,43 @@ class ProfileMovieItem extends Component {
                 <div className="btns-rate">
                     <div className="btns">
                         {whatList === 'movie watchlist' ? (
-                            <img
-                                className="watched-btn"
-                                src={require('../Assets/Icons/Watched-Seq.svg')}
-                                alt=""
-                            />
+                            <>
+                                <img
+                                    className="watched-btn"
+                                    src={require('../Assets/Icons/Watched-Seq.svg')}
+                                    alt=""
+                                    onClick={addToWatchedlist.bind(
+                                        this,
+                                        movie.id
+                                    )}
+                                />
+                                <img
+                                    className="cancel-btn"
+                                    src={require('../Assets/Icons/cancel.svg')}
+                                    alt=""
+                                    onClick={removeFromWatchlist.bind(
+                                        this,
+                                        movie.id
+                                    )}
+                                />
+                            </>
                         ) : whatList === 'movie watchedlist' ? (
                             <>
                                 <img
+                                    onClick={addToWatchlist.bind(
+                                        this,
+                                        movie.id
+                                    )}
                                     className="watchlist-btn"
                                     src={require('../Assets/Icons/WatchList-Seq.svg')}
                                     alt=""
                                 />
 
                                 <img
+                                    onClick={removeFromWatchedlist.bind(
+                                        this,
+                                        movie.id
+                                    )}
                                     className="cancel-btn"
                                     src={require('../Assets/Icons/cancel.svg')}
                                     alt=""

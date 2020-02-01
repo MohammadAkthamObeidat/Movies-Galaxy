@@ -24,8 +24,7 @@ class DiscoverMovies extends Component {
         const loadedMovie = await axios.get(`/movies/details/${id}`);
         const { movieDetails } = loadedMovie.data.data;
 
-        const { movies_list } = this.state.user;
-        movies_list.watch_list.map(movie => {
+        this.state.user.movies_list.watch_list.map(movie => {
             if (movie.id === id) {
                 return this.setState({
                     isMovieExistInWatchlist: true
@@ -87,8 +86,7 @@ class DiscoverMovies extends Component {
         const loadedMovie = await axios.get(`/movies/details/${id}`);
         const { movieDetails } = loadedMovie.data.data;
 
-        const { movies_list } = this.state.user;
-        movies_list.watched_list.map(movie => {
+        this.state.user.movies_list.watched_list.map(movie => {
             if (movie.id === id) {
                 return this.setState({ isMovieExistInWatchedlist: true });
             } else {
@@ -114,7 +112,7 @@ class DiscoverMovies extends Component {
             console.log('Movie Is Already Exist In Your Movies WatchList !!!');
         }
     };
-
+    // Utility Function To Remove From Watchedlist.
     handleRemoveFromWatchedlist = async id => {
         // Use AuthHelper Class To Get User ID.
         const Auth = new AuthHelper();
