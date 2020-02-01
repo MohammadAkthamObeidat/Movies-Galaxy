@@ -147,7 +147,7 @@ const deleteMovieFromWatchList = (userID, newWatchlist, callback) => {
     User.update(
         { _id: userID },
         {
-            $set: {
+            $pull: {
                 'movies_list.watch_list': newWatchlist
             }
         },

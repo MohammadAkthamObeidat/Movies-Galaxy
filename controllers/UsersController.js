@@ -22,6 +22,7 @@ const addMovieToWatchList = (req, res, next) => {
 // Delete movie from watch list.
 const deleteMovieFromWatchList = (req, res, next) => {
     const { userID } = req.params;
+    console.log('REQ.BODY', req.body);
     user.deleteMovieFromWatchList(userID, req.body, result => {
         res.status(200).json({
             status: 'Success Delete Movie From Watch List.',
@@ -80,7 +81,7 @@ const deleteShowFromWatchList = (req, res, next) => {
         res.status(204).json({
             status: 'Success Delete Show From Watch List.',
             // eslint-disable-next-line no-undef
-            data: NULL
+            data: result
         });
     });
 };
@@ -107,7 +108,7 @@ const deleteShowFromWatchedList = (req, res, next) => {
         res.status(204).json({
             status: 'Success Delete Show From Watched List.',
             // eslint-disable-next-line no-undef
-            data: NULL
+            data: result
         });
     });
 };

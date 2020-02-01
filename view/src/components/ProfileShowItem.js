@@ -9,7 +9,9 @@ class ProfileShowItem extends Component {
             show,
             whatList,
             removeFromWatchlist,
-            removeFromWatchedlist
+            addToWatchlist,
+            removeFromWatchedlist,
+            addToWatchedlist
         } = this.props;
         return (
             <div onClick={this.handleItemClick} className="item-container">
@@ -44,11 +46,19 @@ class ProfileShowItem extends Component {
                         {whatList === 'show watchlist' ? (
                             <>
                                 <img
+                                    onClick={addToWatchedlist.bind(
+                                        this,
+                                        show.id
+                                    )}
                                     className="watchlist-btn"
                                     src={require('../Assets/Icons/Watched-Seq.svg')}
                                     alt=""
                                 />
                                 <img
+                                    onClick={removeFromWatchlist.bind(
+                                        this,
+                                        show.id
+                                    )}
                                     className="cancel-btn"
                                     src={require('../Assets/Icons/cancel.svg')}
                                     alt=""
@@ -57,11 +67,16 @@ class ProfileShowItem extends Component {
                         ) : whatList === 'show watchedlist' ? (
                             <>
                                 <img
+                                    onClick={addToWatchlist.bind(this, show.id)}
                                     className="watchlist-btn"
                                     src={require('../Assets/Icons/WatchList-Seq.svg')}
                                     alt=""
                                 />
                                 <img
+                                    onClick={removeFromWatchedlist.bind(
+                                        this,
+                                        show.id
+                                    )}
                                     className="cancel-btn"
                                     src={require('../Assets/Icons/cancel.svg')}
                                     alt=""

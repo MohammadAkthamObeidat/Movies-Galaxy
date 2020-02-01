@@ -13,7 +13,8 @@ class Profile extends Component {
             whatList: 'watchlist',
             selectValue: 'Movies',
             isMovieExistInWatchlist: false,
-            isMovieExistInWatchedlist: false
+            isMovieExistInWatchedlist: false,
+            isDone: 'Done'
         };
         this.userID = '';
     }
@@ -36,108 +37,212 @@ class Profile extends Component {
     // Removing Methods ***********************************************************************************************************************
 
     // Utility Function To Remove From Watchlist.
-    handleRemoveMovieFromWatchlist = id => {
-        // Use AuthHelper Class To Get User ID.
+    handleRemoveMovieFromWatchlist = async id => {
         const Auth = new AuthHelper();
+        const response = Auth.getConfirm();
+        this.userID = response.id;
+        const fetchUser = await axios.post(`/get-user/${this.userID}`);
+        console.log('RESPONSE :', fetchUser.data.user);
+        this.setState({
+            ...this.state.user,
+            user: fetchUser.data.user
+        });
+
+        // Use AuthHelper Class To Get User ID.
         const token = Auth.getToken();
         const { watch_list } = this.state.user.movies_list;
-        const newWatchlist = watch_list.filter(element => element.id !== id);
-        console.log('WATCH_LIST :', watch_list);
+        console.log('watch_list :', watch_list);
+        let newWatchlist = watch_list.filter(element => element.id !== id);
 
-        axios.patch(
-            `/user/movie/delete/watchlist/${this.state.user._id}`,
-            newWatchlist,
-            {
-                headers: {
-                    authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            }
-        );
+        console.log('WATCH_LIST :', newWatchlist);
+
+        if (newWatchlist) {
+            await axios
+                .patch(
+                    `/user/movie/delete/watchlist/${this.userID}}`,
+                    newWatchlist,
+                    {
+                        headers: {
+                            authorization: `Bearer ${token}`,
+                            'Content-Type': 'application/json'
+                        }
+                    }
+                )
+                .then(response => {
+                    console.log('response', response);
+                })
+                .catch(error => {
+                    console.log('error', error);
+                });
+        }
+
+        const getUser = await axios.post(`/get-user/${this.userID}`);
+        this.setState({ ...this.state.user, user: getUser.data.user });
     };
 
     // Utility Function To Remove From Watchedlist.
     handleRemoveMovieFromWatchedlist = async id => {
-        // Use AuthHelper Class To Get User ID.
         const Auth = new AuthHelper();
+        const response = Auth.getConfirm();
+        this.userID = response.id;
+        axios
+            .post(`/get-user/${this.userID}`)
+            .then(response => {
+                console.log('RESPONSE :', response.data.user);
+                this.setState({
+                    ...this.state.user,
+                    user: response.data.user
+                });
+            })
+            .catch(error => {
+                console.log('error', error);
+            });
+
+        // Use AuthHelper Class To Get User ID.
         const token = Auth.getToken();
         const { watched_list } = this.state.user.movies_list;
         const newWatchedList = watched_list.filter(
             element => element.id !== id
         );
-        console.log('WATCHED_LIST :', watched_list);
+        console.log('WATCHED_LIST :', newWatchedList);
 
-        axios.patch(
-            `/movie/delete/watchedlist/${this.state.user._id}`,
-            newWatchedList,
-            {
-                headers: {
-                    authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json'
+        if (newWatchedList) {
+            axios.patch(
+                `/movie/delete/watchedlist/${this.state.user._id}`,
+                newWatchedList,
+                {
+                    headers: {
+                        authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
                 }
-            }
-        );
+            );
+        }
+        const getUser = await axios.post(`/get-user/${this.userID}`);
+        this.setState({ ...this.state.user, user: getUser.data.user });
     };
 
     // Utility Function To Remove From Watchlist.
-    handleRemoveShowFromWatchlist = id => {
-        // Use AuthHelper Class To Get User ID.
+    handleRemoveShowFromWatchlist = async id => {
         const Auth = new AuthHelper();
+        const response = Auth.getConfirm();
+        this.userID = response.id;
+        axios
+            .post(`/get-user/${this.userID}`)
+            .then(response => {
+                console.log('RESPONSE :', response.data.user);
+                this.setState({
+                    ...this.state.user,
+                    user: response.data.user
+                });
+            })
+            .catch(error => {
+                console.log('error', error);
+            });
+        // Use AuthHelper Class To Get User ID.
         const token = Auth.getToken();
         const { watch_list } = this.state.user.shows_list;
         const newShowWatchList = watch_list.filter(
             element => element.id !== id
         );
-        console.log('WATCH_LIST :', watch_list);
-
-        axios.patch(
-            `/user/show/delete/watchlist/${this.state.user._id}`,
-            newShowWatchList,
-            {
-                headers: {
-                    authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json'
+        console.log('WATCH_LIST :', newShowWatchList);
+        if (newShowWatchList) {
+            axios.patch(
+                `/user/show/delete/watchlist/${this.state.user._id}`,
+                newShowWatchList,
+                {
+                    headers: {
+                        authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
                 }
-            }
-        );
+            );
+        }
+
+        const getUser = await axios.post(`/get-user/${this.userID}`);
+        this.setState({ ...this.state.user, user: getUser.data.user });
     };
 
     // Utility Function To Remove From Watchedlist.
     handleRemoveShowFromWatchedlist = async id => {
-        // Use AuthHelper Class To Get User ID.
         const Auth = new AuthHelper();
+        const response = Auth.getConfirm();
+        this.userID = response.id;
+        axios
+            .post(`/get-user/${this.userID}`)
+            .then(response => {
+                console.log('RESPONSE :', response.data.user);
+                this.setState({
+                    ...this.state.user,
+                    user: response.data.user
+                });
+            })
+            .catch(error => {
+                console.log('error', error);
+            });
+
+        // Use AuthHelper Class To Get User ID.
         const token = Auth.getToken();
         const { watched_list } = this.state.user.shows_list;
         const newShowWatchedList = watched_list.filter(
             element => element.id !== id
         );
-        console.log('WATCHED_LIST :', watched_list);
+        console.log('WATCHED_LIST :', newShowWatchedList);
 
-        axios.patch(
-            `/show/delete/watchedlist/${this.state.user._id}`,
-            newShowWatchedList,
-            {
-                headers: {
-                    authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json'
+        if (newShowWatchedList) {
+            axios.patch(
+                `/show/delete/watchedlist/${this.userID}`,
+                newShowWatchedList,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
                 }
-            }
-        );
+            );
+        }
+
+        const getUser = await axios.post(`/get-user/${this.userID}`);
+        this.setState({ ...this.state.user, user: getUser.data.user });
     };
 
     // Adding Methods ***********************************************************************************************************************
 
     // Utility Function To Add Movies To WatchList.
     handleAddMovieToWatchlist = async id => {
-        // Get All Movie Details According To Movie ID.
         const Auth = new AuthHelper();
+        const response = Auth.getConfirm();
+        this.userID = response.id;
+        axios
+            .post(`/get-user/${this.userID}`)
+            .then(response => {
+                console.log('RESPONSE :', response.data.user);
+                this.setState({
+                    ...this.state.user,
+                    user: response.data.user
+                });
+            })
+            .catch(error => {
+                console.log('error', error);
+            });
+
+        // Get All Movie Details According To Movie ID.
         const token = Auth.getToken();
 
         const loadedMovie = await axios.get(`/movies/details/${id}`);
         const { movieDetails } = loadedMovie.data.data;
 
+        let isExist;
+        await this.state.user.movies_list.watch_list.forEach(movie => {
+            if (movie.id === id) {
+                isExist = true;
+            } else {
+                isExist = false;
+            }
+        });
+
         // Add Movie To Authenticated User Watchlist.
-        if (movieDetails && !this.isMovieExistInWatchlist(id)) {
+        if (movieDetails && isExist === false) {
             const addedMovie = await axios.patch(
                 `/user/movie/add/watchlist/${this.state.user._id}`,
                 movieDetails,
@@ -149,6 +254,18 @@ class Profile extends Component {
                 }
             );
 
+            if (
+                this.state.user.movies_list.watched_list.map(show => {
+                    if (show.id === id) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                })
+            ) {
+                this.handleRemoveMovieFromWatchedlist(id);
+            }
+
             console.log('ADDED MOVIE :', addedMovie);
         } else {
             console.log('Movie Is Already Exist In Your Movies WatchList !!!');
@@ -157,16 +274,35 @@ class Profile extends Component {
 
     // Utility Function To Add Movies To WatchList.
     handleAddMovieToWatchedlist = async id => {
-        // Use AuthHelper Class To Get User ID.
         const Auth = new AuthHelper();
+        const response = Auth.getConfirm();
+        this.userID = response.id;
+        const fetchUser = await axios.post(`/get-user/${this.userID}`);
+
+        this.setState({
+            ...this.state.user,
+            user: fetchUser.data.user
+        });
+
+        // Use AuthHelper Class To Get User ID.
+
         const token = Auth.getToken();
 
         // Get All Movie Details According To Movie ID.
         const loadedMovie = await axios.get(`/movies/details/${id}`);
         const { movieDetails } = loadedMovie.data.data;
 
+        let isExist;
+        await this.state.user.movies_list.watched_list.forEach(movie => {
+            if (movie.id === id) {
+                isExist = true;
+            } else {
+                isExist = false;
+            }
+        });
+
         // Add Movie To Authenticated User Watchlist.
-        if (movieDetails && !this.isMovieExistInWatchedlist(id)) {
+        if (movieDetails && isExist === false) {
             const addedMovie = await axios.patch(
                 `/user/movie/add/watchedlist/${this.state.user._id}`,
                 movieDetails,
@@ -177,21 +313,48 @@ class Profile extends Component {
                     }
                 }
             );
+            const getUser = await axios.get(`get-user/${this.state.user._id}`);
+            this.setState({ ...this.state.user, user: getUser.data.user });
+
+            if (
+                this.state.user.movies_list.watch_list.map(show => {
+                    if (show.id === id) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                })
+            ) {
+                this.handleRemoveMovieFromWatchlist(id);
+            }
+
             console.log('ADDED MOVIE :', addedMovie);
         } else {
             console.log('Movie Is Already Exist In Your Movies WatchList !!!');
         }
 
         // Remove Movie if Exist in Watchlist After Adding It In Watchedlist.
-        if (!this.isMovieExistInWatchlist(id)) {
-            this.handleRemoveMovieFromWatchlist(id);
-        }
     };
 
     // Utility Function To Add shows To WatchList.
     handleAddShowToWatchlist = async id => {
-        // Use AuthHelper Class To Get User ID.
         const Auth = new AuthHelper();
+        const response = Auth.getConfirm();
+        this.userID = response.id;
+        axios
+            .post(`/get-user/${this.userID}`)
+            .then(response => {
+                console.log('RESPONSE :', response.data.user);
+                this.setState({
+                    ...this.state.user,
+                    user: response.data.user
+                });
+            })
+            .catch(error => {
+                console.log('error', error);
+            });
+        // Use AuthHelper Class To Get User ID.
+
         const token = Auth.getToken();
 
         // Get All show Details According To show ID.
@@ -199,7 +362,15 @@ class Profile extends Component {
         const { showDetails } = loadedShow.data.data;
 
         // Add show To Authenticated User Watchlist.
-        if (showDetails && !this.isShowExistInWatchlist(id)) {
+        let isExist;
+        await this.state.user.shows_list.watch_list.forEach(show => {
+            if (show.id === id) {
+                isExist = true;
+            } else {
+                isExist = false;
+            }
+        });
+        if (showDetails && isExist === false) {
             const addedShow = await axios.patch(
                 `/user/show/add/watchlist/${this.state.user._id}`,
                 showDetails,
@@ -210,6 +381,24 @@ class Profile extends Component {
                     }
                 }
             );
+
+            const getUser = await axios.get(`get-user/${this.state.user._id}`);
+            this.setState({
+                ...this.state.user,
+                user: getUser.data.user
+            });
+
+            if (
+                this.state.user.shows_list.watched_list.map(show => {
+                    if (show.id === id) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                })
+            ) {
+                this.handleRemoveShowFromWatchedlist(id);
+            }
 
             console.log('ADDED SHOW :', addedShow);
         } else {
@@ -227,7 +416,15 @@ class Profile extends Component {
         const { showDetails } = loadedShow.data.data;
 
         // Add show To Authenticated User Watchlist.
-        if (showDetails && this.state.isShowExistInWatchedlist === false) {
+        let isExist;
+        await this.state.user.shows_list.watched_list.forEach(show => {
+            if (show.id === id) {
+                isExist = true;
+            } else {
+                isExist = false;
+            }
+        });
+        if (showDetails && isExist === false) {
             const addedShow = await axios.patch(
                 `/user/show/add/watchedlist/${this.state.user._id}`,
                 showDetails,
@@ -239,58 +436,25 @@ class Profile extends Component {
                 }
             );
 
+            const getUser = await axios.get(`get-user/${this.state.user._id}`);
+            this.setState({ ...this.state.user, user: getUser.data.user });
+
+            if (
+                this.state.user.shows_list.watch_list.map(show => {
+                    if (show.id === id) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                })
+            ) {
+                this.handleRemoveShowFromWatchlist(id);
+            }
+
             console.log('ADDED SHOW :', addedShow);
         } else {
             console.log('Show Is Already Exist In Your Shows WatchList !!!');
         }
-
-        // If Show Exist in Shows Watchlist ?? Delete Show After Adding It Watchedlist.
-        if (!this.isShowExistInWatchlist(id)) {
-            this.handleRemoveMovieFromWatchlist(id);
-        }
-    };
-
-    // Checking Methods ***************************************************************************************************************************
-
-    // Check If Movie Exist In Watchlist
-    isMovieExistInWatchlist = id => {
-        this.state.user.movies_list.watch_list.map(movie => {
-            if (movie.id === id) {
-                return true;
-            } else {
-                return false;
-            }
-        });
-    };
-    // Check If Movie Exist In Watchedlist
-    isMovieExistInWatchedlist = id => {
-        this.state.user.movies_list.watched_list.map(movie => {
-            if (movie.id === id) {
-                return true;
-            } else {
-                return false;
-            }
-        });
-    };
-    // Check If Show Exist In Watchlist
-    isShowExistInWatchlist = id => {
-        this.state.user.shows_list.watch_list.map(show => {
-            if (show.id === id) {
-                return true;
-            } else {
-                return false;
-            }
-        });
-    };
-    // Check If Show Exist In Watchedlist
-    isShowExistInWatchedlist = id => {
-        this.state.user.shows_list.watched_list.map(show => {
-            if (show.id === id) {
-                return true;
-            } else {
-                return false;
-            }
-        });
     };
 
     // Interacting With Layout Elements Methods ******************************************************************************************
@@ -456,17 +620,16 @@ class Profile extends Component {
                                             this.handleItemClick(show.id)
                                         }
                                         removeFromWatchlist={
-                                            this.handleRemoveMovieFromWatchlist
+                                            this.handleRemoveShowFromWatchlist
                                         }
                                         addToWatchlist={
-                                            this.handleAddMovieToWatchlist
+                                            this.handleAddShowToWatchlist
                                         }
                                         removeFromWatchedlist={
-                                            this
-                                                .handleRemoveMovieFromWatchedlist
+                                            this.handleRemoveShowFromWatchedlist
                                         }
                                         addToWatchedlist={
-                                            this.handleAddMovieToWatchedlist
+                                            this.handleAddShowToWatchedlist
                                         }
                                     />
                                 );
