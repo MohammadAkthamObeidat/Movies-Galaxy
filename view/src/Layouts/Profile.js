@@ -40,27 +40,26 @@ class Profile extends Component {
     handleRemoveMovieFromWatchlist = async id => {
         const Auth = new AuthHelper();
         const response = Auth.getConfirm();
-        this.userID = response.id;
-        const fetchUser = await axios.post(`/get-user/${this.userID}`);
-        console.log('RESPONSE :', fetchUser.data.user);
-        this.setState({
-            ...this.state.user,
-            user: fetchUser.data.user
-        });
-
+        console.log('RESPONSE :', response);
         // Use AuthHelper Class To Get User ID.
         const token = Auth.getToken();
-        const { watch_list } = this.state.user.movies_list;
-        console.log('watch_list :', watch_list);
-        let newWatchlist = watch_list.filter(element => element.id !== id);
-
-        console.log('WATCH_LIST :', newWatchlist);
-
-        if (newWatchlist) {
-            await axios
+        let isExist;
+        if (this.state.user.movies_watch_list.length === 0) {
+            isExist = false;
+        } else {
+            await this.state.user.movies_watch_list.forEach(movie => {
+                if (movie.id === id) {
+                    isExist = true;
+                } else {
+                    isExist = false;
+                }
+            });
+        }
+        console.log('iseExist :', isExist);
+        if (isExist === true) {
+            const deletedMovie = await axios
                 .patch(
-                    `/user/movie/delete/watchlist/${this.userID}}`,
-                    newWatchlist,
+                    `/user/movie/delete/watchlist/${this.state.user._id}/${id}`,
                     {
                         headers: {
                             authorization: `Bearer ${token}`,
@@ -68,16 +67,11 @@ class Profile extends Component {
                         }
                     }
                 )
-                .then(response => {
-                    console.log('response', response);
-                })
                 .catch(error => {
                     console.log('error', error);
                 });
+            console.log('response', deletedMovie);
         }
-
-        const getUser = await axios.post(`/get-user/${this.userID}`);
-        this.setState({ ...this.state.user, user: getUser.data.user });
     };
 
     // Utility Function To Remove From Watchedlist.
@@ -100,8 +94,8 @@ class Profile extends Component {
 
         // Use AuthHelper Class To Get User ID.
         const token = Auth.getToken();
-        const { watched_list } = this.state.user.movies_list;
-        const newWatchedList = watched_list.filter(
+        const { movies_watched_list } = this.state.user;
+        const newWatchedList = movies_watched_list.filter(
             element => element.id !== id
         );
         console.log('WATCHED_LIST :', newWatchedList);
@@ -141,8 +135,8 @@ class Profile extends Component {
             });
         // Use AuthHelper Class To Get User ID.
         const token = Auth.getToken();
-        const { watch_list } = this.state.user.shows_list;
-        const newShowWatchList = watch_list.filter(
+        const { shows_watch_list } = this.state.user;
+        const newShowWatchList = shows_watch_list.filter(
             element => element.id !== id
         );
         console.log('WATCH_LIST :', newShowWatchList);
@@ -183,8 +177,8 @@ class Profile extends Component {
 
         // Use AuthHelper Class To Get User ID.
         const token = Auth.getToken();
-        const { watched_list } = this.state.user.shows_list;
-        const newShowWatchedList = watched_list.filter(
+        const { shows_watched_list } = this.state.user.shows_list;
+        const newShowWatchedList = shows_watched_list.filter(
             element => element.id !== id
         );
         console.log('WATCHED_LIST :', newShowWatchedList);
@@ -233,7 +227,7 @@ class Profile extends Component {
         const { movieDetails } = loadedMovie.data.data;
 
         let isExist;
-        await this.state.user.movies_list.watch_list.forEach(movie => {
+        await this.state.user.movies_watch_list.forEach(movie => {
             if (movie.id === id) {
                 isExist = true;
             } else {
@@ -255,7 +249,7 @@ class Profile extends Component {
             );
 
             if (
-                this.state.user.movies_list.watched_list.map(show => {
+                this.state.user.movies_watched_list.map(show => {
                     if (show.id === id) {
                         return true;
                     } else {
@@ -293,7 +287,7 @@ class Profile extends Component {
         const { movieDetails } = loadedMovie.data.data;
 
         let isExist;
-        await this.state.user.movies_list.watched_list.forEach(movie => {
+        await this.state.user.movies_watched_list.forEach(movie => {
             if (movie.id === id) {
                 isExist = true;
             } else {
@@ -317,7 +311,7 @@ class Profile extends Component {
             this.setState({ ...this.state.user, user: getUser.data.user });
 
             if (
-                this.state.user.movies_list.watch_list.map(show => {
+                this.state.user.movies_watch_list.map(show => {
                     if (show.id === id) {
                         return true;
                     } else {
@@ -481,13 +475,18 @@ class Profile extends Component {
 
     render() {
         const { user, whatList, selectValue } = this.state;
-        const { movies_list, shows_list } = this.state.user;
+        const {
+            movies_watch_list,
+            movies_watched_list,
+            shows_watch_list,
+            shows_watched_list
+        } = this.state.user;
         // Check if the object that holds user info is empty or not
         return Object.entries(user).length > 0 &&
-            movies_list.watch_list.length >= 0 &&
-            movies_list.watched_list.length >= 0 &&
-            shows_list.watch_list.length >= 0 &&
-            shows_list.watched_list.length >= 0 ? (
+            movies_watch_list.length >= 0 &&
+            movies_watched_list.length >= 0 &&
+            shows_watch_list.length >= 0 &&
+            shows_watched_list.length >= 0 ? (
             <div className="profile-page">
                 <div className="user-info">
                     <img
@@ -541,7 +540,7 @@ class Profile extends Component {
                         </select>
                     </center>
                 </div>
-                {movies_list.watch_list.length === 0 ? (
+                {movies_watch_list.length === 0 ? (
                     <center>
                         <img
                             className="empty"
@@ -551,10 +550,10 @@ class Profile extends Component {
                     </center>
                 ) : (
                     <div className="lists">
-                        {movies_list.watch_list.length > 0 &&
+                        {movies_watch_list.length > 0 &&
                         whatList === 'watchlist' &&
                         selectValue === 'Movies' ? (
-                            movies_list.watch_list.map(movie => {
+                            movies_watch_list.map(movie => {
                                 return (
                                     <ProfileMovieItem
                                         whatList="movie watchlist"
@@ -579,10 +578,10 @@ class Profile extends Component {
                                     />
                                 );
                             })
-                        ) : movies_list.watched_list.length > 0 &&
+                        ) : movies_watched_list.length > 0 &&
                           whatList === 'watchedlist' &&
                           selectValue === 'Movies' ? (
-                            movies_list.watched_list.map(movie => {
+                            movies_watched_list.map(movie => {
                                 return (
                                     <ProfileMovieItem
                                         whatList="movie watchedlist"
@@ -607,10 +606,10 @@ class Profile extends Component {
                                     />
                                 );
                             })
-                        ) : shows_list.watch_list.length > 0 &&
+                        ) : shows_watch_list.length > 0 &&
                           whatList === 'watchlist' &&
                           selectValue === 'TvShows' ? (
-                            shows_list.watch_list.map(show => {
+                            shows_watch_list.map(show => {
                                 return (
                                     <ProfileShowItem
                                         whatList="show watchlist"
@@ -634,10 +633,10 @@ class Profile extends Component {
                                     />
                                 );
                             })
-                        ) : shows_list.watched_list.length > 0 &&
+                        ) : shows_watched_list.length > 0 &&
                           whatList === 'watchedlist' &&
                           selectValue === 'TvShows' ? (
-                            shows_list.watched_list.map(show => {
+                            shows_watched_list.map(show => {
                                 return (
                                     <ProfileShowItem
                                         whatList="show watchedlist"

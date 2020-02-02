@@ -35,13 +35,21 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-    movies_list: {
-        watch_list: [],
-        watched_list: []
+    movies_watch_list: {
+        type: Array,
+        required: false
     },
-    shows_list: {
-        watch_list: [],
-        watched_list: []
+    movies_watched_list: {
+        type: Array,
+        required: false
+    },
+    shows_watch_list: {
+        type: Array,
+        required: false
+    },
+    shows_watched_list: {
+        type: Array,
+        required: false
     }
 });
 
@@ -122,13 +130,14 @@ const addUser = (newUser, callback) => {
 
 // Add new movie to watch list.
 const addMovieToWatchList = (userID, newMovie, callback) => {
+    console.log('newMovie :', newMovie);
     User.findOneAndUpdate(
         {
             _id: userID
         },
         {
             $push: {
-                'movies_list.watch_list': newMovie
+                movies_watch_list: newMovie
             }
         },
         (error, data) => {
@@ -142,14 +151,13 @@ const addMovieToWatchList = (userID, newMovie, callback) => {
 };
 
 // Delete movie from watch list.
-const deleteMovieFromWatchList = (userID, newWatchlist, callback) => {
-    console.log('NEW WATCHLIST :', newWatchlist);
-    User.update(
+const deleteMovieFromWatchList = (userID, movieID, callback) => {
+    console.log('USER ID :', userID);
+    console.log('MOVIE ID:', movieID);
+    User.updateOne(
         { _id: userID },
         {
-            $pull: {
-                'movies_list.watch_list': newWatchlist
-            }
+            $pull: { movies_watch_list: { id: movieID } }
         },
         (error, data) => {
             if (error) {
@@ -169,7 +177,7 @@ const addMovieToWatchedList = (userID, newMovie, callback) => {
         },
         {
             $push: {
-                'movies_list.watched_list': newMovie
+                movies_watched_list: newMovie
             }
         },
         (error, data) => {
@@ -184,13 +192,13 @@ const addMovieToWatchedList = (userID, newMovie, callback) => {
 
 // Delete movie from watched list.
 const deleteMovieFromWatchedList = (userID, newWatchedlist, callback) => {
-    User.update(
+    User.findOneAndUpdate(
         {
             _id: userID
         },
         {
-            $set: {
-                'movies_list.watched_list': newWatchedlist
+            $pull: {
+                movies_watched_list: { id: newWatchedlist.id }
             }
         },
         (error,
@@ -214,7 +222,7 @@ const addShowToWatchList = (userID, newShow, callback) => {
         },
         {
             $push: {
-                'shows_list.watch_list': newShow
+                shows_watch_list: newShow
             }
         },
         (error, data) => {
@@ -229,13 +237,13 @@ const addShowToWatchList = (userID, newShow, callback) => {
 
 // Delete show from watch list.
 const deleteShowFromWatchList = (userID, newWatchlist, callback) => {
-    User.update(
+    User.findOneAndUpdate(
         {
             _id: userID
         },
         {
-            $set: {
-                'shows_list.watch_list': newWatchlist
+            $pull: {
+                shows_watch_list: { id: newWatchlist.id }
             }
         },
         (error,
@@ -257,7 +265,7 @@ const addShowToWatchedList = (userID, newShow, callback) => {
         },
         {
             $push: {
-                'shows_list.watched_list': newShow
+                shows_watched_list: newShow
             }
         },
         (error, data) => {
@@ -272,13 +280,13 @@ const addShowToWatchedList = (userID, newShow, callback) => {
 
 // Delete show from watched list.
 const deleteShowFromWatchedList = (userID, newWatchedlist, callback) => {
-    User.update(
+    User.findOneAndUpdate(
         {
             _id: userID
         },
         {
-            $set: {
-                'shows_list.watched_list': newWatchedlist
+            $pull: {
+                shows_watched_list: { id: newWatchedlist.id }
             }
         },
         (error,

@@ -9,6 +9,7 @@ app.use(express.json());
 // Add new movie to watch list.
 const addMovieToWatchList = (req, res, next) => {
     const { userID } = req.params;
+    console.log('req.body', req.body)
     user.addMovieToWatchList(userID, req.body, result => {
         res.status(200).json({
             status: 'Success Adding Movie To Watchlist.',
@@ -22,8 +23,10 @@ const addMovieToWatchList = (req, res, next) => {
 // Delete movie from watch list.
 const deleteMovieFromWatchList = (req, res, next) => {
     const { userID } = req.params;
-    console.log('REQ.BODY', req.body);
-    user.deleteMovieFromWatchList(userID, req.body, result => {
+    const { movieID } = req.params;
+    console.log('userID :', userID);
+    console.log('movieID :', movieID);
+    user.deleteMovieFromWatchList(userID, movieID, result => {
         res.status(200).json({
             status: 'Success Delete Movie From Watch List.',
             // eslint-disable-next-line no-undef

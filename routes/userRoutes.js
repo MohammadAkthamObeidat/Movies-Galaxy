@@ -6,25 +6,25 @@ const authController = require('../controllers/AuthController');
 
 // MOVIES ROUTES. **************************************************************
 
-// @PUT
+// @PATCH
 // Add movie to watch list.
 router
     .route('/movie/add/watchlist/:userID')
     .patch(authController.protectRoutes, userController.addMovieToWatchList);
-// @DELETE
+// @PATCH
 // Remove movie from watch list.
 router
-    .route('/movie/delete/watchlist/:userID')
+    .route('/movie/delete/watchlist/:userID/:movieID')
     .patch(
         authController.protectRoutes,
         userController.deleteMovieFromWatchList
     );
-// @PUT
+// @PATCH
 // Add movie to watched list.
 router
     .route('/movie/add/watchedlist/:userID')
     .patch(authController.protectRoutes, userController.addMovieToWatchedList);
-// @DELETE
+// @PATCH
 // Remove movie from watched list.
 router
     .route('/movie/delete/watchedlist/:userID')
@@ -34,12 +34,12 @@ router
     );
 
 // TV SHOW ROUTES. **************************************************************
-// @PUT
+// @PATCH
 // Add TvShow to watch list.
 router
     .route('/show/add/watchlist/:userID')
     .patch(authController.protectRoutes, userController.addShowToWatchList);
-// @DELETE
+// @PATCH
 // Remove TvShow from watch list.
 router
     .route('/show/delete/watchlist/:userID')
@@ -47,12 +47,12 @@ router
         authController.protectRoutes,
         userController.deleteShowFromWatchList
     );
-// @PUT
+// @PATCH
 // Add TvShow to watched list.
 router
     .route('/show/add/watchedlist/:userID')
     .patch(authController.protectRoutes, userController.addShowToWatchedList);
-// @DELETE
+// @PATCH
 // Remove TvShow from watched list.
 router
     .route('/show/add/watchedlist/:userID')

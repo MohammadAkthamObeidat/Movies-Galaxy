@@ -24,20 +24,24 @@ class DiscoverMovies extends Component {
         const loadedMovie = await axios.get(`/movies/details/${id}`);
         const { movieDetails } = loadedMovie.data.data;
 
-        this.state.user.movies_list.watch_list.map(movie => {
-            if (movie.id === id) {
-                return this.setState({
-                    isMovieExistInWatchlist: true
-                });
-            } else {
-                return this.setState({
-                    isMovieExistInWatchlist: false
-                });
-            }
-        });
+        let isExist;
+        if (this.state.user.movies_watch_list.length === 0) {
+            isExist = false;
+        } else {
+            await this.state.user.movies_watch_list.forEach(movie => {
+                if (movie.id === id) {
+                    isExist = true;
+                } else {
+                    isExist = false;
+                }
+            });
+        }
+
+        console.log('isExist :', isExist);
+        console.log('isExist :', !isExist);
 
         // Add Movie To Authenticated User Watchlist.
-        if (movieDetails && this.state.isMovieExistInWatchlist === false) {
+        if (movieDetails && isExist === false) {
             const addedMovie = await axios.patch(
                 `/user/movie/add/watchlist/${this.state.user._id}`,
                 movieDetails,
@@ -60,9 +64,10 @@ class DiscoverMovies extends Component {
         // Use AuthHelper Class To Get User ID.
         const Auth = new AuthHelper();
         const token = Auth.getToken();
-        const { watch_list } = this.state.user.movies_list;
-        const newWatchlist = watch_list.filter(element => element.id !== id);
-        console.log('WATCH_LIST :', watch_list);
+        const { movies_watch_list } = this.state.user;
+        const newWatchlist = movies_watch_list.filter(
+            element => element.id !== id
+        );
 
         axios.patch(
             `/user/movie/delete/watchlist/${this.state.user._id}`,
@@ -86,16 +91,21 @@ class DiscoverMovies extends Component {
         const loadedMovie = await axios.get(`/movies/details/${id}`);
         const { movieDetails } = loadedMovie.data.data;
 
-        this.state.user.movies_list.watched_list.map(movie => {
-            if (movie.id === id) {
-                return this.setState({ isMovieExistInWatchedlist: true });
-            } else {
-                return this.setState({ isMovieExistInWatchedlist: false });
-            }
-        });
+        let isExist;
+        if (this.state.user.movies_watched_list.length === 0) {
+            isExist = false;
+        } else {
+            await this.state.user.movies_watched_list.forEach(movie => {
+                if (movie.id === id) {
+                    isExist = true;
+                } else {
+                    isExist = false;
+                }
+            });
+        }
 
         // Add Movie To Authenticated User Watchlist.
-        if (movieDetails && this.state.isMovieExistInWatchedlist === false) {
+        if (movieDetails && isExist === false) {
             const addedMovie = await axios.patch(
                 `/user/movie/add/watchedlist/${this.state.user._id}`,
                 movieDetails,
@@ -117,11 +127,10 @@ class DiscoverMovies extends Component {
         // Use AuthHelper Class To Get User ID.
         const Auth = new AuthHelper();
         const token = Auth.getToken();
-        const { watched_list } = this.state.user.movies_list;
-        const newWatchedList = watched_list.filter(
+        const { movies_watched_list } = this.state.user;
+        const newWatchedList = movies_watched_list.filter(
             element => element.id !== id
         );
-        console.log('WATCHED_LIST :', watched_list);
 
         axios.patch(
             `/movie/delete/watchedlist/${this.state.user._id}`,

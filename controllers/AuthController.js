@@ -89,6 +89,7 @@ const logout = (req, res, next) => {
 
 // Protect the routes that only available for authenticated users.
 const protectRoutes = catchAsync(async (req, res, next) => {
+    console.log('REQ.HEADERS.AUTHORIZATION :', req.headers);
     // 1) Get the token and check if it's there.
     let token;
     if (
@@ -97,7 +98,7 @@ const protectRoutes = catchAsync(async (req, res, next) => {
     ) {
         token = req.headers.authorization.split(' ')[1];
     }
-
+    console.log('TOKEN', token);
     if (!token) {
         return next(
             new AppError('Your not logged in!! please login to get access'),
@@ -106,7 +107,7 @@ const protectRoutes = catchAsync(async (req, res, next) => {
     }
     // 2) Token verification if token payload has not manipulated by malicious 3rd party.
     const decoded = await jwt.verify(token, process.env.JWT_SECRET);
-
+    console.log('decoded :', decoded);
     // 3) Check if user still exists.
     const currentUser = await user.getCurrentUser(decoded.id);
     if (!currentUser) {

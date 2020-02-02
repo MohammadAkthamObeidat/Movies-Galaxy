@@ -21,25 +21,24 @@ class DiscoverShows extends Component {
         const userID = Auth.getConfirm().id;
         const token = Auth.getToken();
 
-        // Get User Information Who Want To Add To Watchlist.
-        const loadedUser = await axios.post(`/get-user/${userID}`);
-        this.setState({ ...this.state.user, user: loadedUser.data.user });
-
         // Get All show Details According To show ID.
         const loadedShow = await axios.get(`/shows/details/${id}`);
         const { showDetails } = loadedShow.data.data;
 
-        const { shows_list } = this.state.user;
-        shows_list.watch_list.map(show => {
-            if (show.id === id) {
-                return this.setState({ isShowExistInWatchlist: true });
-            } else {
-                return this.setState({ isShowExistInWatchlist: false });
-            }
-        });
-
+        let isExist;
+        if (this.state.user.shows_watch_list.length === 0) {
+            isExist = false;
+        } else {
+            await this.state.user.shows_watch_list.forEach(show => {
+                if (show.id === id) {
+                    isExist = true;
+                } else {
+                    isExist = false;
+                }
+            });
+        }
         // Add show To Authenticated User Watchlist.
-        if (showDetails && this.state.isShowExistInWatchlist === false) {
+        if (showDetails && isExist === false) {
             const addedShow = await axios.patch(
                 `/user/show/add/watchlist/${userID}`,
                 showDetails,
@@ -65,24 +64,28 @@ class DiscoverShows extends Component {
         const token = Auth.getToken();
 
         // Get User Information Who Want To Add To Watchlist.
-        const loadedUser = await axios.post(`/get-user/${userID}`);
-        this.setState({ ...this.state.user, user: loadedUser.data.user });
+        /* const loadedUser = await axios.post(`/get-user/${userID}`);
+        this.setState({ ...this.state.user, user: loadedUser.data.user }); */
 
         // Get All show Details According To show ID.
         const loadedShow = await axios.get(`/shows/details/${id}`);
         const { showDetails } = loadedShow.data.data;
 
-        const { shows_list } = this.state.user;
-        shows_list.watched_list.map(show => {
-            if (show.id === id) {
-                return this.setState({ isShowExistInWatchedlist: true });
-            } else {
-                return this.setState({ isShowExistInWatchedlist: false });
-            }
-        });
+        let isExist;
+        if (this.state.user.shows_watched_list.length === 0) {
+            isExist = false;
+        } else {
+            await this.state.user.shows_watched_list.forEach(show => {
+                if (show.id === id) {
+                    isExist = true;
+                } else {
+                    isExist = false;
+                }
+            });
+        }
 
         // Add show To Authenticated User Watchlist.
-        if (showDetails && this.state.isShowExistInWatchedlist === false) {
+        if (showDetails && isExist === false) {
             const addedShow = await axios.patch(
                 `/user/show/add/watchedlist/${userID}`,
                 showDetails,
@@ -121,6 +124,16 @@ class DiscoverShows extends Component {
     };
 
     componentDidMount = async () => {
+        // Use AuthHelper Class To Get User ID.
+        const Auth = new AuthHelper();
+        const userID = Auth.getConfirm().id;
+
+        // Get User Information Who Want To Add To Watchlist.
+        const loadedUser = await axios.post(`/get-user/${userID}`);
+        this.setState({
+            ...this.state.user,
+            user: loadedUser.data.user
+        });
         this.getPopularShows();
     };
 
