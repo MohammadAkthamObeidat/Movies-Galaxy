@@ -10,15 +10,13 @@ class DiscoverShows extends Component {
         trendingShows: [],
         popularShows: [],
         popularity: 'popular',
-        isShowExistInWatchlist: false,
-        isShowExistInWatchedlist: false
+
     };
 
     // Utility Function To Add shows To WatchList.
     handleAddShowToWatchlist = async id => {
         // Use AuthHelper Class To Get User ID.
         const Auth = new AuthHelper();
-        const userID = Auth.getConfirm().id;
         const token = Auth.getToken();
 
         // Get All show Details According To show ID.
@@ -40,7 +38,7 @@ class DiscoverShows extends Component {
         // Add show To Authenticated User Watchlist.
         if (showDetails && isExist === false) {
             const addedShow = await axios.patch(
-                `/user/show/add/watchlist/${userID}`,
+                `/user/show/add/watchlist/${this.state.user._id}`,
                 showDetails,
                 {
                     headers: {
@@ -60,7 +58,6 @@ class DiscoverShows extends Component {
     handleAddShowToWatchedlist = async id => {
         // Use AuthHelper Class To Get User ID.
         const Auth = new AuthHelper();
-        const userID = Auth.getConfirm().id;
         const token = Auth.getToken();
 
         // Get User Information Who Want To Add To Watchlist.
@@ -87,7 +84,7 @@ class DiscoverShows extends Component {
         // Add show To Authenticated User Watchlist.
         if (showDetails && isExist === false) {
             const addedShow = await axios.patch(
-                `/user/show/add/watchedlist/${userID}`,
+                `/user/show/add/watchedlist/${this.state.user._id}`,
                 showDetails,
                 {
                     headers: {

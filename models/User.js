@@ -130,7 +130,6 @@ const addUser = (newUser, callback) => {
 
 // Add new movie to watch list.
 const addMovieToWatchList = (userID, newMovie, callback) => {
-    console.log('newMovie :', newMovie);
     User.findOneAndUpdate(
         {
             _id: userID
@@ -151,13 +150,11 @@ const addMovieToWatchList = (userID, newMovie, callback) => {
 };
 
 // Delete movie from watch list.
-const deleteMovieFromWatchList = (userID, movieID, callback) => {
-    console.log('USER ID :', userID);
-    console.log('MOVIE ID:', movieID);
-    User.updateOne(
+const deleteMovieFromWatchList = (userID, newWatchlist, callback) => {
+    User.update(
         { _id: userID },
         {
-            $pull: { movies_watch_list: { id: movieID } }
+            $set: { movies_watch_list: newWatchlist }
         },
         (error, data) => {
             if (error) {
@@ -191,24 +188,19 @@ const addMovieToWatchedList = (userID, newMovie, callback) => {
 };
 
 // Delete movie from watched list.
-const deleteMovieFromWatchedList = (userID, newWatchedlist, callback) => {
-    User.findOneAndUpdate(
+const deleteMovieFromWatchedList = (userID, newWatchlist, callback) => {
+    User.update(
+        { _id: userID },
         {
-            _id: userID
+            $set: { movies_watched_list: newWatchlist }
         },
-        {
-            $pull: {
-                movies_watched_list: { id: newWatchedlist.id }
-            }
-        },
-        (error,
-        data => {
+        (error, data) => {
             if (error) {
                 callback(error);
             } else {
                 callback(data);
             }
-        })
+        }
     );
 };
 
@@ -237,13 +229,13 @@ const addShowToWatchList = (userID, newShow, callback) => {
 
 // Delete show from watch list.
 const deleteShowFromWatchList = (userID, newWatchlist, callback) => {
-    User.findOneAndUpdate(
+    User.update(
         {
             _id: userID
         },
         {
-            $pull: {
-                shows_watch_list: { id: newWatchlist.id }
+            $set: {
+                shows_watch_list: newWatchlist
             }
         },
         (error,
@@ -280,13 +272,13 @@ const addShowToWatchedList = (userID, newShow, callback) => {
 
 // Delete show from watched list.
 const deleteShowFromWatchedList = (userID, newWatchedlist, callback) => {
-    User.findOneAndUpdate(
+    User.update(
         {
             _id: userID
         },
         {
-            $pull: {
-                shows_watched_list: { id: newWatchedlist.id }
+            $set: {
+                shows_watched_list: newWatchedlist
             }
         },
         (error,

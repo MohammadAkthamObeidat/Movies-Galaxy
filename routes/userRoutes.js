@@ -14,7 +14,7 @@ router
 // @PATCH
 // Remove movie from watch list.
 router
-    .route('/movie/delete/watchlist/:userID/:movieID')
+    .route('/movie/delete/watchlist/:userID')
     .patch(
         authController.protectRoutes,
         userController.deleteMovieFromWatchList

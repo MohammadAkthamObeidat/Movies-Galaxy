@@ -10,9 +10,7 @@ class DiscoverMovies extends Component {
         user: {},
         popularMovies: [],
         trendingMovies: [],
-        popularity: 'popular',
-        isMovieExistInWatchlist: false,
-        isMovieExistInWatchedlist: false
+        popularity: 'popular'
     };
 
     // Utility Function To Add Movies To WatchList.
@@ -58,29 +56,6 @@ class DiscoverMovies extends Component {
             console.log('Movie Is Already Exist In Your Movies WatchList !!!');
         }
     };
-
-    // Utility Function To Remove From Watchlist.
-    handleRemoveFromWatchlist = id => {
-        // Use AuthHelper Class To Get User ID.
-        const Auth = new AuthHelper();
-        const token = Auth.getToken();
-        const { movies_watch_list } = this.state.user;
-        const newWatchlist = movies_watch_list.filter(
-            element => element.id !== id
-        );
-
-        axios.patch(
-            `/user/movie/delete/watchlist/${this.state.user._id}`,
-            newWatchlist,
-            {
-                headers: {
-                    authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            }
-        );
-    };
-
     // Utility Function To Add Movies To WatchList.
     handleAddMovieToWatchedlist = async id => {
         // Use AuthHelper Class To Get User ID.
@@ -121,27 +96,6 @@ class DiscoverMovies extends Component {
         } else {
             console.log('Movie Is Already Exist In Your Movies WatchList !!!');
         }
-    };
-    // Utility Function To Remove From Watchedlist.
-    handleRemoveFromWatchedlist = async id => {
-        // Use AuthHelper Class To Get User ID.
-        const Auth = new AuthHelper();
-        const token = Auth.getToken();
-        const { movies_watched_list } = this.state.user;
-        const newWatchedList = movies_watched_list.filter(
-            element => element.id !== id
-        );
-
-        axios.patch(
-            `/movie/delete/watchedlist/${this.state.user._id}`,
-            newWatchedList,
-            {
-                headers: {
-                    authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            }
-        );
     };
 
     //@GET
@@ -218,12 +172,6 @@ class DiscoverMovies extends Component {
                                       addToWatchedList={
                                           this.handleAddMovieToWatchedlist
                                       }
-                                      removeFromWatchlist={
-                                          this.handleRemoveFromWatchlist
-                                      }
-                                      removeFromWatchedlist={
-                                          this.handleRemoveFromWatchedlist
-                                      }
                                       key={movie.id}
                                       movie={movie}
                                   />
@@ -239,12 +187,6 @@ class DiscoverMovies extends Component {
                                       }
                                       addToWatchedList={
                                           this.handleAddMovieToWatchedlist
-                                      }
-                                      removeFromWatchedlist={
-                                          this.handleRemoveFromWatchedlist
-                                      }
-                                      removeFromWatchlist={
-                                          this.handleRemoveFromWatchlist
                                       }
                                       key={movie.id}
                                       movie={movie}
