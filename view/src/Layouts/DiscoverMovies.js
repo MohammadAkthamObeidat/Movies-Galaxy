@@ -197,7 +197,7 @@ class DiscoverMovies extends Component {
                 </div>
             </div>
         ) : (
-            ''
+            'Still loading'
         );
     }
 }

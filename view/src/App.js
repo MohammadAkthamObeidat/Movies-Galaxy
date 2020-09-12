@@ -5,13 +5,22 @@ import Login from './Layouts/Login';
 import Profile from './Layouts/Profile';
 import DiscoverMovies from './Layouts/DiscoverMovies';
 import DiscoverShows from './Layouts/DiscoverShows';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import AuthHelper from './Utils/AuthHelper';
 import axios from 'axios';
 import MovieDetails from './Layouts/MovieDetails';
 import ShowDetails from './Layouts/ShowDetails';
 import SearchResults from './Layouts/SearchResults'
+
+
+const PrivateRoute = ({component: Component, ...rest})=>(
+    <Route {...rest} render ={(props)=>(
+        new AuthHelper().loggedIn === true 
+        ? <Component />
+        : <Redirect to = '/login'/>
+    )}/>
+);
 class App extends Component {
     // App State.
     constructor(props) {
@@ -68,7 +77,7 @@ class App extends Component {
                         <Route path="/login" component={Login} />
                         <Route path="/profile" component={Profile} />
                         <Route path="/search-results" component={SearchResults} />
-                        <Route
+                        <PrivateRoute
                             path="/discover/movies/popular"
                             component={DiscoverMovies}
                         />
@@ -76,7 +85,7 @@ class App extends Component {
                             path="/discover/movies/trending"
                             component={DiscoverMovies}
                         />
-                        <Route
+                        <PrivateRoute
                             path="/discover/shows/popular"
                             component={DiscoverShows}
                         />
