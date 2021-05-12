@@ -30,7 +30,7 @@
     "mongoose": "^5.8.3",
     "morgan": "^1.9.1",
     "node": "^13.5.0",
-    "nodemailer": "^6.4.2",
+    "nodemailer": "^6.4.16",
     "react-scripts": "^3.4.3",
     "util.promisify": "^1.0.1",
     "validator": "^12.1.0"
