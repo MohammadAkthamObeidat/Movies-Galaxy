@@ -33,7 +33,7 @@
     "nodemailer": "^6.4.2",
     "react-scripts": "^3.4.3",
     "util.promisify": "^1.0.1",
-    "validator": "^12.1.0"
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "ndb": "^1.1.5",
